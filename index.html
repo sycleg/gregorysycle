@@ -1728,11 +1728,67 @@ Tips:
             }
         }
 
+        // Initialize game collection blog post
+        function initializeGameCollectionPost() {
+            const gameCollectionPost = {
+                id: 'game_collection_' + Date.now(),
+                title: 'My Video Game Collection',
+                date: 'september 24, 2024',
+                content: `A curated collection of video games spanning multiple generations and platforms. From modern AAA titles to retro classics, here's what makes up my gaming library.
+
+🎮 **Nintendo Switch Highlights**
+• The Legend of Zelda: Tears of the Kingdom - $39.99
+• Fire Emblem: Three Houses - $37.50
+• Metroid Dread - $40.00
+• Pikmin 3 Deluxe - $37.00
+• Captain Toad: Treasure Tracker - $28.57
+• Pokémon Scarlet (Japanese Edition) - $70.74
+
+🕹️ **PlayStation 5 Collection**
+• Dead Space - $17.54
+• Star Wars Jedi: Survivor - $16.58
+• Helldivers II - $25.91
+• The Last of Us Part I - $32.49
+• Marvel's Spider-Man 2 - $33.92
+• Cyberpunk 2077: Ultimate Edition - $50.00
+
+👾 **Retro & Rare Finds**
+• GameCube: Eternal Darkness - $91.23
+• Super Famicom: Mother 2 - $57.90
+• Nintendo DS: Chrono Trigger - $114.93
+• Nintendo DS: Pokémon White - $104.97
+
+🎯 **Hardware Collection**
+• Nintendo 3DS XL Zelda Edition (Complete in Box) - $386.24
+  Condition: Normal wear, includes item, box, and manual
+
+**Collection Philosophy**
+My collection focuses on games that have either personal significance, critical acclaim, or represent important milestones in gaming history. From the emotional storytelling of The Last of Us to the innovative gameplay of Tears of the Kingdom, each title offers something unique.
+
+The mix of modern and retro games reflects my appreciation for both cutting-edge graphics and timeless gameplay mechanics. Special attention goes to complete-in-box items and regional exclusives like the Japanese Pokémon Scarlet.
+
+**Total Collection Value**: Approximately $1,200+ across multiple platforms
+**Platforms Represented**: Nintendo Switch, PlayStation 5, Nintendo 3DS, GameCube, Super Famicom, Nintendo DS
+
+This collection continues to grow as new releases catch my interest and rare finds appear in the wild. Gaming isn't just a hobby—it's a passion for interactive storytelling and digital art.`,
+                created: new Date().toISOString()
+            };
+
+            // Only add if no game collection post exists yet
+            const existingGamePost = blogPosts.find(post => post.title === 'My Video Game Collection');
+            if (!existingGamePost) {
+                blogPosts.unshift(gameCollectionPost);
+                saveBlogPosts();
+                renderBlogPosts(); // Update the blog display
+            }
+        }
+
         // Load content when page loads
         window.addEventListener('load', function() {
             loadSavedContent();
             setTimeout(() => {
                 initializeCalamariSalad();
+                initializeGameCollectionPost();
             }, 1000);
         });
     </script>
