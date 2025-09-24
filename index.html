@@ -495,41 +495,55 @@
         }
 
         /* Blog List Styles */
+        .blog-archive {
+            margin: 30px 0;
+        }
+
         .blog-list-item {
-            border-bottom: 1px solid #eee;
-            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 8px 0;
             cursor: pointer;
             transition: all 0.2s ease;
-        }
-
-        .blog-list-item:hover {
-            background: #f9f9f9;
-            margin: 0 -10px;
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-
-        .blog-list-item:last-of-type {
             border-bottom: none;
-        }
-
-        .blog-list-title {
-            font-size: 16px;
-            color: #666;
-            font-weight: 400;
-            margin-bottom: 8px;
-            text-decoration: underline;
         }
 
         .blog-list-item:hover .blog-list-title {
             color: #333;
         }
 
-        .blog-preview {
+        .blog-list-title {
             font-size: 16px;
             color: #666;
-            line-height: 1.6;
-            margin: 8px 0 0 0;
+            font-weight: 400;
+            margin: 0;
+            text-decoration: none;
+            flex: 1;
+        }
+
+        .blog-list-item:hover .blog-list-title {
+            text-decoration: underline;
+        }
+
+        .blog-list-date {
+            font-size: 16px;
+            color: #999;
+            margin-left: 20px;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .blog-list-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .blog-list-date {
+                margin-left: 0;
+                margin-top: 4px;
+                font-size: 14px;
+            }
         }
 
         /* Full Blog Post View */
@@ -537,26 +551,41 @@
             padding-top: 20px;
         }
 
+        .blog-full-post h3 {
+            font-size: 18px;
+            color: #666;
+            font-weight: 400;
+            margin: 20px 0 8px 0;
+        }
+
+        .blog-full-post .blog-date {
+            font-size: 16px;
+            color: #999;
+            margin-bottom: 30px;
+        }
+
         .back-to-list {
             background: none;
             border: none;
             color: #666;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 16px;
             margin-bottom: 20px;
-            padding: 5px 0;
-            text-decoration: underline;
+            padding: 0;
+            text-decoration: none;
+            font-family: inherit;
         }
 
         .back-to-list:hover {
             color: #333;
+            text-decoration: underline;
         }
 
         .blog-content {
             font-size: 16px;
             color: #666;
             line-height: 1.6;
-            margin-top: 20px;
+            margin-top: 0;
             white-space: pre-wrap;
         }
     </style>
@@ -607,7 +636,7 @@
         <!-- Blog Section -->
         <section id="blog" class="section blog-section">
             <h2>blog:</h2>
-            <div id="blogContainer">
+            <div id="blogContainer" class="blog-archive">
                 <div class="placeholder-note" id="emptyBlogMessage">
                     No blog posts yet. Use admin mode to add your first post!
                 </div>
@@ -883,18 +912,15 @@
 
             emptyMessage.style.display = 'none';
 
-            // Render blog posts as a list
+            // Render blog posts as a clean list (like lokeshdhakar.com/blog)
             blogPosts.forEach(post => {
                 const postElement = document.createElement('div');
                 postElement.className = 'blog-list-item';
                 postElement.onclick = () => showBlogPost(post.id);
 
-                const preview = post.content.length > 150 ? post.content.substring(0, 150) + '...' : post.content;
-
                 postElement.innerHTML = `
-                    <h3 class="blog-list-title">${post.title}</h3>
-                    <div class="blog-date">${post.date}</div>
-                    <p class="blog-preview">${preview}</p>
+                    <div class="blog-list-title">${post.title}</div>
+                    <div class="blog-list-date">${post.date}</div>
                 `;
                 blogContainer.insertBefore(postElement, emptyMessage);
             });
