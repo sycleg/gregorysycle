@@ -707,10 +707,7 @@
         <div class="nav-container">
             <ul class="nav-links">
                 <li><a href="#" onclick="showSection('home')" class="active">Home</a></li>
-                <li><a href="#" onclick="showSection('about')" class="">About</a></li>
                 <li><a href="#" onclick="showSection('blog')" class="">Blog</a></li>
-                <li><a href="#" onclick="showSection('recipes')" class="">Recipes</a></li>
-                <li><a href="#" onclick="showSection('contact')" class="">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -729,22 +726,6 @@
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="section about-section">
-            <h2>about me:</h2>
-
-            <ul class="about-list">
-                <li class="editable" contenteditable="false">passionate about technology and innovation</li>
-                <li class="editable" contenteditable="false">creating meaningful digital experiences since [year]</li>
-                <li class="editable" contenteditable="false">life is short, extraordinary — here to make the most of it</li>
-            </ul>
-
-            <div class="appreciation editable" contenteditable="false">
-                i appreciate: good code, good design, good coffee, learning, growth,
-                problem-solving, creativity, collaboration, innovation, technology,
-                meaningful connections, life.
-            </div>
-        </section>
 
         <!-- Blog Section -->
         <section id="blog" class="section blog-section">
@@ -756,32 +737,7 @@
             </div>
         </section>
 
-        <!-- Recipes Section -->
-        <section id="recipes" class="section recipes-section">
-            <h2>recipes:</h2>
-            <div id="recipesContainer" class="blog-archive">
-                <div class="placeholder-note" id="emptyRecipesMessage">
-                    No recipes yet. Use admin mode to add your first recipe!
-                </div>
-            </div>
-        </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="section contact-section">
-            <h2>contact:</h2>
-
-            <ul class="contact-links">
-                <li><a href="mailto:your-email@example.com">email</a></li>
-                <li><a href="#" onclick="alert('Add your LinkedIn URL')">linkedin</a></li>
-            </ul>
-        </section>
-
-        <!-- Decorative element (matching the original) -->
-        <div class="decorative-element">
-            ∴ ∴ ∴<br>
-            ∴ ∴ ∴<br>
-            ∴ ∴
-        </div>
     </div>
 
     <!-- Admin Button -->
@@ -1073,22 +1029,39 @@
             const existingPosts = blogContainer.querySelectorAll('.blog-list-item, .blog-item');
             existingPosts.forEach(post => post.remove());
 
-            if (blogPosts.length === 0) {
+            // Combine blog posts and recipes
+            const allItems = [
+                ...blogPosts.map(post => ({...post, type: 'blog'})),
+                ...recipes.map(recipe => ({...recipe, type: 'recipe'}))
+            ];
+
+            if (allItems.length === 0) {
                 emptyMessage.style.display = 'block';
+                emptyMessage.textContent = 'No blog posts or recipes yet. Use admin mode to add your first content!';
                 return;
             }
 
             emptyMessage.style.display = 'none';
 
-            // Render blog posts as a clean list (like lokeshdhakar.com/blog)
-            blogPosts.forEach(post => {
+            // Sort by creation date (newest first)
+            allItems.sort((a, b) => new Date(b.created) - new Date(a.created));
+
+            // Render all items as a clean list
+            allItems.forEach(item => {
                 const postElement = document.createElement('div');
                 postElement.className = 'blog-list-item';
-                postElement.onclick = () => showBlogPost(post.id);
+                postElement.onclick = () => {
+                    if (item.type === 'blog') {
+                        showBlogPost(item.id);
+                    } else {
+                        showRecipe(item.id);
+                    }
+                };
 
+                const typeLabel = item.type === 'recipe' ? ' (Recipe)' : '';
                 postElement.innerHTML = `
-                    <div class="blog-list-title">${post.title}</div>
-                    <div class="blog-list-date">${post.date}</div>
+                    <div class="blog-list-title">${item.title}${typeLabel}</div>
+                    <div class="blog-list-date">${item.date}</div>
                 `;
                 blogContainer.insertBefore(postElement, emptyMessage);
             });
@@ -1140,10 +1113,11 @@
                 existingFullPost.remove();
             }
 
-            // Show empty message if no posts
-            if (blogPosts.length === 0) {
+            // Show empty message if no posts or recipes
+            if (blogPosts.length === 0 && recipes.length === 0) {
                 const emptyMessage = document.getElementById('emptyBlogMessage');
                 emptyMessage.style.display = 'block';
+                emptyMessage.textContent = 'No blog posts or recipes yet. Use admin mode to add your first content!';
             }
         }
 
@@ -1156,12 +1130,15 @@
             if (saved) {
                 try {
                     blogPosts = JSON.parse(saved);
-                    renderBlogPosts();
                 } catch (e) {
                     console.error('Could not load blog posts:', e);
                     blogPosts = [];
                 }
             }
+            // Load recipes as well
+            loadRecipes();
+            // Render everything together
+            renderBlogPosts();
         }
 
         function saveContent() {
@@ -1287,11 +1264,16 @@
                     <button class="remove-photo" onclick="removePhoto('${photo.id}')" title="Remove photo">×</button>
                 `;
 
-                // Add drag event listeners
+                // Add drag event listeners for desktop
                 photoElement.addEventListener('dragstart', handleDragStart);
                 photoElement.addEventListener('dragover', handleDragOver);
                 photoElement.addEventListener('drop', handleDrop);
                 photoElement.addEventListener('dragend', handleDragEnd);
+
+                // Add touch event listeners for mobile
+                photoElement.addEventListener('touchstart', handleTouchStart, { passive: false });
+                photoElement.addEventListener('touchmove', handleTouchMove, { passive: false });
+                photoElement.addEventListener('touchend', handleTouchEnd, { passive: false });
 
                 container.appendChild(photoElement);
             });
@@ -1302,13 +1284,16 @@
             renderRecipePhotos();
         }
 
-        // Drag and drop functionality
+        // Drag and drop functionality (enhanced for mobile)
         let draggedElement = null;
+        let touchStartPos = null;
+        let isDragging = false;
 
         function handleDragStart(e) {
             draggedElement = e.target.closest('.recipe-photo');
             draggedElement.classList.add('dragging');
             e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', draggedElement.outerHTML);
         }
 
         function handleDragOver(e) {
@@ -1328,7 +1313,7 @@
                 const draggedIndex = parseInt(draggedElement.dataset.index);
                 const targetIndex = parseInt(targetElement.dataset.index);
 
-                // Swap photos in array
+                // Reorder photos in array
                 const draggedPhoto = recipePhotos[draggedIndex];
                 recipePhotos.splice(draggedIndex, 1);
                 recipePhotos.splice(targetIndex, 0, draggedPhoto);
@@ -1336,15 +1321,93 @@
                 renderRecipePhotos();
             }
 
-            targetElement?.classList.remove('drag-over');
+            // Clean up
+            document.querySelectorAll('.recipe-photo').forEach(el => {
+                el.classList.remove('drag-over');
+            });
         }
 
         function handleDragEnd(e) {
-            draggedElement?.classList.remove('dragging');
+            if (draggedElement) {
+                draggedElement.classList.remove('dragging');
+            }
             document.querySelectorAll('.recipe-photo').forEach(el => {
                 el.classList.remove('drag-over');
             });
             draggedElement = null;
+        }
+
+        // Touch handlers for mobile drag and drop
+        function handleTouchStart(e) {
+            const touch = e.touches[0];
+            touchStartPos = { x: touch.clientX, y: touch.clientY };
+            draggedElement = e.target.closest('.recipe-photo');
+            isDragging = false;
+        }
+
+        function handleTouchMove(e) {
+            if (!draggedElement || !touchStartPos) return;
+
+            const touch = e.touches[0];
+            const deltaX = touch.clientX - touchStartPos.x;
+            const deltaY = touch.clientY - touchStartPos.y;
+
+            // Start dragging if moved enough
+            if (!isDragging && (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10)) {
+                isDragging = true;
+                draggedElement.classList.add('dragging');
+                e.preventDefault();
+            }
+
+            if (isDragging) {
+                e.preventDefault();
+                // Find element under touch point
+                const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+                const targetElement = elementBelow?.closest('.recipe-photo');
+
+                // Clear previous highlights
+                document.querySelectorAll('.recipe-photo').forEach(el => {
+                    el.classList.remove('drag-over');
+                });
+
+                if (targetElement && targetElement !== draggedElement) {
+                    targetElement.classList.add('drag-over');
+                }
+            }
+        }
+
+        function handleTouchEnd(e) {
+            if (!draggedElement) return;
+
+            if (isDragging) {
+                const touch = e.changedTouches[0];
+                const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+                const targetElement = elementBelow?.closest('.recipe-photo');
+
+                if (targetElement && targetElement !== draggedElement) {
+                    const draggedIndex = parseInt(draggedElement.dataset.index);
+                    const targetIndex = parseInt(targetElement.dataset.index);
+
+                    // Reorder photos
+                    const draggedPhoto = recipePhotos[draggedIndex];
+                    recipePhotos.splice(draggedIndex, 1);
+                    recipePhotos.splice(targetIndex, 0, draggedPhoto);
+
+                    renderRecipePhotos();
+                }
+            }
+
+            // Clean up
+            if (draggedElement) {
+                draggedElement.classList.remove('dragging');
+            }
+            document.querySelectorAll('.recipe-photo').forEach(el => {
+                el.classList.remove('drag-over');
+            });
+
+            draggedElement = null;
+            touchStartPos = null;
+            isDragging = false;
         }
 
         function saveRecipe() {
@@ -1378,7 +1441,7 @@
             }
 
             saveRecipes();
-            renderRecipes();
+            renderBlogPosts(); // Update the blog display to include recipes
             refreshRecipesList();
             clearRecipeEditor();
         }
@@ -1404,7 +1467,7 @@
             if (currentEditingRecipe && confirm('Are you sure you want to delete this recipe?')) {
                 recipes = recipes.filter(r => r.id !== currentEditingRecipe.id);
                 saveRecipes();
-                renderRecipes();
+                renderBlogPosts(); // Update the blog display to include recipes
                 refreshRecipesList();
                 clearRecipeEditor();
                 alert('Recipe deleted successfully!');
@@ -1441,53 +1504,25 @@
             });
         }
 
-        function renderRecipes() {
-            const recipesContainer = document.getElementById('recipesContainer');
-            const emptyMessage = document.getElementById('emptyRecipesMessage');
-
-            // Clear existing recipes
-            const existingRecipes = recipesContainer.querySelectorAll('.blog-list-item, .recipe-list-item');
-            existingRecipes.forEach(recipe => recipe.remove());
-
-            if (recipes.length === 0) {
-                emptyMessage.style.display = 'block';
-                return;
-            }
-
-            emptyMessage.style.display = 'none';
-
-            // Render recipes as a clean list
-            recipes.forEach(recipe => {
-                const recipeElement = document.createElement('div');
-                recipeElement.className = 'blog-list-item recipe-list-item';
-                recipeElement.onclick = () => showRecipe(recipe.id);
-
-                recipeElement.innerHTML = `
-                    <div class="blog-list-title">${recipe.title}</div>
-                    <div class="blog-list-date">${recipe.date}</div>
-                `;
-                recipesContainer.insertBefore(recipeElement, emptyMessage);
-            });
-        }
 
         function showRecipe(recipeId) {
             const recipe = recipes.find(r => r.id === recipeId);
             if (!recipe) return;
 
-            const recipesContainer = document.getElementById('recipesContainer');
+            const blogContainer = document.getElementById('blogContainer');
 
-            // Hide all recipe list items
-            const listItems = recipesContainer.querySelectorAll('.recipe-list-item');
+            // Hide all blog list items
+            const listItems = blogContainer.querySelectorAll('.blog-list-item');
             listItems.forEach(item => item.style.display = 'none');
 
             // Hide empty message
-            const emptyMessage = document.getElementById('emptyRecipesMessage');
+            const emptyMessage = document.getElementById('emptyBlogMessage');
             emptyMessage.style.display = 'none';
 
-            // Remove any existing full recipe view
-            const existingFullRecipe = recipesContainer.querySelector('.recipe-full-post');
-            if (existingFullRecipe) {
-                existingFullRecipe.remove();
+            // Remove any existing full post view
+            const existingFullPost = blogContainer.querySelector('.blog-full-post');
+            if (existingFullPost) {
+                existingFullPost.remove();
             }
 
             // Create full recipe view
@@ -1504,35 +1539,16 @@
             }
 
             fullRecipeElement.innerHTML = `
-                <button onclick="showRecipesList()" class="back-to-list">← Back to Recipes List</button>
+                <button onclick="showBlogList()" class="back-to-list">← Back to Blog List</button>
                 <h3>${recipe.title}</h3>
                 <div class="blog-date">${recipe.date}</div>
                 ${photosHTML}
                 <div class="blog-content">${recipe.content.replace(/\n/g, '<br>')}</div>
             `;
 
-            recipesContainer.appendChild(fullRecipeElement);
+            blogContainer.appendChild(fullRecipeElement);
         }
 
-        function showRecipesList() {
-            const recipesContainer = document.getElementById('recipesContainer');
-
-            // Show all recipe list items
-            const listItems = recipesContainer.querySelectorAll('.recipe-list-item');
-            listItems.forEach(item => item.style.display = 'block');
-
-            // Remove full recipe view
-            const existingFullRecipe = recipesContainer.querySelector('.recipe-full-post');
-            if (existingFullRecipe) {
-                existingFullRecipe.remove();
-            }
-
-            // Show empty message if no recipes
-            if (recipes.length === 0) {
-                const emptyMessage = document.getElementById('emptyRecipesMessage');
-                emptyMessage.style.display = 'block';
-            }
-        }
 
         function saveRecipes() {
             localStorage.setItem('recipes', JSON.stringify(recipes));
@@ -1543,7 +1559,6 @@
             if (saved) {
                 try {
                     recipes = JSON.parse(saved);
-                    renderRecipes();
                 } catch (e) {
                     console.error('Could not load recipes:', e);
                     recipes = [];
@@ -1574,8 +1589,7 @@
 
         // Update load content to include recipes
         function loadSavedContent() {
-            loadBlogPosts();
-            loadRecipes();
+            loadBlogPosts(); // This now loads both blog posts and recipes
 
             const saved = localStorage.getItem('websiteContent');
             if (saved) {
@@ -1591,13 +1605,14 @@
 
                     if (content.blogPosts && content.blogPosts.length > 0) {
                         blogPosts = content.blogPosts;
-                        renderBlogPosts();
                     }
 
                     if (content.recipes && content.recipes.length > 0) {
                         recipes = content.recipes;
-                        renderRecipes();
                     }
+
+                    // Render everything together
+                    renderBlogPosts();
                 } catch (e) {
                     console.log('Could not load saved content');
                 }
@@ -1645,7 +1660,7 @@ Tips:
             if (recipes.length === 0) {
                 recipes.push(calamariRecipe);
                 saveRecipes();
-                renderRecipes();
+                renderBlogPosts(); // Update the blog display to show the recipe
             }
         }
 
