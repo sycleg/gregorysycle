@@ -332,21 +332,48 @@
 
         .edit-mode .editable {
             border: 1px dashed #ccc;
-            padding: 5px;
-            margin: 2px 0;
+            padding: 10px;
+            margin: 5px 0;
             cursor: text;
-            min-height: 20px;
+            min-height: 30px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
         }
 
-        .edit-mode .editable:hover {
+        .edit-mode .editable:hover,
+        .edit-mode .editable:focus {
             background: #f9f9f9;
             border-color: #999;
+            outline: none;
+            transform: scale(1.01);
         }
 
         .edit-mode .editable:focus {
-            outline: none;
             border-color: #666;
             background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Mobile-specific edit mode improvements */
+        @media (max-width: 768px) {
+            .edit-mode .editable {
+                padding: 15px;
+                min-height: 40px;
+                font-size: 16px; /* Prevents zoom on iOS */
+                -webkit-appearance: none;
+            }
+
+            .admin-toolbar {
+                font-size: 14px;
+                padding: 15px 10px;
+            }
+
+            .admin-toolbar button {
+                padding: 12px 18px;
+                font-size: 14px;
+                margin: 0 8px;
+                border-radius: 6px;
+            }
         }
 
         .admin-toolbar {
@@ -730,6 +757,10 @@
         <!-- Blog Section -->
         <section id="blog" class="section blog-section">
             <h2>blog:</h2>
+            <div style="margin-bottom: 30px;">
+                <button onclick="showBlogView('all')" id="viewAll" style="background: #666; color: white; padding: 8px 15px; margin: 0 10px 0 0; border: none; border-radius: 4px; cursor: pointer; font-family: inherit;">All</button>
+                <button onclick="showBlogView('recipes')" id="viewRecipes" style="background: #999; color: white; padding: 8px 15px; margin: 0 10px 0 0; border: none; border-radius: 4px; cursor: pointer; font-family: inherit;">Recipes</button>
+            </div>
             <div id="blogContainer" class="blog-archive">
                 <div class="placeholder-note" id="emptyBlogMessage">
                     No blog posts yet. Use admin mode to add your first post!
@@ -757,8 +788,7 @@
     <!-- Admin Toolbar -->
     <div id="adminToolbar" class="admin-toolbar">
         <span>✏️ Edit Mode Active</span>
-        <button onclick="showBlogManager()">Manage Blog</button>
-        <button onclick="showRecipeManager()">Manage Recipes</button>
+        <button onclick="showBlogManager()">Manage Content</button>
         <button onclick="saveContent()">Save Changes</button>
         <button onclick="exitAdmin()">Exit Admin</button>
     </div>
@@ -766,12 +796,18 @@
     <!-- Blog Management Interface -->
     <div id="blogManager" class="blog-editor">
         <div class="blog-manager-header">
-            <h3>Blog Management</h3>
+            <h3>Content Management</h3>
             <button onclick="closeBlogManager()">Close</button>
         </div>
 
+        <!-- Content Type Selection -->
+        <div style="margin-bottom: 20px; text-align: center;">
+            <button onclick="switchToContentType('blog')" id="blogTypeBtn" style="background: #666; color: white; padding: 8px 15px; margin: 0 5px; border: none; border-radius: 4px;">New Blog Post</button>
+            <button onclick="switchToContentType('recipe')" id="recipeTypeBtn" style="background: #999; color: white; padding: 8px 15px; margin: 0 5px; border: none; border-radius: 4px;">New Recipe</button>
+        </div>
+
         <!-- Blog Post Editor -->
-        <div class="blog-post-form">
+        <div class="blog-post-form" id="blogPostForm">
             <h4 id="editorTitle">New Blog Post</h4>
             <input type="text" id="blogTitle" placeholder="Blog post title" />
             <input type="text" id="blogDate" placeholder="Date (e.g., january 15, 2024)" />
@@ -783,24 +819,8 @@
             </div>
         </div>
 
-        <!-- Existing Blog Posts List -->
-        <div class="blog-posts-list">
-            <h4>Existing Blog Posts</h4>
-            <div id="blogPostsList">
-                <p style="color: #999; font-style: italic;">No blog posts yet.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Recipe Management Interface -->
-    <div id="recipeManager" class="blog-editor">
-        <div class="blog-manager-header">
-            <h3>Recipe Management</h3>
-            <button onclick="closeRecipeManager()">Close</button>
-        </div>
-
         <!-- Recipe Editor -->
-        <div class="blog-post-form">
+        <div class="blog-post-form" id="recipeForm" style="display: none;">
             <h4 id="recipeEditorTitle">New Recipe</h4>
             <input type="text" id="recipeTitle" placeholder="Recipe title" />
             <input type="text" id="recipeDate" placeholder="Date (e.g., january 15, 2024)" />
@@ -823,11 +843,16 @@
             </div>
         </div>
 
-        <!-- Existing Recipes List -->
+        <!-- Existing Content List -->
         <div class="blog-posts-list">
-            <h4>Existing Recipes</h4>
-            <div id="recipesList">
-                <p style="color: #999; font-style: italic;">No recipes yet.</p>
+            <h4>Existing Content</h4>
+            <div style="margin-bottom: 15px;">
+                <button onclick="filterContent('all')" id="filterAll" style="background: #666; color: white; padding: 5px 10px; margin: 0 5px; border: none; border-radius: 4px; font-size: 12px;">All</button>
+                <button onclick="filterContent('blog')" id="filterBlog" style="background: #999; color: white; padding: 5px 10px; margin: 0 5px; border: none; border-radius: 4px; font-size: 12px;">Blog Posts</button>
+                <button onclick="filterContent('recipe')" id="filterRecipe" style="background: #999; color: white; padding: 5px 10px; margin: 0 5px; border: none; border-radius: 4px; font-size: 12px;">Recipes</button>
+            </div>
+            <div id="blogPostsList">
+                <p style="color: #999; font-style: italic;">No content yet.</p>
             </div>
         </div>
     </div>
@@ -840,6 +865,8 @@
         let recipes = [];
         let currentEditingRecipe = null;
         let recipePhotos = [];
+        let currentContentType = 'blog';
+        let currentBlogView = 'all';
 
         function showSection(sectionId) {
             // Hide all sections
@@ -911,8 +938,48 @@
         // Blog Management Functions
         function showBlogManager() {
             document.getElementById('blogManager').classList.add('active');
+            document.getElementById('recipeManager')?.classList.remove('active');
             refreshBlogPostsList();
             clearEditor();
+            switchToContentType('blog');
+        }
+
+        function switchToContentType(type) {
+            currentContentType = type;
+
+            // Update button styles
+            document.getElementById('blogTypeBtn').style.background = type === 'blog' ? '#666' : '#999';
+            document.getElementById('recipeTypeBtn').style.background = type === 'recipe' ? '#666' : '#999';
+
+            // Show/hide appropriate forms
+            document.getElementById('blogPostForm').style.display = type === 'blog' ? 'block' : 'none';
+            document.getElementById('recipeForm').style.display = type === 'recipe' ? 'block' : 'none';
+
+            // Clear editors
+            if (type === 'blog') {
+                clearEditor();
+            } else {
+                clearRecipeEditor();
+            }
+        }
+
+        function showBlogView(view) {
+            currentBlogView = view;
+
+            // Update button styles
+            document.getElementById('viewAll').style.background = view === 'all' ? '#666' : '#999';
+            document.getElementById('viewRecipes').style.background = view === 'recipes' ? '#666' : '#999';
+
+            renderBlogPosts();
+        }
+
+        function filterContent(type) {
+            // Update button styles
+            document.getElementById('filterAll').style.background = type === 'all' ? '#666' : '#999';
+            document.getElementById('filterBlog').style.background = type === 'blog' ? '#666' : '#999';
+            document.getElementById('filterRecipe').style.background = type === 'recipe' ? '#666' : '#999';
+
+            refreshBlogPostsList(type);
         }
 
         function closeBlogManager() {
@@ -995,29 +1062,54 @@
             clearEditor();
         }
 
-        function refreshBlogPostsList() {
+        function refreshBlogPostsList(filterType = 'all') {
             const listContainer = document.getElementById('blogPostsList');
 
-            if (blogPosts.length === 0) {
-                listContainer.innerHTML = '<p style="color: #999; font-style: italic;">No blog posts yet.</p>';
+            // Combine all content
+            let allContent = [
+                ...blogPosts.map(post => ({...post, type: 'blog'})),
+                ...recipes.map(recipe => ({...recipe, type: 'recipe'}))
+            ];
+
+            // Apply filter
+            if (filterType === 'blog') {
+                allContent = allContent.filter(item => item.type === 'blog');
+            } else if (filterType === 'recipe') {
+                allContent = allContent.filter(item => item.type === 'recipe');
+            }
+
+            if (allContent.length === 0) {
+                listContainer.innerHTML = '<p style="color: #999; font-style: italic;">No content yet.</p>';
                 return;
             }
 
+            // Sort by creation date (newest first)
+            allContent.sort((a, b) => new Date(b.created) - new Date(a.created));
+
             listContainer.innerHTML = '';
-            blogPosts.forEach(post => {
-                const postElement = document.createElement('div');
-                postElement.className = 'blog-post-item';
-                postElement.onclick = () => editBlogPost(post.id);
+            allContent.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'blog-post-item';
+                itemElement.onclick = () => {
+                    if (item.type === 'blog') {
+                        switchToContentType('blog');
+                        editBlogPost(item.id);
+                    } else {
+                        switchToContentType('recipe');
+                        editRecipe(item.id);
+                    }
+                };
 
-                const preview = post.content.length > 100 ? post.content.substring(0, 100) + '...' : post.content;
+                const preview = item.content.length > 100 ? item.content.substring(0, 100) + '...' : item.content;
+                const typeLabel = item.type === 'recipe' ? ' (Recipe)' : '';
 
-                postElement.innerHTML = `
-                    <h5>${post.title}</h5>
-                    <div class="date">${post.date}</div>
+                itemElement.innerHTML = `
+                    <h5>${item.title}${typeLabel}</h5>
+                    <div class="date">${item.date}</div>
                     <div class="preview">${preview}</div>
                 `;
 
-                listContainer.appendChild(postElement);
+                listContainer.appendChild(itemElement);
             });
         }
 
@@ -1030,14 +1122,23 @@
             existingPosts.forEach(post => post.remove());
 
             // Combine blog posts and recipes
-            const allItems = [
+            let allItems = [
                 ...blogPosts.map(post => ({...post, type: 'blog'})),
                 ...recipes.map(recipe => ({...recipe, type: 'recipe'}))
             ];
 
+            // Filter based on current view
+            if (currentBlogView === 'recipes') {
+                allItems = allItems.filter(item => item.type === 'recipe');
+            }
+
             if (allItems.length === 0) {
                 emptyMessage.style.display = 'block';
-                emptyMessage.textContent = 'No blog posts or recipes yet. Use admin mode to add your first content!';
+                if (currentBlogView === 'recipes') {
+                    emptyMessage.textContent = 'No recipes yet. Use admin mode to add your first recipe!';
+                } else {
+                    emptyMessage.textContent = 'No blog posts or recipes yet. Use admin mode to add your first content!';
+                }
                 return;
             }
 
@@ -1046,7 +1147,7 @@
             // Sort by creation date (newest first)
             allItems.sort((a, b) => new Date(b.created) - new Date(a.created));
 
-            // Render all items as a clean list
+            // Render filtered items as a clean list
             allItems.forEach(item => {
                 const postElement = document.createElement('div');
                 postElement.className = 'blog-list-item';
@@ -1058,7 +1159,7 @@
                     }
                 };
 
-                const typeLabel = item.type === 'recipe' ? ' (Recipe)' : '';
+                const typeLabel = (currentBlogView === 'all' && item.type === 'recipe') ? ' (Recipe)' : '';
                 postElement.innerHTML = `
                     <div class="blog-list-title">${item.title}${typeLabel}</div>
                     <div class="blog-list-date">${item.date}</div>
@@ -1198,18 +1299,6 @@
             });
         });
 
-        // Recipe Management Functions
-        function showRecipeManager() {
-            document.getElementById('recipeManager').classList.add('active');
-            refreshRecipesList();
-            clearRecipeEditor();
-            loadRecipes();
-        }
-
-        function closeRecipeManager() {
-            document.getElementById('recipeManager').classList.remove('active');
-            clearRecipeEditor();
-        }
 
         function clearRecipeEditor() {
             document.getElementById('recipeTitle').value = '';
@@ -1442,7 +1531,7 @@
 
             saveRecipes();
             renderBlogPosts(); // Update the blog display to include recipes
-            refreshRecipesList();
+            refreshBlogPostsList();
             clearRecipeEditor();
         }
 
@@ -1468,7 +1557,7 @@
                 recipes = recipes.filter(r => r.id !== currentEditingRecipe.id);
                 saveRecipes();
                 renderBlogPosts(); // Update the blog display to include recipes
-                refreshRecipesList();
+                refreshBlogPostsList();
                 clearRecipeEditor();
                 alert('Recipe deleted successfully!');
             }
@@ -1478,31 +1567,6 @@
             clearRecipeEditor();
         }
 
-        function refreshRecipesList() {
-            const listContainer = document.getElementById('recipesList');
-
-            if (recipes.length === 0) {
-                listContainer.innerHTML = '<p style="color: #999; font-style: italic;">No recipes yet.</p>';
-                return;
-            }
-
-            listContainer.innerHTML = '';
-            recipes.forEach(recipe => {
-                const recipeElement = document.createElement('div');
-                recipeElement.className = 'blog-post-item';
-                recipeElement.onclick = () => editRecipe(recipe.id);
-
-                const preview = recipe.content.length > 100 ? recipe.content.substring(0, 100) + '...' : recipe.content;
-
-                recipeElement.innerHTML = `
-                    <h5>${recipe.title}</h5>
-                    <div class="date">${recipe.date}</div>
-                    <div class="preview">${preview}</div>
-                `;
-
-                listContainer.appendChild(recipeElement);
-            });
-        }
 
 
         function showRecipe(recipeId) {
