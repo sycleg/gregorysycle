@@ -261,6 +261,174 @@
             background: #f9f9f9;
             border-radius: 4px;
         }
+
+        /* Admin functionality styles */
+        .admin-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #666;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+
+        .admin-button:hover {
+            opacity: 0.8;
+        }
+
+        .admin-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .admin-modal.active {
+            display: flex;
+        }
+
+        .admin-form {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .admin-form input {
+            width: 200px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .admin-form button {
+            background: #666;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+
+        .admin-form button:hover {
+            background: #555;
+        }
+
+        .edit-mode .editable {
+            border: 1px dashed #ccc;
+            padding: 5px;
+            margin: 2px 0;
+            cursor: text;
+            min-height: 20px;
+        }
+
+        .edit-mode .editable:hover {
+            background: #f9f9f9;
+            border-color: #999;
+        }
+
+        .edit-mode .editable:focus {
+            outline: none;
+            border-color: #666;
+            background: white;
+        }
+
+        .admin-toolbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(102, 102, 102, 0.95);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            z-index: 9999;
+            display: none;
+        }
+
+        .admin-toolbar.active {
+            display: block;
+        }
+
+        .admin-toolbar button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .admin-toolbar button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .edit-mode body {
+            padding-top: 120px;
+        }
+
+        .blog-editor {
+            display: none;
+            background: #f9f9f9;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .blog-editor.active {
+            display: block;
+        }
+
+        .blog-editor input,
+        .blog-editor textarea {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        .blog-editor textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .blog-controls {
+            margin: 10px 0;
+        }
+
+        .blog-controls button {
+            background: #666;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .blog-controls button:hover {
+            background: #555;
+        }
     </style>
 </head>
 <body>
@@ -279,13 +447,13 @@
         <!-- Home Section -->
         <section id="home" class="section active">
             <div class="header">
-                <h1>Gregory Michael Sycle</h1>
+                <h1 class="editable" contenteditable="false">Gregory Michael Sycle</h1>
 
-                <div class="tagline">
+                <div class="tagline editable" contenteditable="false">
                     building innovative solutions — technology for life, online.
                 </div>
 
-                <div class="work-with-us">work with me</div>
+                <div class="work-with-us editable" contenteditable="false">work with me</div>
             </div>
         </section>
 
@@ -294,12 +462,12 @@
             <h2>about me:</h2>
 
             <ul class="about-list">
-                <li>passionate about technology and innovation</li>
-                <li>creating meaningful digital experiences since [year]</li>
-                <li>life is short, extraordinary — here to make the most of it</li>
+                <li class="editable" contenteditable="false">passionate about technology and innovation</li>
+                <li class="editable" contenteditable="false">creating meaningful digital experiences since [year]</li>
+                <li class="editable" contenteditable="false">life is short, extraordinary — here to make the most of it</li>
             </ul>
 
-            <div class="appreciation">
+            <div class="appreciation editable" contenteditable="false">
                 i appreciate: good code, good design, good coffee, learning, growth,
                 problem-solving, creativity, collaboration, innovation, technology,
                 meaningful connections, life.
@@ -351,7 +519,45 @@
         </div>
     </div>
 
+    <!-- Admin Button -->
+    <button class="admin-button" onclick="showAdminLogin()">Admin</button>
+
+    <!-- Admin Login Modal -->
+    <div id="adminModal" class="admin-modal">
+        <div class="admin-form">
+            <h3>Admin Access</h3>
+            <input type="password" id="adminPassword" placeholder="Enter password" />
+            <br>
+            <button onclick="adminLogin()">Login</button>
+            <button onclick="hideAdminLogin()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Admin Toolbar -->
+    <div id="adminToolbar" class="admin-toolbar">
+        <span>✏️ Edit Mode Active</span>
+        <button onclick="addBlogPost()">Add Blog Post</button>
+        <button onclick="saveContent()">Save Changes</button>
+        <button onclick="exitAdmin()">Exit Admin</button>
+    </div>
+
+    <!-- Blog Editor -->
+    <div id="blogEditor" class="blog-editor">
+        <h3>New Blog Post</h3>
+        <input type="text" id="blogTitle" placeholder="Blog post title" />
+        <input type="text" id="blogDate" placeholder="Date (e.g., january 15, 2024)" />
+        <textarea id="blogContent" placeholder="Blog post content"></textarea>
+        <div class="blog-controls">
+            <button onclick="saveBlogPost()">Save Post</button>
+            <button onclick="cancelBlogPost()">Cancel</button>
+        </div>
+    </div>
+
     <script>
+        // Global admin state
+        let isAdminMode = false;
+        let originalContent = {};
+
         function showSection(sectionId) {
             // Hide all sections
             const sections = document.querySelectorAll('.section');
@@ -367,6 +573,147 @@
             // Add active class to clicked nav link
             event.target.classList.add('active');
         }
+
+        // Admin functionality
+        function showAdminLogin() {
+            document.getElementById('adminModal').classList.add('active');
+            document.getElementById('adminPassword').focus();
+        }
+
+        function hideAdminLogin() {
+            document.getElementById('adminModal').classList.remove('active');
+            document.getElementById('adminPassword').value = '';
+        }
+
+        function adminLogin() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === 'UdonisHaslem18!') {
+                enableEditMode();
+                hideAdminLogin();
+            } else {
+                alert('Incorrect password');
+                document.getElementById('adminPassword').value = '';
+            }
+        }
+
+        function enableEditMode() {
+            isAdminMode = true;
+            document.body.classList.add('edit-mode');
+            document.getElementById('adminToolbar').classList.add('active');
+
+            // Store original content
+            const editables = document.querySelectorAll('.editable');
+            editables.forEach(el => {
+                originalContent[el.innerHTML] = el.innerHTML;
+                el.contentEditable = true;
+            });
+        }
+
+        function exitAdmin() {
+            isAdminMode = false;
+            document.body.classList.remove('edit-mode');
+            document.getElementById('adminToolbar').classList.remove('active');
+            document.getElementById('blogEditor').classList.remove('active');
+
+            // Disable editing
+            const editables = document.querySelectorAll('.editable');
+            editables.forEach(el => {
+                el.contentEditable = false;
+            });
+        }
+
+        function addBlogPost() {
+            document.getElementById('blogEditor').classList.add('active');
+            document.getElementById('blogTitle').focus();
+        }
+
+        function saveBlogPost() {
+            const title = document.getElementById('blogTitle').value;
+            const date = document.getElementById('blogDate').value;
+            const content = document.getElementById('blogContent').value;
+
+            if (!title || !date || !content) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Create new blog post element
+            const blogSection = document.querySelector('#blog .blog-section');
+            const newPost = document.createElement('div');
+            newPost.className = 'blog-item';
+            newPost.innerHTML = `
+                <h3 class="editable" contenteditable="true">${title}</h3>
+                <div class="blog-date">${date}</div>
+                <p class="editable" contenteditable="true">${content}</p>
+            `;
+
+            // Insert before placeholder note
+            const placeholderNote = document.querySelector('.placeholder-note');
+            blogSection.insertBefore(newPost, placeholderNote);
+
+            // Clear form
+            document.getElementById('blogTitle').value = '';
+            document.getElementById('blogDate').value = '';
+            document.getElementById('blogContent').value = '';
+            document.getElementById('blogEditor').classList.remove('active');
+
+            alert('Blog post added! Remember to save your changes.');
+        }
+
+        function cancelBlogPost() {
+            document.getElementById('blogTitle').value = '';
+            document.getElementById('blogDate').value = '';
+            document.getElementById('blogContent').value = '';
+            document.getElementById('blogEditor').classList.remove('active');
+        }
+
+        function saveContent() {
+            // This simulates saving - in a real implementation, you'd send data to a server
+            const content = {
+                timestamp: new Date().toISOString(),
+                sections: {}
+            };
+
+            // Collect all editable content
+            const editables = document.querySelectorAll('.editable');
+            editables.forEach((el, index) => {
+                content.sections[`element_${index}`] = el.innerHTML;
+            });
+
+            // Store in localStorage as a backup
+            localStorage.setItem('websiteContent', JSON.stringify(content));
+
+            alert(`✅ Content saved locally!\n\nTimestamp: ${new Date().toLocaleString()}\n\nNote: In a real implementation, this would be saved to your server and automatically committed to GitHub.`);
+        }
+
+        // Load saved content on page load
+        function loadSavedContent() {
+            const saved = localStorage.getItem('websiteContent');
+            if (saved) {
+                try {
+                    const content = JSON.parse(saved);
+                    const editables = document.querySelectorAll('.editable');
+                    editables.forEach((el, index) => {
+                        const savedContent = content.sections[`element_${index}`];
+                        if (savedContent) {
+                            el.innerHTML = savedContent;
+                        }
+                    });
+                } catch (e) {
+                    console.log('Could not load saved content');
+                }
+            }
+        }
+
+        // Handle Enter key in password field
+        document.getElementById('adminPassword').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                adminLogin();
+            }
+        });
+
+        // Load any saved content when page loads
+        window.addEventListener('load', loadSavedContent);
     </script>
 </body>
 </html>
