@@ -493,6 +493,72 @@
             max-height: 60px;
             overflow: hidden;
         }
+
+        /* Blog List Styles */
+        .blog-list-item {
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .blog-list-item:hover {
+            background: #f9f9f9;
+            margin: 0 -10px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .blog-list-item:last-of-type {
+            border-bottom: none;
+        }
+
+        .blog-list-title {
+            font-size: 16px;
+            color: #666;
+            font-weight: 400;
+            margin-bottom: 8px;
+            text-decoration: underline;
+        }
+
+        .blog-list-item:hover .blog-list-title {
+            color: #333;
+        }
+
+        .blog-preview {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin: 8px 0 0 0;
+        }
+
+        /* Full Blog Post View */
+        .blog-full-post {
+            padding-top: 20px;
+        }
+
+        .back-to-list {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 14px;
+            margin-bottom: 20px;
+            padding: 5px 0;
+            text-decoration: underline;
+        }
+
+        .back-to-list:hover {
+            color: #333;
+        }
+
+        .blog-content {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-top: 20px;
+            white-space: pre-wrap;
+        }
     </style>
 </head>
 <body>
@@ -807,7 +873,7 @@
             const emptyMessage = document.getElementById('emptyBlogMessage');
 
             // Clear existing posts (except empty message)
-            const existingPosts = blogContainer.querySelectorAll('.blog-item');
+            const existingPosts = blogContainer.querySelectorAll('.blog-list-item, .blog-item');
             existingPosts.forEach(post => post.remove());
 
             if (blogPosts.length === 0) {
@@ -817,17 +883,74 @@
 
             emptyMessage.style.display = 'none';
 
-            // Render blog posts
+            // Render blog posts as a list
             blogPosts.forEach(post => {
                 const postElement = document.createElement('div');
-                postElement.className = 'blog-item';
+                postElement.className = 'blog-list-item';
+                postElement.onclick = () => showBlogPost(post.id);
+
+                const preview = post.content.length > 150 ? post.content.substring(0, 150) + '...' : post.content;
+
                 postElement.innerHTML = `
-                    <h3>${post.title}</h3>
+                    <h3 class="blog-list-title">${post.title}</h3>
                     <div class="blog-date">${post.date}</div>
-                    <p>${post.content}</p>
+                    <p class="blog-preview">${preview}</p>
                 `;
                 blogContainer.insertBefore(postElement, emptyMessage);
             });
+        }
+
+        function showBlogPost(postId) {
+            const post = blogPosts.find(p => p.id === postId);
+            if (!post) return;
+
+            const blogContainer = document.getElementById('blogContainer');
+
+            // Hide all blog list items
+            const listItems = blogContainer.querySelectorAll('.blog-list-item');
+            listItems.forEach(item => item.style.display = 'none');
+
+            // Hide empty message
+            const emptyMessage = document.getElementById('emptyBlogMessage');
+            emptyMessage.style.display = 'none';
+
+            // Remove any existing full post view
+            const existingFullPost = blogContainer.querySelector('.blog-full-post');
+            if (existingFullPost) {
+                existingFullPost.remove();
+            }
+
+            // Create full post view
+            const fullPostElement = document.createElement('div');
+            fullPostElement.className = 'blog-full-post';
+            fullPostElement.innerHTML = `
+                <button onclick="showBlogList()" class="back-to-list">← Back to Blog List</button>
+                <h3>${post.title}</h3>
+                <div class="blog-date">${post.date}</div>
+                <div class="blog-content">${post.content.replace(/\n/g, '<br>')}</div>
+            `;
+
+            blogContainer.appendChild(fullPostElement);
+        }
+
+        function showBlogList() {
+            const blogContainer = document.getElementById('blogContainer');
+
+            // Show all blog list items
+            const listItems = blogContainer.querySelectorAll('.blog-list-item');
+            listItems.forEach(item => item.style.display = 'block');
+
+            // Remove full post view
+            const existingFullPost = blogContainer.querySelector('.blog-full-post');
+            if (existingFullPost) {
+                existingFullPost.remove();
+            }
+
+            // Show empty message if no posts
+            if (blogPosts.length === 0) {
+                const emptyMessage = document.getElementById('emptyBlogMessage');
+                emptyMessage.style.display = 'block';
+            }
         }
 
         function saveBlogPosts() {
