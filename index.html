@@ -3,1794 +3,570 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="theme-color" content="#000000"/>
-    <meta name="description" content="Gregory Michael Sycle - Personal Website"/>
-    <title>Gregory Michael Sycle</title>
+    <meta name="theme-color" content="#3d6aa2"/>
+    <meta name="description" content="Gregory Michael Sycle - Portfolio & Valentine's Surprise"/>
+    <title>Greg's Portfolio</title>
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            user-select: none;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-            line-height: 1.5;
-            background-color: #fcfcf9;
-            color: #666;
-            padding: 80px 40px 40px;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Navigation */
-        .navigation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(252, 252, 249, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #eee;
-            z-index: 1000;
-            padding: 20px 0;
-        }
-
-        .nav-container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 0 40px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #666;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 400;
-            transition: color 0.2s ease;
-            cursor: pointer;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: #333;
-        }
-
-        /* Content sections */
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        /* Home section specific styles */
-        .header {
-            margin-bottom: 60px;
-        }
-
-        .header h1 {
-            font-size: 28px;
-            font-weight: 400;
-            color: #666;
-            margin-bottom: 40px;
-            letter-spacing: -0.02em;
-        }
-
-        .tagline {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 20px;
-            font-weight: 400;
-        }
-
-        .tagline a {
-            color: #666;
-            text-decoration: underline;
-        }
-
-        .work-with-us {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 60px;
-        }
-
-        .work-with-us::before {
-            content: "▶ ";
-            margin-right: 8px;
-        }
-
-        /* About section */
-        .about-section h2 {
-            font-size: 18px;
-            color: #666;
-            font-weight: 400;
-            margin-bottom: 30px;
-        }
-
-        .about-list {
-            list-style: none;
-            margin-bottom: 40px;
-        }
-
-        .about-list li {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 8px;
-            padding-left: 15px;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            background: linear-gradient(to bottom, #6bb6ff 0%, #3d83c6 50%, #4a90e2 100%);
             position: relative;
         }
 
-        .about-list li::before {
-            content: "• ";
-            position: absolute;
-            left: 0;
-            color: #666;
-        }
-
-        .appreciation {
-            font-style: italic;
-            font-size: 16px;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 60px;
-        }
-
-        /* Blog section */
-        .blog-section h2 {
-            font-size: 18px;
-            color: #666;
-            font-weight: 400;
-            margin-bottom: 30px;
-        }
-
-        .blog-item {
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .blog-item:last-of-type {
-            border-bottom: none;
-        }
-
-        .blog-item h3 {
-            font-size: 16px;
-            color: #666;
-            font-weight: 400;
-            margin-bottom: 8px;
-        }
-
-        .blog-date {
-            font-size: 14px;
-            color: #999;
-            margin-bottom: 8px;
-        }
-
-        .blog-item p {
-            font-size: 16px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Contact section */
-        .contact-section h2 {
-            font-size: 18px;
-            color: #666;
-            font-weight: 400;
-            margin-bottom: 30px;
-        }
-
-        .contact-links {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-        }
-
-        .contact-links a {
-            color: #666;
-            text-decoration: none;
-            font-size: 16px;
-        }
-
-        .contact-links a:hover {
-            color: #333;
-        }
-
-        /* Decorative element */
-        .decorative-element {
-            text-align: center;
-            margin: 60px 0;
-            font-size: 24px;
-            color: #ddd;
-        }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            body {
-                padding: 80px 20px 40px;
-            }
-
-            .nav-container {
-                padding: 0 20px;
-            }
-
-            .nav-links {
-                gap: 20px;
-            }
-
-            .nav-links a {
-                font-size: 14px;
-            }
-
-            .header h1 {
-                font-size: 24px;
-            }
-
-            .tagline,
-            .work-with-us {
-                font-size: 16px;
-            }
-
-            .contact-links {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-
-        .placeholder-note {
-            font-style: italic;
-            color: #999;
-            font-size: 14px;
-            text-align: center;
-            margin-top: 30px;
-            padding: 20px;
-            background: #f9f9f9;
-            border-radius: 4px;
-        }
-
-        /* Admin functionality styles */
-        .admin-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #666;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            cursor: pointer;
-            opacity: 0.3;
-            transition: opacity 0.3s ease;
-        }
-
-        .admin-button:hover {
-            opacity: 0.8;
-        }
-
-        .admin-modal {
+        /* Desktop wallpaper */
+        .wallpaper {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-        }
-
-        .admin-modal.active {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 30%, #2d3436 100%);
+            background-size: cover;
+            z-index: -1;
             display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .admin-form {
-            background: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            text-align: center;
+        .portfolio-title {
+            font-size: 6rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.1);
+            text-transform: uppercase;
+            letter-spacing: 0.5rem;
+            pointer-events: none;
+            user-select: none;
         }
 
-        .admin-form input {
-            width: 200px;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        .admin-form button {
-            background: #666;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin: 0 5px;
-        }
-
-        .admin-form button:hover {
-            background: #555;
-        }
-
-        .edit-mode .editable {
-            border: 1px dashed #ccc;
-            padding: 10px;
-            margin: 5px 0;
-            cursor: text;
-            min-height: 30px;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-        }
-
-        .edit-mode .editable:hover,
-        .edit-mode .editable:focus {
-            background: #f9f9f9;
-            border-color: #999;
-            outline: none;
-            transform: scale(1.01);
-        }
-
-        .edit-mode .editable:focus {
-            border-color: #666;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        /* Mobile-specific edit mode improvements */
-        @media (max-width: 768px) {
-            .edit-mode .editable {
-                padding: 15px;
-                min-height: 40px;
-                font-size: 16px; /* Prevents zoom on iOS */
-                -webkit-appearance: none;
-            }
-
-            .admin-toolbar {
-                font-size: 14px;
-                padding: 15px 10px;
-            }
-
-            .admin-toolbar button {
-                padding: 12px 18px;
-                font-size: 14px;
-                margin: 0 8px;
-                border-radius: 6px;
-            }
-        }
-
-        .admin-toolbar {
-            position: fixed;
+        /* Desktop icons container */
+        .desktop {
+            position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            background: rgba(102, 102, 102, 0.95);
-            color: white;
-            padding: 10px;
-            text-align: center;
-            z-index: 9999;
-            display: none;
-        }
-
-        .admin-toolbar.active {
-            display: block;
-        }
-
-        .admin-toolbar button {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            margin: 0 5px;
-            cursor: pointer;
-        }
-
-        .admin-toolbar button:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .edit-mode body {
-            padding-top: 120px;
-        }
-
-        .blog-editor {
-            display: none;
-            background: #f9f9f9;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-        }
-
-        .blog-editor.active {
-            display: block;
-        }
-
-        .blog-editor input,
-        .blog-editor textarea {
             width: 100%;
-            margin: 10px 0;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-family: inherit;
+            height: calc(100vh - 40px);
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 100px);
+            grid-gap: 20px;
+            align-content: start;
+            overflow: auto;
         }
 
-        .blog-editor textarea {
-            height: 150px;
-            resize: vertical;
-        }
-
-        .blog-controls {
-            margin: 10px 0;
-        }
-
-        .blog-controls button {
-            background: #666;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            margin: 0 5px;
-            cursor: pointer;
-        }
-
-        .blog-controls button:hover {
-            background: #555;
-        }
-
-        .blog-manager-header {
+        /* Desktop icon */
+        .desktop-icon {
+            width: 80px;
+            height: 80px;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #ddd;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 4px;
+            padding: 8px;
+            transition: all 0.2s ease;
+            text-align: center;
         }
 
-        .blog-manager-header button {
-            background: #999;
+        .desktop-icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .desktop-icon:active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .icon-image {
+            width: 48px;
+            height: 48px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-bottom: 4px;
+        }
+
+        .icon-label {
             color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
+            font-size: 11px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            word-wrap: break-word;
+            max-width: 100%;
+            line-height: 1.2;
         }
 
-        .blog-post-form {
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .blog-posts-list {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .blog-post-item {
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 15px;
-            margin: 10px 0;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .blog-post-item:hover {
-            background: #f5f5f5;
-            border-color: #999;
-        }
-
-        .blog-post-item h5 {
-            margin: 0 0 5px 0;
-            color: #666;
-            font-weight: 500;
-        }
-
-        .blog-post-item .date {
-            font-size: 12px;
-            color: #999;
-            margin-bottom: 8px;
-        }
-
-        .blog-post-item .preview {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.4;
-            max-height: 60px;
-            overflow: hidden;
-        }
-
-        /* Blog List Styles */
-        .blog-archive {
-            margin: 30px 0;
-        }
-
-        .blog-list-item {
+        /* Taskbar */
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: linear-gradient(to bottom, #4a90e2 0%, #2171b5 50%, #1e5a96 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            padding: 8px 0;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Start button */
+        .start-button {
+            width: 60px;
+            height: 100%;
+            background: linear-gradient(to bottom, #5c9ede 0%, #2171b5 50%, #1e5a96 100%);
+            border: none;
             cursor: pointer;
-            transition: all 0.2s ease;
-            border-bottom: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.1s ease;
+            border-right: 1px solid rgba(0, 0, 0, 0.2);
         }
 
-        .blog-list-item:hover .blog-list-title {
-            color: #333;
+        .start-button:hover {
+            background: linear-gradient(to bottom, #6bb6ff 0%, #3d83c6 50%, #2171b5 100%);
         }
 
-        .blog-list-title {
-            font-size: 16px;
-            color: #666;
-            font-weight: 400;
-            margin: 0;
-            text-decoration: none;
+        .start-button:active {
+            background: linear-gradient(to bottom, #2171b5 0%, #1e5a96 50%, #1a4f87 100%);
+        }
+
+        .start-orb {
+            width: 24px;
+            height: 24px;
+            background: radial-gradient(circle at 30% 30%, #fff 0%, #4a90e2 100%);
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+
+        .start-orb::before {
+            content: "⊞";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* System tray */
+        .system-tray {
+            margin-left: auto;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .clock {
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            line-height: 1.2;
+            padding: 0 8px;
+        }
+
+        /* Window styles */
+        .window {
+            position: absolute;
+            background: white;
+            border: 1px solid #5c9ede;
+            border-radius: 8px 8px 0 0;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            min-width: 600px;
+            min-height: 500px;
+            width: 800px;
+            height: 600px;
+            display: none;
+            overflow: hidden;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .window.active {
+            display: block;
+            z-index: 101;
+        }
+
+        .window-header {
+            height: 30px;
+            background: linear-gradient(to bottom,
+                #6bb6ff 0%,
+                #5c9ede 25%,
+                #4a90e2 50%,
+                #3d83c6 75%,
+                #2171b5 100%
+            );
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            cursor: move;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .window-title {
             flex: 1;
         }
 
-        .blog-list-item:hover .blog-list-title {
-            text-decoration: underline;
-        }
-
-        .blog-list-date {
-            font-size: 16px;
-            color: #999;
-            margin-left: 20px;
-            white-space: nowrap;
-        }
-
-        @media (max-width: 768px) {
-            .blog-list-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .blog-list-date {
-                margin-left: 0;
-                margin-top: 4px;
-                font-size: 14px;
-            }
-        }
-
-        /* Full Blog Post View */
-        .blog-full-post {
-            padding-top: 20px;
-        }
-
-        .blog-full-post h3 {
-            font-size: 18px;
-            color: #666;
-            font-weight: 400;
-            margin: 20px 0 8px 0;
-        }
-
-        .blog-full-post .blog-date {
-            font-size: 16px;
-            color: #999;
-            margin-bottom: 30px;
-        }
-
-        .back-to-list {
-            background: none;
-            border: none;
-            color: #666;
-            cursor: pointer;
-            font-size: 16px;
-            margin-bottom: 20px;
-            padding: 0;
-            text-decoration: none;
-            font-family: inherit;
-        }
-
-        .back-to-list:hover {
-            color: #333;
-            text-decoration: underline;
-        }
-
-        .blog-content {
-            font-size: 16px;
-            color: #666;
-            line-height: 1.6;
-            margin-top: 0;
-            white-space: pre-wrap;
-        }
-
-        /* Recipe Photo Styles */
-        .photo-upload-section {
-            margin: 20px 0;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background: #f9f9f9;
-        }
-
-        .photo-upload-section h5 {
-            margin: 0 0 10px 0;
-            color: #666;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .recipe-photos-container {
+        .window-controls {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 2px;
         }
 
-        .recipe-photo {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            overflow: hidden;
-            cursor: move;
-            transition: all 0.2s ease;
-        }
-
-        .recipe-photo:hover {
-            border-color: #999;
-            transform: scale(1.02);
-        }
-
-        .recipe-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .recipe-photo .remove-photo {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: rgba(255, 0, 0, 0.7);
-            color: white;
-            border: none;
-            border-radius: 50%;
+        .window-control {
             width: 20px;
-            height: 20px;
-            font-size: 12px;
+            height: 18px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 10px;
+            color: white;
+            transition: background 0.2s ease;
         }
 
-        .recipe-photo .remove-photo:hover {
-            background: rgba(255, 0, 0, 0.9);
+        .window-control:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
 
-        .recipe-photo.dragging {
-            opacity: 0.5;
-            transform: rotate(5deg);
+        .window-control.close:hover {
+            background: #e81123;
         }
 
-        .recipe-photo.drag-over {
-            border-color: #007cba;
-            border-width: 2px;
+        .window-content {
+            height: calc(100% - 30px);
+            overflow: hidden;
         }
 
-        /* Recipe Display Styles */
-        .recipe-full-post .recipe-photos-display {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 20px 0;
-        }
-
-        .recipe-full-post .recipe-photos-display img {
-            max-width: 300px;
+        .window-content iframe {
             width: 100%;
-            height: auto;
-            border-radius: 4px;
-            border: 1px solid #eee;
+            height: 100%;
+            border: none;
         }
 
-        .recipe-ingredients {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 4px;
-            margin: 15px 0;
+        /* App icon styles */
+        .valentine-icon {
+            background: linear-gradient(to bottom, #ffffff 0%, #f8f8f8 100%);
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #e91e63;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: relative;
         }
 
-        .recipe-ingredients h4 {
-            margin: 0 0 10px 0;
-            color: #666;
-            font-size: 16px;
+        .valentine-icon::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff9a9e, #fecfef, #ff9a9e);
+            border-radius: 12px;
+            z-index: -1;
         }
 
+        .pc-icon {
+            background: linear-gradient(135deg, #4a90e2, #2171b5);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+        }
+
+        .blog-icon {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .game-icon {
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .travel-icon {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .doom-icon {
+            background: linear-gradient(135deg, #e17055, #d63031);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        /* Animations */
+        @keyframes windowOpen {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .window.opening {
+            animation: windowOpen 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .recipe-photo {
-                width: 120px;
-                height: 120px;
+            .desktop {
+                grid-template-columns: repeat(auto-fill, 80px);
+                grid-gap: 15px;
+            }
+
+            .desktop-icon {
+                width: 70px;
+                height: 70px;
+            }
+
+            .icon-image {
+                width: 40px;
+                height: 40px;
+            }
+
+            .window {
+                min-width: 90vw;
+                min-height: 70vh;
             }
         }
     </style>
 </head>
+
 <body>
-    <nav class="navigation">
-        <div class="nav-container">
-            <ul class="nav-links">
-                <li><a href="#" onclick="showSection('home')" class="active">Home</a></li>
-                <li><a href="#" onclick="showSection('blog')" class="">Blog</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="container">
-        <!-- Home Section -->
-        <section id="home" class="section active">
-            <div class="header">
-                <h1 class="editable" contenteditable="false">Gregory Michael Sycle</h1>
-
-                <div class="tagline editable" contenteditable="false">
-                    building innovative solutions — technology for life, online.
-                </div>
-
-                <div class="work-with-us editable" contenteditable="false">work with me</div>
-            </div>
-        </section>
-
-
-        <!-- Blog Section -->
-        <section id="blog" class="section blog-section">
-            <h2>blog:</h2>
-            <div style="margin-bottom: 30px;">
-                <button onclick="showBlogView('all')" id="viewAll" style="background: #666; color: white; padding: 8px 15px; margin: 0 10px 0 0; border: none; border-radius: 4px; cursor: pointer; font-family: inherit;">All</button>
-                <button onclick="showBlogView('recipes')" id="viewRecipes" style="background: #999; color: white; padding: 8px 15px; margin: 0 10px 0 0; border: none; border-radius: 4px; cursor: pointer; font-family: inherit;">Recipes</button>
-            </div>
-            <div id="blogContainer" class="blog-archive">
-                <div class="placeholder-note" id="emptyBlogMessage">
-                    No blog posts yet. Use admin mode to add your first post!
-                </div>
-            </div>
-        </section>
-
-
+    <div class="wallpaper">
+        <div class="portfolio-title">Greg's Portfolio</div>
     </div>
 
-    <!-- Admin Button -->
-    <button class="admin-button" onclick="showAdminLogin()">Admin</button>
-
-    <!-- Admin Login Modal -->
-    <div id="adminModal" class="admin-modal">
-        <div class="admin-form">
-            <h3>Admin Access</h3>
-            <input type="password" id="adminPassword" placeholder="Enter password" />
-            <br>
-            <button onclick="adminLogin()">Login</button>
-            <button onclick="hideAdminLogin()">Cancel</button>
+    <div class="desktop">
+        <!-- Valentine's Day App -->
+        <div class="desktop-icon" data-app="valentine">
+            <div class="icon-image valentine-icon">♥</div>
+            <div class="icon-label">Valentine's Day</div>
         </div>
     </div>
 
-    <!-- Admin Toolbar -->
-    <div id="adminToolbar" class="admin-toolbar">
-        <span>✏️ Edit Mode Active</span>
-        <button onclick="showBlogManager()">Manage Content</button>
-        <button onclick="saveContent()">Save Changes</button>
-        <button onclick="exitAdmin()">Exit Admin</button>
+    <!-- Windows -->
+    <div id="valentineWindow" class="window">
+        <div class="window-header">
+            <div class="window-title">💕 Valentine's Day</div>
+            <div class="window-controls">
+                <div class="window-control close">×</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <iframe src="clean-valentine.html"></iframe>
+        </div>
     </div>
 
-    <!-- Blog Management Interface -->
-    <div id="blogManager" class="blog-editor">
-        <div class="blog-manager-header">
-            <h3>Content Management</h3>
-            <button onclick="closeBlogManager()">Close</button>
-        </div>
+    <!-- Taskbar -->
+    <div class="taskbar">
+        <button class="start-button">
+            <div class="start-orb"></div>
+        </button>
 
-        <!-- Content Type Selection -->
-        <div style="margin-bottom: 20px; text-align: center;">
-            <button onclick="switchToContentType('blog')" id="blogTypeBtn" style="background: #666; color: white; padding: 8px 15px; margin: 0 5px; border: none; border-radius: 4px;">New Blog Post</button>
-            <button onclick="switchToContentType('recipe')" id="recipeTypeBtn" style="background: #999; color: white; padding: 8px 15px; margin: 0 5px; border: none; border-radius: 4px;">New Recipe</button>
-        </div>
-
-        <!-- Blog Post Editor -->
-        <div class="blog-post-form" id="blogPostForm">
-            <h4 id="editorTitle">New Blog Post</h4>
-            <input type="text" id="blogTitle" placeholder="Blog post title" />
-            <input type="text" id="blogDate" placeholder="Date (e.g., january 15, 2024)" />
-            <textarea id="blogContent" placeholder="Write your blog post content here..."></textarea>
-            <div class="blog-controls">
-                <button onclick="saveBlogPost()" id="saveButton">Save Post</button>
-                <button onclick="cancelEdit()">Cancel</button>
-                <button onclick="deleteBlogPost()" id="deleteButton" style="display: none; background: #d32f2f;">Delete Post</button>
-            </div>
-        </div>
-
-        <!-- Recipe Editor -->
-        <div class="blog-post-form" id="recipeForm" style="display: none;">
-            <h4 id="recipeEditorTitle">New Recipe</h4>
-            <input type="text" id="recipeTitle" placeholder="Recipe title" />
-            <input type="text" id="recipeDate" placeholder="Date (e.g., january 15, 2024)" />
-
-            <!-- Photo Upload Section -->
-            <div class="photo-upload-section">
-                <h5>Photos:</h5>
-                <input type="file" id="photoUpload" accept="image/*" multiple style="margin-bottom: 10px;" />
-                <button onclick="addPhotosToRecipe()" style="margin-bottom: 15px;">Add Photos</button>
-                <div id="recipePhotos" class="recipe-photos-container">
-                    <!-- Photos will appear here -->
-                </div>
-            </div>
-
-            <textarea id="recipeContent" placeholder="Write your recipe content here... (ingredients, instructions, etc.)"></textarea>
-            <div class="blog-controls">
-                <button onclick="saveRecipe()" id="saveRecipeButton">Save Recipe</button>
-                <button onclick="cancelRecipeEdit()">Cancel</button>
-                <button onclick="deleteRecipe()" id="deleteRecipeButton" style="display: none; background: #d32f2f;">Delete Recipe</button>
-            </div>
-        </div>
-
-        <!-- Existing Content List -->
-        <div class="blog-posts-list">
-            <h4>Existing Content</h4>
-            <div style="margin-bottom: 15px;">
-                <button onclick="filterContent('all')" id="filterAll" style="background: #666; color: white; padding: 5px 10px; margin: 0 5px; border: none; border-radius: 4px; font-size: 12px;">All</button>
-                <button onclick="filterContent('blog')" id="filterBlog" style="background: #999; color: white; padding: 5px 10px; margin: 0 5px; border: none; border-radius: 4px; font-size: 12px;">Blog Posts</button>
-                <button onclick="filterContent('recipe')" id="filterRecipe" style="background: #999; color: white; padding: 5px 10px; margin: 0 5px; border: none; border-radius: 4px; font-size: 12px;">Recipes</button>
-            </div>
-            <div id="blogPostsList">
-                <p style="color: #999; font-style: italic;">No content yet.</p>
+        <div class="system-tray">
+            <div class="clock">
+                <div id="time"></div>
+                <div id="date"></div>
             </div>
         </div>
     </div>
 
     <script>
-        // Global admin state
-        let isAdminMode = false;
-        let blogPosts = [];
-        let currentEditingPost = null;
-        let recipes = [];
-        let currentEditingRecipe = null;
-        let recipePhotos = [];
-        let currentContentType = 'blog';
-        let currentBlogView = 'all';
+        let activeWindow = null;
+        let draggedWindow = null;
+        let dragOffset = { x: 0, y: 0 };
 
-        function showSection(sectionId) {
-            // Hide all sections
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => section.classList.remove('active'));
-
-            // Remove active class from all nav links
-            const navLinks = document.querySelectorAll('.nav-links a');
-            navLinks.forEach(link => link.classList.remove('active'));
-
-            // Show selected section
-            document.getElementById(sectionId).classList.add('active');
-
-            // Add active class to clicked nav link
-            event.target.classList.add('active');
-        }
-
-        // Admin functionality
-        function showAdminLogin() {
-            document.getElementById('adminModal').classList.add('active');
-            document.getElementById('adminPassword').focus();
-        }
-
-        function hideAdminLogin() {
-            document.getElementById('adminModal').classList.remove('active');
-            document.getElementById('adminPassword').value = '';
-        }
-
-        function adminLogin() {
-            const password = document.getElementById('adminPassword').value;
-            if (password === 'UdonisHaslem18!') {
-                enableEditMode();
-                hideAdminLogin();
-            } else {
-                alert('Incorrect password');
-                document.getElementById('adminPassword').value = '';
-            }
-        }
-
-        function enableEditMode() {
-            isAdminMode = true;
-            document.body.classList.add('edit-mode');
-            document.getElementById('adminToolbar').classList.add('active');
-
-            // Enable editing for text elements
-            const editables = document.querySelectorAll('.editable');
-            editables.forEach(el => {
-                el.contentEditable = true;
+        // Desktop icon click handlers
+        document.querySelectorAll('.desktop-icon').forEach(icon => {
+            icon.addEventListener('dblclick', function() {
+                const appName = this.dataset.app;
+                openWindow(appName);
             });
+        });
 
-            // Load blog posts
-            loadBlogPosts();
-        }
+        // Window management
+        function openWindow(appName) {
+            const windowId = appName + 'Window';
+            const window = document.getElementById(windowId);
 
-        function exitAdmin() {
-            isAdminMode = false;
-            document.body.classList.remove('edit-mode');
-            document.getElementById('adminToolbar').classList.remove('active');
-            document.getElementById('blogManager').classList.remove('active');
-            document.getElementById('recipeManager').classList.remove('active');
-
-            // Disable editing
-            const editables = document.querySelectorAll('.editable');
-            editables.forEach(el => {
-                el.contentEditable = false;
-            });
-        }
-
-        // Blog Management Functions
-        function showBlogManager() {
-            document.getElementById('blogManager').classList.add('active');
-            document.getElementById('recipeManager')?.classList.remove('active');
-            refreshBlogPostsList();
-            clearEditor();
-            switchToContentType('blog');
-        }
-
-        function switchToContentType(type) {
-            currentContentType = type;
-
-            // Update button styles
-            document.getElementById('blogTypeBtn').style.background = type === 'blog' ? '#666' : '#999';
-            document.getElementById('recipeTypeBtn').style.background = type === 'recipe' ? '#666' : '#999';
-
-            // Show/hide appropriate forms
-            document.getElementById('blogPostForm').style.display = type === 'blog' ? 'block' : 'none';
-            document.getElementById('recipeForm').style.display = type === 'recipe' ? 'block' : 'none';
-
-            // Clear editors
-            if (type === 'blog') {
-                clearEditor();
-            } else {
-                clearRecipeEditor();
-            }
-        }
-
-        function showBlogView(view) {
-            currentBlogView = view;
-
-            // Update button styles
-            document.getElementById('viewAll').style.background = view === 'all' ? '#666' : '#999';
-            document.getElementById('viewRecipes').style.background = view === 'recipes' ? '#666' : '#999';
-
-            renderBlogPosts();
-        }
-
-        function filterContent(type) {
-            // Update button styles
-            document.getElementById('filterAll').style.background = type === 'all' ? '#666' : '#999';
-            document.getElementById('filterBlog').style.background = type === 'blog' ? '#666' : '#999';
-            document.getElementById('filterRecipe').style.background = type === 'recipe' ? '#666' : '#999';
-
-            refreshBlogPostsList(type);
-        }
-
-        function closeBlogManager() {
-            document.getElementById('blogManager').classList.remove('active');
-            clearEditor();
-        }
-
-        function clearEditor() {
-            document.getElementById('blogTitle').value = '';
-            document.getElementById('blogDate').value = '';
-            document.getElementById('blogContent').value = '';
-            document.getElementById('editorTitle').textContent = 'New Blog Post';
-            document.getElementById('deleteButton').style.display = 'none';
-            document.getElementById('saveButton').textContent = 'Save Post';
-            currentEditingPost = null;
-        }
-
-        function saveBlogPost() {
-            const title = document.getElementById('blogTitle').value.trim();
-            const date = document.getElementById('blogDate').value.trim();
-            const content = document.getElementById('blogContent').value.trim();
-
-            if (!title || !date || !content) {
-                alert('Please fill in all fields (title, date, and content)');
-                return;
-            }
-
-            const postData = {
-                id: currentEditingPost ? currentEditingPost.id : Date.now().toString(),
-                title: title,
-                date: date,
-                content: content,
-                created: currentEditingPost ? currentEditingPost.created : new Date().toISOString()
-            };
-
-            if (currentEditingPost) {
-                // Update existing post
-                const index = blogPosts.findIndex(p => p.id === currentEditingPost.id);
-                if (index !== -1) {
-                    blogPosts[index] = postData;
+            if (window) {
+                // Close any active window
+                if (activeWindow && activeWindow !== window) {
+                    activeWindow.classList.remove('active');
                 }
-                alert('Blog post updated successfully!');
-            } else {
-                // Add new post
-                blogPosts.unshift(postData); // Add to beginning
-                alert('Blog post created successfully!');
-            }
 
-            saveBlogPosts();
-            renderBlogPosts();
-            refreshBlogPostsList();
-            clearEditor();
-        }
+                // Open the new window in fullscreen
+                window.classList.add('active', 'opening');
+                activeWindow = window;
 
-        function editBlogPost(postId) {
-            const post = blogPosts.find(p => p.id === postId);
-            if (post) {
-                currentEditingPost = post;
-                document.getElementById('blogTitle').value = post.title;
-                document.getElementById('blogDate').value = post.date;
-                document.getElementById('blogContent').value = post.content;
-                document.getElementById('editorTitle').textContent = 'Edit Blog Post';
-                document.getElementById('deleteButton').style.display = 'inline-block';
-                document.getElementById('saveButton').textContent = 'Update Post';
+                // Set to fullscreen
+                window.style.width = '100vw';
+                window.style.height = 'calc(100vh - 40px)';
+                window.style.left = '0';
+                window.style.top = '0';
+
+                // Remove opening animation class after animation completes
+                setTimeout(() => {
+                    window.classList.remove('opening');
+                }, 300);
             }
         }
 
-        function deleteBlogPost() {
-            if (currentEditingPost && confirm('Are you sure you want to delete this blog post?')) {
-                blogPosts = blogPosts.filter(p => p.id !== currentEditingPost.id);
-                saveBlogPosts();
-                renderBlogPosts();
-                refreshBlogPostsList();
-                clearEditor();
-                alert('Blog post deleted successfully!');
-            }
-        }
+        // Window controls
+        document.querySelectorAll('.window-control').forEach(control => {
+            control.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const window = this.closest('.window');
 
-        function cancelEdit() {
-            clearEditor();
-        }
-
-        function refreshBlogPostsList(filterType = 'all') {
-            const listContainer = document.getElementById('blogPostsList');
-
-            // Combine all content
-            let allContent = [
-                ...blogPosts.map(post => ({...post, type: 'blog'})),
-                ...recipes.map(recipe => ({...recipe, type: 'recipe'}))
-            ];
-
-            // Apply filter
-            if (filterType === 'blog') {
-                allContent = allContent.filter(item => item.type === 'blog');
-            } else if (filterType === 'recipe') {
-                allContent = allContent.filter(item => item.type === 'recipe');
-            }
-
-            if (allContent.length === 0) {
-                listContainer.innerHTML = '<p style="color: #999; font-style: italic;">No content yet.</p>';
-                return;
-            }
-
-            // Sort by creation date (newest first)
-            allContent.sort((a, b) => new Date(b.created) - new Date(a.created));
-
-            listContainer.innerHTML = '';
-            allContent.forEach(item => {
-                const itemElement = document.createElement('div');
-                itemElement.className = 'blog-post-item';
-                itemElement.onclick = () => {
-                    if (item.type === 'blog') {
-                        switchToContentType('blog');
-                        editBlogPost(item.id);
+                if (this.classList.contains('close')) {
+                    window.classList.remove('active');
+                    if (activeWindow === window) {
+                        activeWindow = null;
+                    }
+                } else if (this.classList.contains('minimize')) {
+                    window.classList.remove('active');
+                    if (activeWindow === window) {
+                        activeWindow = null;
+                    }
+                } else if (this.classList.contains('maximize')) {
+                    // Toggle maximize
+                    if (window.style.width === '100vw') {
+                        // Restore
+                        window.style.width = '800px';
+                        window.style.height = '600px';
+                        window.style.left = '50px';
+                        window.style.top = '50px';
                     } else {
-                        switchToContentType('recipe');
-                        editRecipe(item.id);
+                        // Maximize
+                        window.style.width = '100vw';
+                        window.style.height = 'calc(100vh - 40px)';
+                        window.style.left = '0';
+                        window.style.top = '0';
                     }
-                };
-
-                const preview = item.content.length > 100 ? item.content.substring(0, 100) + '...' : item.content;
-                const typeLabel = item.type === 'recipe' ? ' (Recipe)' : '';
-
-                itemElement.innerHTML = `
-                    <h5>${item.title}${typeLabel}</h5>
-                    <div class="date">${item.date}</div>
-                    <div class="preview">${preview}</div>
-                `;
-
-                listContainer.appendChild(itemElement);
-            });
-        }
-
-        function renderBlogPosts() {
-            const blogContainer = document.getElementById('blogContainer');
-            const emptyMessage = document.getElementById('emptyBlogMessage');
-
-            // Clear existing posts (except empty message)
-            const existingPosts = blogContainer.querySelectorAll('.blog-list-item, .blog-item');
-            existingPosts.forEach(post => post.remove());
-
-            // Combine blog posts and recipes
-            let allItems = [
-                ...blogPosts.map(post => ({...post, type: 'blog'})),
-                ...recipes.map(recipe => ({...recipe, type: 'recipe'}))
-            ];
-
-            // Filter based on current view
-            if (currentBlogView === 'recipes') {
-                allItems = allItems.filter(item => item.type === 'recipe');
-            }
-
-            if (allItems.length === 0) {
-                emptyMessage.style.display = 'block';
-                if (currentBlogView === 'recipes') {
-                    emptyMessage.textContent = 'No recipes yet. Use admin mode to add your first recipe!';
-                } else {
-                    emptyMessage.textContent = 'No blog posts or recipes yet. Use admin mode to add your first content!';
-                }
-                return;
-            }
-
-            emptyMessage.style.display = 'none';
-
-            // Sort by creation date (newest first)
-            allItems.sort((a, b) => new Date(b.created) - new Date(a.created));
-
-            // Render filtered items as a clean list
-            allItems.forEach(item => {
-                const postElement = document.createElement('div');
-                postElement.className = 'blog-list-item';
-                postElement.onclick = () => {
-                    if (item.type === 'blog') {
-                        showBlogPost(item.id);
-                    } else {
-                        showRecipe(item.id);
-                    }
-                };
-
-                const typeLabel = (currentBlogView === 'all' && item.type === 'recipe') ? ' (Recipe)' : '';
-                postElement.innerHTML = `
-                    <div class="blog-list-title">${item.title}${typeLabel}</div>
-                    <div class="blog-list-date">${item.date}</div>
-                `;
-                blogContainer.insertBefore(postElement, emptyMessage);
-            });
-        }
-
-        function showBlogPost(postId) {
-            const post = blogPosts.find(p => p.id === postId);
-            if (!post) return;
-
-            const blogContainer = document.getElementById('blogContainer');
-
-            // Hide all blog list items
-            const listItems = blogContainer.querySelectorAll('.blog-list-item');
-            listItems.forEach(item => item.style.display = 'none');
-
-            // Hide empty message
-            const emptyMessage = document.getElementById('emptyBlogMessage');
-            emptyMessage.style.display = 'none';
-
-            // Remove any existing full post view
-            const existingFullPost = blogContainer.querySelector('.blog-full-post');
-            if (existingFullPost) {
-                existingFullPost.remove();
-            }
-
-            // Create full post view
-            const fullPostElement = document.createElement('div');
-            fullPostElement.className = 'blog-full-post';
-            fullPostElement.innerHTML = `
-                <button onclick="showBlogList()" class="back-to-list">← Back to Blog List</button>
-                <h3>${post.title}</h3>
-                <div class="blog-date">${post.date}</div>
-                <div class="blog-content">${post.content.replace(/\n/g, '<br>')}</div>
-            `;
-
-            blogContainer.appendChild(fullPostElement);
-        }
-
-        function showBlogList() {
-            const blogContainer = document.getElementById('blogContainer');
-
-            // Show all blog list items
-            const listItems = blogContainer.querySelectorAll('.blog-list-item');
-            listItems.forEach(item => item.style.display = 'block');
-
-            // Remove full post view
-            const existingFullPost = blogContainer.querySelector('.blog-full-post');
-            if (existingFullPost) {
-                existingFullPost.remove();
-            }
-
-            // Show empty message if no posts or recipes
-            if (blogPosts.length === 0 && recipes.length === 0) {
-                const emptyMessage = document.getElementById('emptyBlogMessage');
-                emptyMessage.style.display = 'block';
-                emptyMessage.textContent = 'No blog posts or recipes yet. Use admin mode to add your first content!';
-            }
-        }
-
-        function saveBlogPosts() {
-            localStorage.setItem('blogPosts', JSON.stringify(blogPosts));
-        }
-
-        function loadBlogPosts() {
-            const saved = localStorage.getItem('blogPosts');
-            if (saved) {
-                try {
-                    blogPosts = JSON.parse(saved);
-                } catch (e) {
-                    console.error('Could not load blog posts:', e);
-                    blogPosts = [];
-                }
-            }
-            // Load recipes as well
-            loadRecipes();
-            // Render everything together
-            renderBlogPosts();
-        }
-
-        function saveContent() {
-            // Save both blog posts and other content
-            const content = {
-                timestamp: new Date().toISOString(),
-                sections: {},
-                blogPosts: blogPosts
-            };
-
-            // Collect editable content
-            const editables = document.querySelectorAll('.editable');
-            editables.forEach((el, index) => {
-                content.sections[`element_${index}`] = el.innerHTML;
-            });
-
-            localStorage.setItem('websiteContent', JSON.stringify(content));
-            saveBlogPosts(); // Also save blog posts separately
-
-            alert(`✅ Content saved successfully!\n\nTimestamp: ${new Date().toLocaleString()}\n\nSaved ${blogPosts.length} blog posts and all text content.`);
-        }
-
-        function loadSavedContent() {
-            // Load blog posts
-            loadBlogPosts();
-
-            // Load other content
-            const saved = localStorage.getItem('websiteContent');
-            if (saved) {
-                try {
-                    const content = JSON.parse(saved);
-                    const editables = document.querySelectorAll('.editable');
-                    editables.forEach((el, index) => {
-                        const savedContent = content.sections[`element_${index}`];
-                        if (savedContent) {
-                            el.innerHTML = savedContent;
-                        }
-                    });
-
-                    // Load blog posts from the main content if available
-                    if (content.blogPosts && content.blogPosts.length > 0) {
-                        blogPosts = content.blogPosts;
-                        renderBlogPosts();
-                    }
-                } catch (e) {
-                    console.log('Could not load saved content');
-                }
-            }
-        }
-
-        // Handle Enter key in password field
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('adminPassword').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    adminLogin();
                 }
             });
         });
 
+        // Window dragging
+        document.querySelectorAll('.window-header').forEach(header => {
+            header.addEventListener('mousedown', function(e) {
+                const window = this.parentElement;
+                draggedWindow = window;
 
-        function clearRecipeEditor() {
-            document.getElementById('recipeTitle').value = '';
-            document.getElementById('recipeDate').value = '';
-            document.getElementById('recipeContent').value = '';
-            document.getElementById('recipeEditorTitle').textContent = 'New Recipe';
-            document.getElementById('deleteRecipeButton').style.display = 'none';
-            document.getElementById('saveRecipeButton').textContent = 'Save Recipe';
-            document.getElementById('recipePhotos').innerHTML = '';
-            currentEditingRecipe = null;
-            recipePhotos = [];
-        }
+                const rect = window.getBoundingClientRect();
+                dragOffset.x = e.clientX - rect.left;
+                dragOffset.y = e.clientY - rect.top;
 
-        function addPhotosToRecipe() {
-            const fileInput = document.getElementById('photoUpload');
-            const files = fileInput.files;
+                // Bring to front
+                window.classList.add('active');
+                if (activeWindow && activeWindow !== window) {
+                    activeWindow.classList.remove('active');
+                }
+                activeWindow = window;
 
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    const photoData = {
-                        id: Date.now() + '_' + i,
-                        src: e.target.result,
-                        name: file.name
-                    };
-
-                    recipePhotos.push(photoData);
-                    renderRecipePhotos();
-                };
-
-                reader.readAsDataURL(file);
-            }
-
-            fileInput.value = ''; // Clear the input
-        }
-
-        function renderRecipePhotos() {
-            const container = document.getElementById('recipePhotos');
-            container.innerHTML = '';
-
-            recipePhotos.forEach((photo, index) => {
-                const photoElement = document.createElement('div');
-                photoElement.className = 'recipe-photo';
-                photoElement.draggable = true;
-                photoElement.dataset.photoId = photo.id;
-                photoElement.dataset.index = index;
-
-                photoElement.innerHTML = `
-                    <img src="${photo.src}" alt="${photo.name}" />
-                    <button class="remove-photo" onclick="removePhoto('${photo.id}')" title="Remove photo">×</button>
-                `;
-
-                // Add drag event listeners for desktop
-                photoElement.addEventListener('dragstart', handleDragStart);
-                photoElement.addEventListener('dragover', handleDragOver);
-                photoElement.addEventListener('drop', handleDrop);
-                photoElement.addEventListener('dragend', handleDragEnd);
-
-                // Add touch event listeners for mobile
-                photoElement.addEventListener('touchstart', handleTouchStart, { passive: false });
-                photoElement.addEventListener('touchmove', handleTouchMove, { passive: false });
-                photoElement.addEventListener('touchend', handleTouchEnd, { passive: false });
-
-                container.appendChild(photoElement);
-            });
-        }
-
-        function removePhoto(photoId) {
-            recipePhotos = recipePhotos.filter(photo => photo.id !== photoId);
-            renderRecipePhotos();
-        }
-
-        // Drag and drop functionality (enhanced for mobile)
-        let draggedElement = null;
-        let touchStartPos = null;
-        let isDragging = false;
-
-        function handleDragStart(e) {
-            draggedElement = e.target.closest('.recipe-photo');
-            draggedElement.classList.add('dragging');
-            e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setData('text/html', draggedElement.outerHTML);
-        }
-
-        function handleDragOver(e) {
-            e.preventDefault();
-            e.dataTransfer.dropEffect = 'move';
-            const targetElement = e.target.closest('.recipe-photo');
-            if (targetElement && targetElement !== draggedElement) {
-                targetElement.classList.add('drag-over');
-            }
-        }
-
-        function handleDrop(e) {
-            e.preventDefault();
-            const targetElement = e.target.closest('.recipe-photo');
-
-            if (targetElement && targetElement !== draggedElement) {
-                const draggedIndex = parseInt(draggedElement.dataset.index);
-                const targetIndex = parseInt(targetElement.dataset.index);
-
-                // Reorder photos in array
-                const draggedPhoto = recipePhotos[draggedIndex];
-                recipePhotos.splice(draggedIndex, 1);
-                recipePhotos.splice(targetIndex, 0, draggedPhoto);
-
-                renderRecipePhotos();
-            }
-
-            // Clean up
-            document.querySelectorAll('.recipe-photo').forEach(el => {
-                el.classList.remove('drag-over');
-            });
-        }
-
-        function handleDragEnd(e) {
-            if (draggedElement) {
-                draggedElement.classList.remove('dragging');
-            }
-            document.querySelectorAll('.recipe-photo').forEach(el => {
-                el.classList.remove('drag-over');
-            });
-            draggedElement = null;
-        }
-
-        // Touch handlers for mobile drag and drop
-        function handleTouchStart(e) {
-            const touch = e.touches[0];
-            touchStartPos = { x: touch.clientX, y: touch.clientY };
-            draggedElement = e.target.closest('.recipe-photo');
-            isDragging = false;
-        }
-
-        function handleTouchMove(e) {
-            if (!draggedElement || !touchStartPos) return;
-
-            const touch = e.touches[0];
-            const deltaX = touch.clientX - touchStartPos.x;
-            const deltaY = touch.clientY - touchStartPos.y;
-
-            // Start dragging if moved enough
-            if (!isDragging && (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10)) {
-                isDragging = true;
-                draggedElement.classList.add('dragging');
                 e.preventDefault();
-            }
-
-            if (isDragging) {
-                e.preventDefault();
-                // Find element under touch point
-                const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
-                const targetElement = elementBelow?.closest('.recipe-photo');
-
-                // Clear previous highlights
-                document.querySelectorAll('.recipe-photo').forEach(el => {
-                    el.classList.remove('drag-over');
-                });
-
-                if (targetElement && targetElement !== draggedElement) {
-                    targetElement.classList.add('drag-over');
-                }
-            }
-        }
-
-        function handleTouchEnd(e) {
-            if (!draggedElement) return;
-
-            if (isDragging) {
-                const touch = e.changedTouches[0];
-                const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
-                const targetElement = elementBelow?.closest('.recipe-photo');
-
-                if (targetElement && targetElement !== draggedElement) {
-                    const draggedIndex = parseInt(draggedElement.dataset.index);
-                    const targetIndex = parseInt(targetElement.dataset.index);
-
-                    // Reorder photos
-                    const draggedPhoto = recipePhotos[draggedIndex];
-                    recipePhotos.splice(draggedIndex, 1);
-                    recipePhotos.splice(targetIndex, 0, draggedPhoto);
-
-                    renderRecipePhotos();
-                }
-            }
-
-            // Clean up
-            if (draggedElement) {
-                draggedElement.classList.remove('dragging');
-            }
-            document.querySelectorAll('.recipe-photo').forEach(el => {
-                el.classList.remove('drag-over');
             });
-
-            draggedElement = null;
-            touchStartPos = null;
-            isDragging = false;
-        }
-
-        function saveRecipe() {
-            const title = document.getElementById('recipeTitle').value.trim();
-            const date = document.getElementById('recipeDate').value.trim();
-            const content = document.getElementById('recipeContent').value.trim();
-
-            if (!title || !date || !content) {
-                alert('Please fill in all fields (title, date, and content)');
-                return;
-            }
-
-            const recipeData = {
-                id: currentEditingRecipe ? currentEditingRecipe.id : Date.now().toString(),
-                title: title,
-                date: date,
-                content: content,
-                photos: [...recipePhotos], // Copy of photos array
-                created: currentEditingRecipe ? currentEditingRecipe.created : new Date().toISOString()
-            };
-
-            if (currentEditingRecipe) {
-                const index = recipes.findIndex(r => r.id === currentEditingRecipe.id);
-                if (index !== -1) {
-                    recipes[index] = recipeData;
-                }
-                alert('Recipe updated successfully!');
-            } else {
-                recipes.unshift(recipeData);
-                alert('Recipe created successfully!');
-            }
-
-            saveRecipes();
-            renderBlogPosts(); // Update the blog display to include recipes
-            refreshBlogPostsList();
-            clearRecipeEditor();
-        }
-
-        function editRecipe(recipeId) {
-            const recipe = recipes.find(r => r.id === recipeId);
-            if (recipe) {
-                currentEditingRecipe = recipe;
-                document.getElementById('recipeTitle').value = recipe.title;
-                document.getElementById('recipeDate').value = recipe.date;
-                document.getElementById('recipeContent').value = recipe.content;
-                document.getElementById('recipeEditorTitle').textContent = 'Edit Recipe';
-                document.getElementById('deleteRecipeButton').style.display = 'inline-block';
-                document.getElementById('saveRecipeButton').textContent = 'Update Recipe';
-
-                // Load photos
-                recipePhotos = recipe.photos ? [...recipe.photos] : [];
-                renderRecipePhotos();
-            }
-        }
-
-        function deleteRecipe() {
-            if (currentEditingRecipe && confirm('Are you sure you want to delete this recipe?')) {
-                recipes = recipes.filter(r => r.id !== currentEditingRecipe.id);
-                saveRecipes();
-                renderBlogPosts(); // Update the blog display to include recipes
-                refreshBlogPostsList();
-                clearRecipeEditor();
-                alert('Recipe deleted successfully!');
-            }
-        }
-
-        function cancelRecipeEdit() {
-            clearRecipeEditor();
-        }
-
-
-
-        function showRecipe(recipeId) {
-            const recipe = recipes.find(r => r.id === recipeId);
-            if (!recipe) return;
-
-            const blogContainer = document.getElementById('blogContainer');
-
-            // Hide all blog list items
-            const listItems = blogContainer.querySelectorAll('.blog-list-item');
-            listItems.forEach(item => item.style.display = 'none');
-
-            // Hide empty message
-            const emptyMessage = document.getElementById('emptyBlogMessage');
-            emptyMessage.style.display = 'none';
-
-            // Remove any existing full post view
-            const existingFullPost = blogContainer.querySelector('.blog-full-post');
-            if (existingFullPost) {
-                existingFullPost.remove();
-            }
-
-            // Create full recipe view
-            const fullRecipeElement = document.createElement('div');
-            fullRecipeElement.className = 'blog-full-post recipe-full-post';
-
-            let photosHTML = '';
-            if (recipe.photos && recipe.photos.length > 0) {
-                photosHTML = '<div class="recipe-photos-display">';
-                recipe.photos.forEach(photo => {
-                    photosHTML += `<img src="${photo.src}" alt="${photo.name}" />`;
-                });
-                photosHTML += '</div>';
-            }
-
-            fullRecipeElement.innerHTML = `
-                <button onclick="showBlogList()" class="back-to-list">← Back to Blog List</button>
-                <h3>${recipe.title}</h3>
-                <div class="blog-date">${recipe.date}</div>
-                ${photosHTML}
-                <div class="blog-content">${recipe.content.replace(/\n/g, '<br>')}</div>
-            `;
-
-            blogContainer.appendChild(fullRecipeElement);
-        }
-
-
-        function saveRecipes() {
-            localStorage.setItem('recipes', JSON.stringify(recipes));
-        }
-
-        function loadRecipes() {
-            const saved = localStorage.getItem('recipes');
-            if (saved) {
-                try {
-                    recipes = JSON.parse(saved);
-                } catch (e) {
-                    console.error('Could not load recipes:', e);
-                    recipes = [];
-                }
-            }
-        }
-
-        // Update the main save function to include recipes
-        function saveContent() {
-            const content = {
-                timestamp: new Date().toISOString(),
-                sections: {},
-                blogPosts: blogPosts,
-                recipes: recipes
-            };
-
-            const editables = document.querySelectorAll('.editable');
-            editables.forEach((el, index) => {
-                content.sections[`element_${index}`] = el.innerHTML;
-            });
-
-            localStorage.setItem('websiteContent', JSON.stringify(content));
-            saveBlogPosts();
-            saveRecipes();
-
-            alert(`✅ Content saved successfully!\n\nTimestamp: ${new Date().toLocaleString()}\n\nSaved ${blogPosts.length} blog posts, ${recipes.length} recipes, and all text content.`);
-        }
-
-        // Update load content to include recipes
-        function loadSavedContent() {
-            loadBlogPosts(); // This now loads both blog posts and recipes
-
-            const saved = localStorage.getItem('websiteContent');
-            if (saved) {
-                try {
-                    const content = JSON.parse(saved);
-                    const editables = document.querySelectorAll('.editable');
-                    editables.forEach((el, index) => {
-                        const savedContent = content.sections[`element_${index}`];
-                        if (savedContent) {
-                            el.innerHTML = savedContent;
-                        }
-                    });
-
-                    if (content.blogPosts && content.blogPosts.length > 0) {
-                        blogPosts = content.blogPosts;
-                    }
-
-                    if (content.recipes && content.recipes.length > 0) {
-                        recipes = content.recipes;
-                    }
-
-                    // Render everything together
-                    renderBlogPosts();
-                } catch (e) {
-                    console.log('Could not load saved content');
-                }
-            }
-        }
-
-        // Initialize calamari salad recipe
-        function initializeCalamariSalad() {
-            const calamariRecipe = {
-                id: 'calamari_salad_' + Date.now(),
-                title: 'Calamari Salad',
-                date: 'january 15, 2024',
-                content: `A refreshing and elegant calamari salad perfect for dinner parties and special occasions.
-
-Ingredients:
-- 2 lbs fresh squid, cleaned and cut into rings
-- 1/4 cup olive oil
-- 2 tablespoons lemon juice
-- 1 red bell pepper, diced
-- 1/2 red onion, thinly sliced
-- 2 celery stalks, diced
-- 1/4 cup fresh parsley, chopped
-- 2 tablespoons capers
-- Salt and pepper to taste
-- Mixed greens for serving
-
-Instructions:
-1. Bring a large pot of salted water to boil
-2. Add squid rings and cook for 2-3 minutes until tender (don't overcook!)
-3. Drain and rinse with cold water to stop cooking
-4. In a large bowl, whisk together olive oil, lemon juice, salt, and pepper
-5. Add the cooked squid, bell pepper, red onion, celery, parsley, and capers
-6. Toss well to combine and let marinate for at least 30 minutes
-7. Serve over mixed greens
-
-Tips:
-- Don't overcook the squid or it will become rubbery
-- The salad tastes even better after marinating for a few hours
-- Perfect as an appetizer or light main course`,
-                photos: [],
-                created: new Date().toISOString()
-            };
-
-            // Only add if no recipes exist yet
-            if (recipes.length === 0) {
-                recipes.push(calamariRecipe);
-                saveRecipes();
-                renderBlogPosts(); // Update the blog display to show the recipe
-            }
-        }
-
-        // Initialize game collection blog post
-        function initializeGameCollectionPost() {
-            const gameCollectionPost = {
-                id: 'game_collection_' + Date.now(),
-                title: 'My Video Game Collection',
-                date: 'september 24, 2024',
-                content: `A curated collection of video games spanning multiple generations and platforms. From modern AAA titles to retro classics, here's what makes up my gaming library.
-
-🎮 **Nintendo Switch Highlights**
-• The Legend of Zelda: Tears of the Kingdom - $39.99
-• Fire Emblem: Three Houses - $37.50
-• Metroid Dread - $40.00
-• Pikmin 3 Deluxe - $37.00
-• Captain Toad: Treasure Tracker - $28.57
-• Pokémon Scarlet (Japanese Edition) - $70.74
-
-🕹️ **PlayStation 5 Collection**
-• Dead Space - $17.54
-• Star Wars Jedi: Survivor - $16.58
-• Helldivers II - $25.91
-• The Last of Us Part I - $32.49
-• Marvel's Spider-Man 2 - $33.92
-• Cyberpunk 2077: Ultimate Edition - $50.00
-
-👾 **Retro & Rare Finds**
-• GameCube: Eternal Darkness - $91.23
-• Super Famicom: Mother 2 - $57.90
-• Nintendo DS: Chrono Trigger - $114.93
-• Nintendo DS: Pokémon White - $104.97
-
-🎯 **Hardware Collection**
-• Nintendo 3DS XL Zelda Edition (Complete in Box) - $386.24
-  Condition: Normal wear, includes item, box, and manual
-
-**Collection Philosophy**
-My collection focuses on games that have either personal significance, critical acclaim, or represent important milestones in gaming history. From the emotional storytelling of The Last of Us to the innovative gameplay of Tears of the Kingdom, each title offers something unique.
-
-The mix of modern and retro games reflects my appreciation for both cutting-edge graphics and timeless gameplay mechanics. Special attention goes to complete-in-box items and regional exclusives like the Japanese Pokémon Scarlet.
-
-**Total Collection Value**: Approximately $1,200+ across multiple platforms
-**Platforms Represented**: Nintendo Switch, PlayStation 5, Nintendo 3DS, GameCube, Super Famicom, Nintendo DS
-
-This collection continues to grow as new releases catch my interest and rare finds appear in the wild. Gaming isn't just a hobby—it's a passion for interactive storytelling and digital art.`,
-                created: new Date().toISOString()
-            };
-
-            // Only add if no game collection post exists yet
-            const existingGamePost = blogPosts.find(post => post.title === 'My Video Game Collection');
-            if (!existingGamePost) {
-                blogPosts.unshift(gameCollectionPost);
-                saveBlogPosts();
-                renderBlogPosts(); // Update the blog display
-            }
-        }
-
-        // Load content when page loads
-        window.addEventListener('load', function() {
-            loadSavedContent();
-            setTimeout(() => {
-                initializeCalamariSalad();
-                initializeGameCollectionPost();
-            }, 1000);
         });
+
+        document.addEventListener('mousemove', function(e) {
+            if (draggedWindow) {
+                const x = e.clientX - dragOffset.x;
+                const y = e.clientY - dragOffset.y;
+
+                // Constrain to screen bounds
+                const maxX = window.innerWidth - draggedWindow.offsetWidth;
+                const maxY = window.innerHeight - draggedWindow.offsetHeight - 40;
+
+                draggedWindow.style.left = Math.max(0, Math.min(maxX, x)) + 'px';
+                draggedWindow.style.top = Math.max(0, Math.min(maxY, y)) + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', function() {
+            draggedWindow = null;
+        });
+
+        // Clock
+        function updateClock() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
+            const dateStr = now.toLocaleDateString('en-US', {
+                month: 'numeric',
+                day: 'numeric',
+                year: 'numeric'
+            });
+
+            document.getElementById('time').textContent = timeStr;
+            document.getElementById('date').textContent = dateStr;
+        }
+
+        // Update clock every second
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Start button (placeholder)
+        document.querySelector('.start-button').addEventListener('click', function() {
+            console.log('Start menu clicked - could implement start menu here');
+        });
+
+        console.log('Windows 7 Desktop loaded! 💻');
     </script>
 </body>
 </html>
