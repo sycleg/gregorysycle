@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="theme-color" content="#3d6aa2"/>
+    <meta name="description" content="Windows 7 Desktop Experience"/>
+    <title>Windows 7 Desktop</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            background: linear-gradient(to bottom, #6bb6ff 0%, #3d83c6 50%, #4a90e2 100%);
+            position: relative;
+        }
+
+        /* Desktop wallpaper */
+        .wallpaper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 30%, #2d3436 100%);
+            background-size: cover;
+            z-index: -1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .portfolio-title {
+            font-size: 6rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.1);
+            text-transform: uppercase;
+            letter-spacing: 0.5rem;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* Desktop icons container */
+        .desktop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 40px);
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 100px);
+            grid-gap: 20px;
+            align-content: start;
+            overflow: auto;
+        }
+
+        /* Desktop icon */
+        .desktop-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 4px;
+            padding: 8px;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .desktop-icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .desktop-icon:active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .icon-image {
+            width: 48px;
+            height: 48px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-bottom: 4px;
+        }
+
+        .icon-label {
+            color: white;
+            font-size: 11px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            word-wrap: break-word;
+            max-width: 100%;
+            line-height: 1.2;
+        }
+
+        /* Taskbar */
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: linear-gradient(to bottom, #4a90e2 0%, #2171b5 50%, #1e5a96 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Start button */
+        .start-button {
+            width: 60px;
+            height: 100%;
+            background: linear-gradient(to bottom, #5c9ede 0%, #2171b5 50%, #1e5a96 100%);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.1s ease;
+            border-right: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        .start-button:hover {
+            background: linear-gradient(to bottom, #6bb6ff 0%, #3d83c6 50%, #2171b5 100%);
+        }
+
+        .start-button:active {
+            background: linear-gradient(to bottom, #2171b5 0%, #1e5a96 50%, #1a4f87 100%);
+        }
+
+        .start-orb {
+            width: 24px;
+            height: 24px;
+            background: radial-gradient(circle at 30% 30%, #fff 0%, #4a90e2 100%);
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+
+        .start-orb::before {
+            content: "⊞";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* System tray */
+        .system-tray {
+            margin-left: auto;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .clock {
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            line-height: 1.2;
+            padding: 0 8px;
+        }
+
+        /* Window styles */
+        .window {
+            position: absolute;
+            background: white;
+            border: 1px solid #5c9ede;
+            border-radius: 8px 8px 0 0;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            min-width: 600px;
+            min-height: 500px;
+            width: 800px;
+            height: 600px;
+            display: none;
+            overflow: hidden;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .window.active {
+            display: block;
+            z-index: 101;
+        }
+
+        .window-header {
+            height: 30px;
+            background: linear-gradient(to bottom,
+                #6bb6ff 0%,
+                #5c9ede 25%,
+                #4a90e2 50%,
+                #3d83c6 75%,
+                #2171b5 100%
+            );
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            cursor: move;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .window-title {
+            flex: 1;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .window-control {
+            width: 20px;
+            height: 18px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: white;
+            transition: background 0.2s ease;
+        }
+
+        .window-control:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .window-control.close:hover {
+            background: #e81123;
+        }
+
+        .window-content {
+            height: calc(100% - 30px);
+            overflow: hidden;
+        }
+
+        .window-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* App icon styles */
+        .valentine-icon {
+            background: linear-gradient(to bottom, #ffffff 0%, #f8f8f8 100%);
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #e91e63;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+
+        .valentine-icon::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff9a9e, #fecfef, #ff9a9e);
+            border-radius: 12px;
+            z-index: -1;
+        }
+
+        .pc-icon {
+            background: linear-gradient(135deg, #4a90e2, #2171b5);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+        }
+
+        .blog-icon {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .game-icon {
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .travel-icon {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .doom-icon {
+            background: linear-gradient(135deg, #e17055, #d63031);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        /* Animations */
+        @keyframes windowOpen {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .window.opening {
+            animation: windowOpen 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .desktop {
+                grid-template-columns: repeat(auto-fill, 80px);
+                grid-gap: 15px;
+            }
+
+            .desktop-icon {
+                width: 70px;
+                height: 70px;
+            }
+
+            .icon-image {
+                width: 40px;
+                height: 40px;
+            }
+
+            .window {
+                min-width: 90vw;
+                min-height: 70vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wallpaper">
+        <div class="portfolio-title">Greg's Portfolio</div>
+    </div>
+
+    <div class="desktop">
+        <!-- Valentine's Day App -->
+        <div class="desktop-icon" data-app="valentine">
+            <div class="icon-image valentine-icon">♥</div>
+            <div class="icon-label">Valentine's Day</div>
+        </div>
+    </div>
+
+    <!-- Windows -->
+    <div id="valentineWindow" class="window">
+        <div class="window-header">
+            <div class="window-title">💕 Valentine's Day</div>
+            <div class="window-controls">
+                <div class="window-control close">×</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <iframe src="clean-valentine.html"></iframe>
+        </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+        <button class="start-button">
+            <div class="start-orb"></div>
+        </button>
+
+        <div class="system-tray">
+            <div class="clock">
+                <div id="time"></div>
+                <div id="date"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let activeWindow = null;
+        let draggedWindow = null;
+        let dragOffset = { x: 0, y: 0 };
+
+        // Desktop icon click handlers
+        document.querySelectorAll('.desktop-icon').forEach(icon => {
+            icon.addEventListener('dblclick', function() {
+                const appName = this.dataset.app;
+                openWindow(appName);
+            });
+        });
+
+        // Window management
+        function openWindow(appName) {
+            const windowId = appName + 'Window';
+            const window = document.getElementById(windowId);
+
+            if (window) {
+                // Close any active window
+                if (activeWindow && activeWindow !== window) {
+                    activeWindow.classList.remove('active');
+                }
+
+                // Open the new window in fullscreen
+                window.classList.add('active', 'opening');
+                activeWindow = window;
+
+                // Set to fullscreen
+                window.style.width = '100vw';
+                window.style.height = 'calc(100vh - 40px)';
+                window.style.left = '0';
+                window.style.top = '0';
+
+                // Remove opening animation class after animation completes
+                setTimeout(() => {
+                    window.classList.remove('opening');
+                }, 300);
+            }
+        }
+
+        // Window controls
+        document.querySelectorAll('.window-control').forEach(control => {
+            control.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const window = this.closest('.window');
+
+                if (this.classList.contains('close')) {
+                    window.classList.remove('active');
+                    if (activeWindow === window) {
+                        activeWindow = null;
+                    }
+                } else if (this.classList.contains('minimize')) {
+                    window.classList.remove('active');
+                    if (activeWindow === window) {
+                        activeWindow = null;
+                    }
+                } else if (this.classList.contains('maximize')) {
+                    // Toggle maximize
+                    if (window.style.width === '100vw') {
+                        // Restore
+                        window.style.width = '800px';
+                        window.style.height = '600px';
+                        window.style.left = '50px';
+                        window.style.top = '50px';
+                    } else {
+                        // Maximize
+                        window.style.width = '100vw';
+                        window.style.height = 'calc(100vh - 40px)';
+                        window.style.left = '0';
+                        window.style.top = '0';
+                    }
+                }
+            });
+        });
+
+        // Window dragging
+        document.querySelectorAll('.window-header').forEach(header => {
+            header.addEventListener('mousedown', function(e) {
+                const window = this.parentElement;
+                draggedWindow = window;
+
+                const rect = window.getBoundingClientRect();
+                dragOffset.x = e.clientX - rect.left;
+                dragOffset.y = e.clientY - rect.top;
+
+                // Bring to front
+                window.classList.add('active');
+                if (activeWindow && activeWindow !== window) {
+                    activeWindow.classList.remove('active');
+                }
+                activeWindow = window;
+
+                e.preventDefault();
+            });
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (draggedWindow) {
+                const x = e.clientX - dragOffset.x;
+                const y = e.clientY - dragOffset.y;
+
+                // Constrain to screen bounds
+                const maxX = window.innerWidth - draggedWindow.offsetWidth;
+                const maxY = window.innerHeight - draggedWindow.offsetHeight - 40;
+
+                draggedWindow.style.left = Math.max(0, Math.min(maxX, x)) + 'px';
+                draggedWindow.style.top = Math.max(0, Math.min(maxY, y)) + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', function() {
+            draggedWindow = null;
+        });
+
+        // Clock
+        function updateClock() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
+            const dateStr = now.toLocaleDateString('en-US', {
+                month: 'numeric',
+                day: 'numeric',
+                year: 'numeric'
+            });
+
+            document.getElementById('time').textContent = timeStr;
+            document.getElementById('date').textContent = dateStr;
+        }
+
+        // Update clock every second
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Start button (placeholder)
+        document.querySelector('.start-button').addEventListener('click', function() {
+            console.log('Start menu clicked - could implement start menu here');
+        });
+
+        console.log('Windows 7 Desktop loaded! 💻');
+    </script>
+</body>
+</html>

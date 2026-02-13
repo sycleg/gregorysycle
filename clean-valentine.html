@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="theme-color" content="#FFC0CB"/>
+    <meta name="description" content="Angie, will you please be my valentine?"/>
+    <title>Will you be my valentine?</title>
+
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Libre Baskerville', serif;
+            background: #FFC0CB;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #8B4B72;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 40px;
+        }
+
+        .question {
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 80px;
+            line-height: 1.2;
+            animation: fadeIn 2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 200px;
+            margin: 80px 0;
+            padding: 60px;
+            position: relative;
+            height: 200px;
+        }
+
+        .choice-btn {
+            padding: 20px 40px;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.8rem;
+            border: 3px solid #8B4B72;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            background: white;
+            transform-origin: center;
+            user-select: none;
+            color: #8B4B72;
+            font-weight: 600;
+            box-shadow: 0 8px 25px rgba(139, 75, 114, 0.2);
+            min-width: 120px;
+        }
+
+        .choice-btn:hover {
+            background: #8B4B72;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 12px 35px rgba(139, 75, 114, 0.4);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .question {
+                font-size: 2rem;
+            }
+
+            .buttons-container {
+                gap: 100px;
+                flex-direction: column;
+                height: 300px;
+            }
+
+            .choice-btn {
+                font-size: 1.5rem;
+                padding: 20px 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="question">
+            Angie, will you please be my valentine?
+        </div>
+
+        <div class="buttons-container" id="buttonsContainer">
+            <button class="choice-btn yes-btn" id="yesBtn" onclick="handleChoice('yes')">
+                Yes
+            </button>
+            <button class="choice-btn no-btn" id="noBtn" onclick="handleChoice('no')">
+                No
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let mouseX = 0;
+        let mouseY = 0;
+        let isChoiceMade = false;
+
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+
+        // Track mouse movement
+        document.addEventListener('mousemove', (e) => {
+            if (isChoiceMade) return;
+
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            updateButtonSizes();
+        });
+
+        function updateButtonSizes() {
+            const noBtnRect = noBtn.getBoundingClientRect();
+            const noBtnCenterX = noBtnRect.left + noBtnRect.width / 2;
+            const noBtnCenterY = noBtnRect.top + noBtnRect.height / 2;
+
+            // Calculate distance from mouse to "no" button center
+            const distanceToNo = Math.sqrt(
+                Math.pow(mouseX - noBtnCenterX, 2) + Math.pow(mouseY - noBtnCenterY, 2)
+            );
+
+            // Define the effect radius
+            const maxDistance = 300;
+            const minDistance = 0;
+
+            if (distanceToNo < maxDistance) {
+                // Calculate how close we are (0 = very close, 1 = far away)
+                const proximity = Math.max(0, (distanceToNo - minDistance) / (maxDistance - minDistance));
+
+                // As we get closer to "no", "yes" gets bigger and "no" completely disappears
+                const yesScale = 1 + (1 - proximity) * 2; // Yes grows up to 3x
+                const noScale = proximity; // No shrinks to literally 0 when very close
+                const noOpacity = proximity; // No becomes completely transparent
+
+                yesBtn.style.transform = `scale(${yesScale})`;
+                noBtn.style.transform = `scale(${noScale})`;
+                noBtn.style.opacity = noOpacity;
+
+                // Add rotation for extra effect
+                yesBtn.style.transform += ` rotate(${(1 - proximity) * -5}deg)`;
+                noBtn.style.transform += ` rotate(${(1 - proximity) * 10}deg)`;
+
+                // Add glow effect to yes button as NO disappears
+                const glowIntensity = (1 - proximity) * 30;
+                yesBtn.style.boxShadow = `0 0 ${glowIntensity}px rgba(139, 75, 114, 0.8)`;
+
+            } else {
+                // Reset to normal sizes when mouse is far away
+                yesBtn.style.transform = 'scale(1)';
+                noBtn.style.transform = 'scale(1)';
+                noBtn.style.opacity = '1';
+                yesBtn.style.boxShadow = '0 8px 25px rgba(139, 75, 114, 0.2)';
+            }
+        }
+
+        function handleChoice(choice) {
+            if (isChoiceMade) return;
+
+            isChoiceMade = true;
+
+            if (choice === 'yes') {
+                // Redirect to celebration page
+                window.location.href = 'celebration-clean.html';
+            } else {
+                // Just hide the NO button if somehow clicked
+                noBtn.style.display = 'none';
+                // Add a gentle message
+                setTimeout(() => {
+                    const message = document.createElement('div');
+                    message.style.fontSize = '1.5rem';
+                    message.style.color = '#8B4B72';
+                    message.style.marginTop = '40px';
+                    message.style.fontStyle = 'italic';
+                    message.textContent = 'I understand... but my heart remains hopeful 💕';
+                    document.querySelector('.container').appendChild(message);
+                }, 500);
+            }
+        }
+
+        console.log('Clean Valentine website loaded! 💕');
+    </script>
+</body>
+</html>
