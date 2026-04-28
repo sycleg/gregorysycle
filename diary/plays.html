@@ -300,6 +300,15 @@
         @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 60%{transform:translateX(6px)} }
         .shake { animation: shake 0.4s; }
 
+        /* ── CARD ACTIONS (edit/delete — logged in only) ── */
+        .card-actions { display: none; padding: 6px 11px 8px; gap: 4px; border-top: 1px solid #dde8f0; }
+        body.authed .card-actions { display: flex; }
+        .card-btn { height: 20px; padding: 0 8px; font-size: 9px; font-weight: bold; cursor: pointer; font-family: Verdana, sans-serif; border-radius: 2px; border-style: solid; border-width: 1px; }
+        .edit-btn { background: linear-gradient(to bottom, #ddeeff, #bbd4ee); border-color: #7799bb; color: #223; }
+        .edit-btn:hover { background: linear-gradient(to bottom, #eef6ff, #cce0f4); }
+        .delete-btn { background: linear-gradient(to bottom, #ffdddd, #ffbbbb); border-color: #cc7777; color: #440000; }
+        .delete-btn:hover { background: linear-gradient(to bottom, #ffeeee, #ffcccc); }
+
         @media (max-width: 640px) {
             #show-grid { grid-template-columns: 1fr; }
             .f2, .f3 { grid-template-columns: 1fr; }
@@ -426,7 +435,7 @@
 <!-- ══════════════════ ADD SHOW MODAL ══════════════════ -->
 <div class="overlay" id="add-modal">
 <div class="retro-modal">
-    <div class="retro-modal-title">🎭 Add New Show Entry <span onclick="closeAddModal()">✕</span></div>
+    <div class="retro-modal-title"><span id="modal-title-text">🎭 Add New Show Entry</span> <span onclick="closeAddModal()">✕</span></div>
 
     <div class="modal-sec-hdr">Core Info</div>
     <div class="modal-body-section">
@@ -592,6 +601,7 @@ const SHOWS_SEED = [
 let allShows = [];
 let currentSort = 'date';
 let sortDir = { date: -1, rating: -1, title: 1 };
+let editingId = null;
 
 // ═══════════════════════════════════════
 // AUTH
@@ -602,6 +612,7 @@ function updateLockUI() {
     const btn = document.getElementById('lock-btn-page');
     btn.textContent = isLoggedIn() ? '🔓' : '🔒';
     document.getElementById('add-btn').style.display = isLoggedIn() ? 'block' : 'none';
+    document.body.classList.toggle('authed', isLoggedIn());
 }
 
 function toggleLockPage() {
@@ -635,8 +646,12 @@ window.addEventListener('message', e => {
 // ═══════════════════════════════════════
 function loadShows() {
     const stored = JSON.parse(localStorage.getItem('diary_plays') || '[]');
+    const deleted = new Set(JSON.parse(localStorage.getItem('diary_plays_deleted') || '[]'));
+    const edits = JSON.parse(localStorage.getItem('diary_plays_edits') || '{}');
     const seedIds = new Set(SHOWS_SEED.map(s => s.id));
-    allShows = [...SHOWS_SEED, ...stored.filter(s => !seedIds.has(s.id))];
+    const seeds = SHOWS_SEED.filter(s => !deleted.has(s.id)).map(s => edits[s.id] ? {...s, ...edits[s.id]} : s);
+    const extras = stored.filter(s => !seedIds.has(s.id) && !deleted.has(s.id));
+    allShows = [...seeds, ...extras];
     allShows.sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
@@ -645,6 +660,58 @@ function saveShow(show) {
     stored.push(show);
     localStorage.setItem('diary_plays', JSON.stringify(stored));
     allShows.push(show);
+}
+
+function deleteShow(id) {
+    if (!confirm('Remove this entry from your log?')) return;
+    const seedIds = new Set(SHOWS_SEED.map(s => s.id));
+    if (seedIds.has(id)) {
+        const deleted = JSON.parse(localStorage.getItem('diary_plays_deleted') || '[]');
+        if (!deleted.includes(id)) { deleted.push(id); localStorage.setItem('diary_plays_deleted', JSON.stringify(deleted)); }
+    } else {
+        let stored = JSON.parse(localStorage.getItem('diary_plays') || '[]');
+        localStorage.setItem('diary_plays', JSON.stringify(stored.filter(s => s.id !== id)));
+    }
+    allShows = allShows.filter(s => s.id !== id);
+    renderStats();
+    applyFilters();
+}
+
+function startEditShow(id) {
+    const s = allShows.find(s => s.id === id);
+    if (!s) return;
+    editingId = id;
+    document.getElementById('f-title').value = s.title || '';
+    document.getElementById('f-type-m').value = s.type || 'Musical';
+    document.getElementById('f-tier-m').value = s.tier || 'Broadway';
+    document.getElementById('f-venue').value = s.venue || '';
+    document.getElementById('f-city').value = s.city || '';
+    document.getElementById('f-date').value = s.date || '';
+    document.getElementById('f-runtime').value = s.runtime || '';
+    document.getElementById('f-image').value = s.imageUrl || '';
+    document.getElementById('f-director').value = s.director || '';
+    document.getElementById('f-playwright').value = s.playwright || '';
+    document.getElementById('f-composer').value = s.composer || '';
+    document.getElementById('f-lyricist').value = s.lyricist || '';
+    document.getElementById('f-choreo').value = s.choreographer || '';
+    document.getElementById('f-actors').value = s.actors || '';
+    document.getElementById('f-seenwith').value = s.seenWith || '';
+    document.getElementById('f-rating-m').value = String(s.rating);
+    document.getElementById('f-again-m').value = s.wouldSeeAgain || 'Yes';
+    document.getElementById('f-thoughts').value = s.thoughts || '';
+    document.getElementById('f-standout').value = s.standout || '';
+    document.getElementById('f-favsong').value = s.favoriteSong || '';
+    document.getElementById('f-tony').checked = !!s.tony;
+    document.getElementById('f-pulitzer').checked = !!s.pulitzer;
+    document.getElementById('f-premiere').checked = !!s.worldPremiere;
+    document.getElementById('f-seenagain').checked = !!s.seenAgain;
+    document.getElementById('f-seenagain-date').value = s.seenAgainDate || '';
+    document.getElementById('f-seenagain-date').style.display = s.seenAgain ? 'block' : 'none';
+    document.getElementById('f-tags').value = s.tags || '';
+    handleTypeChange(s.type || 'Musical');
+    document.getElementById('modal-title-text').textContent = '✏ Edit Show Entry';
+    document.querySelector('#add-modal .form-submit').textContent = 'Save Changes';
+    document.getElementById('add-modal').classList.add('open');
 }
 
 // ═══════════════════════════════════════
@@ -814,6 +881,10 @@ function renderShows(shows) {
                     <div class="show-review">"${esc(s.thoughts)}"</div>
                     ${s.standout?`<div class="standout-line">✨ Standout: ${esc(s.standout)}</div>`:''}
                 </div>`:''}
+                <div class="card-actions">
+                    <button class="card-btn edit-btn" onclick="startEditShow(${s.id})">✏ Edit</button>
+                    <button class="card-btn delete-btn" onclick="deleteShow(${s.id})">✕ Remove</button>
+                </div>
             </div>
         </div>`;
     }).join('');
@@ -851,6 +922,9 @@ function closeAddModal() {
     ['f-tony','f-pulitzer','f-premiere','f-seenagain'].forEach(id => document.getElementById(id).checked = false);
     document.getElementById('f-seenagain-date').style.display = 'none';
     handleTypeChange('Musical');
+    editingId = null;
+    document.getElementById('modal-title-text').textContent = '🎭 Add New Show Entry';
+    document.querySelector('#add-modal .form-submit').textContent = 'Save Entry';
 }
 
 function handleTypeChange(type) {
@@ -869,8 +943,7 @@ function submitShow() {
     const title = document.getElementById('f-title').value.trim();
     if (!title) { alert('Please enter a show title.'); return; }
 
-    const show = {
-        id: Date.now(),
+    const data = {
         title,
         type:           document.getElementById('f-type-m').value,
         venue:          document.getElementById('f-venue').value.trim(),
@@ -899,7 +972,25 @@ function submitShow() {
         tags:           document.getElementById('f-tags').value.trim()
     };
 
-    saveShow(show);
+    if (editingId !== null) {
+        const idx = allShows.findIndex(s => s.id === editingId);
+        if (idx !== -1) {
+            allShows[idx] = { ...allShows[idx], ...data };
+            const seedIds = new Set(SHOWS_SEED.map(s => s.id));
+            if (seedIds.has(editingId)) {
+                const edits = JSON.parse(localStorage.getItem('diary_plays_edits') || '{}');
+                edits[editingId] = data;
+                localStorage.setItem('diary_plays_edits', JSON.stringify(edits));
+            } else {
+                let stored = JSON.parse(localStorage.getItem('diary_plays') || '[]');
+                const i = stored.findIndex(s => s.id === editingId);
+                if (i !== -1) { stored[i] = allShows[idx]; localStorage.setItem('diary_plays', JSON.stringify(stored)); }
+            }
+        }
+    } else {
+        saveShow({ id: Date.now(), ...data });
+    }
+
     closeAddModal();
     populateYearFilter();
     renderStats();

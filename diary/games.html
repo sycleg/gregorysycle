@@ -480,6 +480,15 @@
 
         @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 60%{transform:translateX(6px)} }
         .shake { animation: shake 0.4s; }
+
+        /* ── CARD ACTIONS (edit/delete — logged in only) ── */
+        .card-actions { display: none; padding: 6px 10px 8px; gap: 4px; border-top: 1px solid #dde8f0; }
+        body.authed .card-actions { display: flex; }
+        .card-btn { height: 20px; padding: 0 8px; font-size: 9px; font-weight: bold; cursor: pointer; font-family: Verdana, sans-serif; border-radius: 2px; border-style: solid; border-width: 1px; }
+        .edit-btn { background: linear-gradient(to bottom, #ddeeff, #bbd4ee); border-color: #7799bb; color: #223; }
+        .edit-btn:hover { background: linear-gradient(to bottom, #eef6ff, #cce0f4); }
+        .delete-btn { background: linear-gradient(to bottom, #ffdddd, #ffbbbb); border-color: #cc7777; color: #440000; }
+        .delete-btn:hover { background: linear-gradient(to bottom, #ffeeee, #ffcccc); }
     </style>
 </head>
 <body>
@@ -623,7 +632,7 @@
 <div class="overlay" id="add-modal">
     <div class="retro-modal">
         <div class="retro-modal-title">
-            ➕ Add New Game Entry
+            <span id="modal-title-text">➕ Add New Game Entry</span>
             <span onclick="closeAddModal()">✕</span>
         </div>
         <div class="retro-modal-body">
@@ -646,9 +655,13 @@
                     <label>Rating (1–5)</label>
                     <select id="f-rat">
                         <option value="5">★★★★★ (5)</option>
+                        <option value="4.5">★★★★½ (4.5)</option>
                         <option value="4">★★★★ (4)</option>
+                        <option value="3.5">★★★½ (3.5)</option>
                         <option value="3">★★★ (3)</option>
+                        <option value="2.5">★★½ (2.5)</option>
                         <option value="2">★★ (2)</option>
+                        <option value="1.5">★½ (1.5)</option>
                         <option value="1">★ (1)</option>
                     </select>
                 </div>
@@ -763,6 +776,7 @@ const GAMES_SEED = [
 let allGames = [];
 let currentSort = 'date';
 let sortDir = { date: -1, rating: -1, title: 1 };
+let editingId = null;
 
 // ═══════════════════════════════════════
 // AUTH
@@ -778,6 +792,7 @@ function updateLockUI() {
         btn.textContent = '🔒';
         document.getElementById('add-btn').style.display = 'none';
     }
+    document.body.classList.toggle('authed', isLoggedIn());
 }
 
 function toggleLockPage() {
@@ -820,10 +835,12 @@ window.addEventListener('message', e => {
 // ═══════════════════════════════════════
 function loadGames() {
     const stored = JSON.parse(localStorage.getItem('diary_games') || '[]');
-    // Merge: seed first, then any localStorage additions (by id)
+    const deleted = new Set(JSON.parse(localStorage.getItem('diary_games_deleted') || '[]'));
+    const edits = JSON.parse(localStorage.getItem('diary_games_edits') || '{}');
     const seedIds = new Set(GAMES_SEED.map(g => g.id));
-    const extras = stored.filter(g => !seedIds.has(g.id));
-    allGames = [...GAMES_SEED, ...extras];
+    const seeds = GAMES_SEED.filter(g => !deleted.has(g.id)).map(g => edits[g.id] ? {...g, ...edits[g.id]} : g);
+    const extras = stored.filter(g => !seedIds.has(g.id) && !deleted.has(g.id));
+    allGames = [...seeds, ...extras];
     allGames.sort((a, b) => new Date(b.dateCompleted) - new Date(a.dateCompleted));
 }
 
@@ -832,6 +849,40 @@ function saveGame(game) {
     stored.push(game);
     localStorage.setItem('diary_games', JSON.stringify(stored));
     allGames.push(game);
+}
+
+function deleteGame(id) {
+    if (!confirm('Remove this entry from your log?')) return;
+    const seedIds = new Set(GAMES_SEED.map(g => g.id));
+    if (seedIds.has(id)) {
+        const deleted = JSON.parse(localStorage.getItem('diary_games_deleted') || '[]');
+        if (!deleted.includes(id)) { deleted.push(id); localStorage.setItem('diary_games_deleted', JSON.stringify(deleted)); }
+    } else {
+        let stored = JSON.parse(localStorage.getItem('diary_games') || '[]');
+        localStorage.setItem('diary_games', JSON.stringify(stored.filter(g => g.id !== id)));
+    }
+    allGames = allGames.filter(g => g.id !== id);
+    renderStats();
+    applyFilters();
+}
+
+function startEditGame(id) {
+    const g = allGames.find(g => g.id === id);
+    if (!g) return;
+    editingId = id;
+    document.getElementById('f-title').value = g.title || '';
+    document.getElementById('f-con').value = g.console || '';
+    document.getElementById('f-gen').value = g.genre || '';
+    document.getElementById('f-rat').value = String(g.rating);
+    document.getElementById('f-date').value = g.dateCompleted || '';
+    document.getElementById('f-dev').value = g.developer || '';
+    document.getElementById('f-pub').value = g.publisher || '';
+    document.getElementById('f-with').value = g.playedWith || '';
+    document.getElementById('f-100').checked = !!g.completed100;
+    document.getElementById('f-notes').value = g.notes || '';
+    document.getElementById('modal-title-text').textContent = '✏ Edit Game Entry';
+    document.querySelector('#add-modal .form-submit').textContent = 'Save Changes';
+    document.getElementById('add-modal').classList.add('open');
 }
 
 // ═══════════════════════════════════════
@@ -966,6 +1017,10 @@ function renderGames(games) {
                 </div>
                 ` : ''}
                 ${g.playedWith ? `<div class="played-with">👥 Played with: ${escHtml(g.playedWith)}</div>` : ''}
+                <div class="card-actions">
+                    <button class="card-btn edit-btn" onclick="startEditGame(${g.id})">✏ Edit</button>
+                    <button class="card-btn delete-btn" onclick="deleteGame(${g.id})">✕ Remove</button>
+                </div>
             </div>
         </div>`;
     }).join('');
@@ -1022,18 +1077,20 @@ function closeAddModal() {
     document.getElementById('f-rat').value = '5';
     document.getElementById('f-100').checked = false;
     document.getElementById('f-date').value = '';
+    editingId = null;
+    document.getElementById('modal-title-text').textContent = '➕ Add New Game Entry';
+    document.querySelector('#add-modal .form-submit').textContent = 'Save Entry';
 }
 function submitGame() {
     const title = document.getElementById('f-title').value.trim();
     const con = document.getElementById('f-con').value.trim();
     if (!title || !con) { alert('Please fill in at least Title and Console.'); return; }
 
-    const newGame = {
-        id: Date.now(),
+    const data = {
         title,
         console: con,
         genre: document.getElementById('f-gen').value.trim() || 'Unknown',
-        rating: parseInt(document.getElementById('f-rat').value),
+        rating: parseFloat(document.getElementById('f-rat').value),
         dateCompleted: document.getElementById('f-date').value || new Date().toISOString().slice(0,10),
         developer: document.getElementById('f-dev').value.trim(),
         publisher: document.getElementById('f-pub').value.trim(),
@@ -1042,7 +1099,25 @@ function submitGame() {
         completed100: document.getElementById('f-100').checked
     };
 
-    saveGame(newGame);
+    if (editingId !== null) {
+        const idx = allGames.findIndex(g => g.id === editingId);
+        if (idx !== -1) {
+            allGames[idx] = { ...allGames[idx], ...data };
+            const seedIds = new Set(GAMES_SEED.map(g => g.id));
+            if (seedIds.has(editingId)) {
+                const edits = JSON.parse(localStorage.getItem('diary_games_edits') || '{}');
+                edits[editingId] = data;
+                localStorage.setItem('diary_games_edits', JSON.stringify(edits));
+            } else {
+                let stored = JSON.parse(localStorage.getItem('diary_games') || '[]');
+                const i = stored.findIndex(g => g.id === editingId);
+                if (i !== -1) { stored[i] = allGames[idx]; localStorage.setItem('diary_games', JSON.stringify(stored)); }
+            }
+        }
+    } else {
+        saveGame({ id: Date.now(), ...data });
+    }
+
     closeAddModal();
     populateFilters();
     renderStats();
