@@ -26,7 +26,6 @@
         a:visited { color: #551a8b; }
         a:hover { color: #cc0000; }
 
-        /* ── SITE WRAPPER ── */
         #wrapper {
             width: 100%;
             max-width: 1060px;
@@ -37,158 +36,190 @@
             min-height: 100vh;
         }
 
-        /* ── HEADER BANNER ── */
+        /* ── HEADER ── */
         #header {
             background: linear-gradient(to bottom, #002288 0%, #0033aa 40%, #0044cc 100%);
-            padding: 0;
-            position: relative;
-            border-bottom: 3px solid #001166;
+            padding: 0; position: relative; border-bottom: 3px solid #001166;
         }
-        #header-inner {
-            display: flex;
-            align-items: center;
-            padding: 12px 16px;
-            gap: 14px;
-        }
-        #header-icon {
-            font-size: 44px;
-            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
-        }
+        #header-inner { display: flex; align-items: center; padding: 12px 16px; gap: 14px; }
+        #header-icon { font-size: 44px; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5)); }
         #header-text { flex: 1; }
         #site-title {
             font-family: "Times New Roman", Times, serif;
-            font-size: 28px;
-            font-weight: bold;
-            color: #ffffff;
+            font-size: 28px; font-weight: bold; color: #ffffff;
             text-shadow: 2px 2px 0 #000044, 0 0 20px rgba(100,150,255,0.4);
             letter-spacing: 1px;
         }
-        #site-subtitle {
-            font-size: 11px;
-            color: #99bbff;
-            margin-top: 4px;
-            font-style: italic;
-        }
-        #lock-corner {
-            position: absolute;
-            top: 10px; right: 12px;
-        }
+        #site-subtitle { font-size: 11px; color: #99bbff; margin-top: 4px; font-style: italic; }
+        #lock-corner { position: absolute; top: 10px; right: 12px; }
         #lock-btn-page {
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 3px;
-            padding: 4px 10px;
-            cursor: pointer;
-            font-size: 13px;
-            color: white;
-            transition: background 0.2s;
+            background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 3px; padding: 4px 10px; cursor: pointer;
+            font-size: 13px; color: white; transition: background 0.2s;
         }
         #lock-btn-page:hover { background: rgba(255,255,255,0.28); }
 
-        /* Marquee band */
         #marquee-band {
-            background: #001155;
-            border-top: 1px solid #0044cc;
-            padding: 4px 0;
-            overflow: hidden;
-            white-space: nowrap;
+            background: #001155; border-top: 1px solid #0044cc;
+            padding: 4px 0; overflow: hidden; white-space: nowrap;
         }
         .marquee-inner {
-            display: inline-block;
-            animation: marquee 28s linear infinite;
-            color: #88aaff;
-            font-size: 11px;
-            padding-left: 100%;
+            display: inline-block; animation: marquee 32s linear infinite;
+            color: #88aaff; font-size: 11px; padding-left: 100%;
         }
         @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-        /* ── NAVIGATION ── */
-        #navbar {
-            background: linear-gradient(to bottom, #d0d8e4, #b8c4d4);
-            border-bottom: 2px solid #889ab0;
-            border-top: 1px solid #ffffff;
-            padding: 0;
-        }
-        #navbar ul {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-        }
+        /* ── NAVBAR ── */
+        #navbar { background: linear-gradient(to bottom, #d0d8e4, #b8c4d4); border-bottom: 2px solid #889ab0; border-top: 1px solid #ffffff; }
+        #navbar ul { list-style: none; display: flex; flex-wrap: wrap; }
         #navbar li a {
-            display: block;
-            padding: 7px 14px;
-            color: #002277;
-            text-decoration: none;
-            font-size: 11px;
-            font-weight: bold;
-            border-right: 1px solid #889ab0;
-            transition: background 0.1s;
+            display: block; padding: 7px 14px; color: #002277;
+            text-decoration: none; font-size: 11px; font-weight: bold;
+            border-right: 1px solid #889ab0; transition: background 0.1s;
         }
         #navbar li a:hover { background: rgba(0,50,150,0.12); color: #cc0000; }
         #navbar li a.active { background: rgba(0,50,150,0.15); color: #000; }
 
-        /* ── MAIN CONTENT ── */
-        #content { padding: 40px 16px; }
+        /* ── STATS BANNER ── */
+        #stats-banner {
+            background: linear-gradient(to right, #e8f0f8, #d0dcea, #e8f0f8);
+            border-bottom: 2px solid #b0c0d4; border-top: 1px solid #ffffff;
+            padding: 8px 16px; display: flex; gap: 0; flex-wrap: wrap;
+        }
+        .stat-item { flex: 1; min-width: 100px; text-align: center; padding: 6px 10px; border-right: 1px solid #aabbcc; }
+        .stat-item:last-child { border-right: none; }
+        .stat-num { font-size: 20px; font-weight: bold; color: #003399; font-family: "Times New Roman", serif; display: block; }
+        .stat-label { font-size: 10px; color: #557799; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* ── EMPTY STATE ── */
-        #empty-state {
-            text-align: center;
-            padding: 60px 40px;
-            color: #778;
-            border: 2px dashed #b0c0d4;
-            background: #f4f8fc;
-            margin: 20px 0;
+        /* ── FILTER BAR ── */
+        #filter-bar {
+            background: #f0f4f8; border-bottom: 1px solid #c0ccd8;
+            padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
         }
-        #empty-state .empty-icon {
-            font-size: 72px;
-            display: block;
-            margin-bottom: 16px;
-            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+        .filter-group { display: flex; align-items: center; gap: 4px; }
+        .filter-group label { font-size: 10px; color: #556; font-weight: bold; white-space: nowrap; }
+        .filter-group select, .filter-group input {
+            height: 24px; border: 1px solid #aabbcc; border-radius: 2px;
+            background: white; font-size: 11px; font-family: Verdana, sans-serif;
+            padding: 0 6px; color: #334; outline: none;
         }
-        #empty-state h2 {
-            font-family: "Times New Roman", Times, serif;
-            font-size: 22px;
-            font-weight: bold;
-            color: #335;
-            margin-bottom: 12px;
+        .filter-group select:focus, .filter-group input:focus { border-color: #5588cc; }
+        #search-input { width: 160px; }
+        .retro-btn {
+            height: 24px; padding: 0 12px;
+            background: linear-gradient(to bottom, #e8eef6, #ccd8e8);
+            border: 1px solid #8899bb; border-radius: 2px;
+            cursor: pointer; font-size: 11px; font-family: Verdana, sans-serif; color: #334;
         }
-        #empty-state p {
-            font-size: 12px;
-            color: #557;
-            line-height: 1.7;
-            max-width: 480px;
-            margin: 0 auto;
+        .retro-btn:hover { background: linear-gradient(to bottom, #f0f6ff, #d8e4f4); }
+        .sort-label { font-size: 10px; color: #556; font-weight: bold; }
+        #sort-btns { display: flex; gap: 3px; }
+        .sort-btn { height: 24px; padding: 0 10px; background: linear-gradient(to bottom, #ddeeff, #bbd4ee); border: 1px solid #7799bb; border-radius: 2px; cursor: pointer; font-size: 10px; color: #224; }
+        .sort-btn.active { background: linear-gradient(to bottom, #6699cc, #4477aa); color: white; border-color: #336699; }
+        .sort-btn:hover:not(.active) { background: linear-gradient(to bottom, #eef4ff, #cce0f0); }
+        #filter-count { font-size: 10px; color: #778; margin-left: auto; }
+
+        /* ── CONTENT ── */
+        #content { padding: 12px 16px; }
+
+        /* ── PAGINATION ── */
+        #pagination {
+            display: flex; justify-content: center; align-items: center;
+            gap: 4px; padding: 12px 0 4px; flex-wrap: wrap;
         }
+        .page-btn {
+            min-width: 28px; height: 24px; padding: 0 6px;
+            background: linear-gradient(to bottom, #ddeeff, #bbd4ee);
+            border: 1px solid #7799bb; border-radius: 2px;
+            cursor: pointer; font-size: 11px; color: #224;
+        }
+        .page-btn.active { background: linear-gradient(to bottom, #6699cc, #4477aa); color: white; border-color: #336699; }
+        .page-btn:hover:not(.active) { background: linear-gradient(to bottom, #eef4ff, #cce0f0); }
+        #page-info { font-size: 10px; color: #778; padding: 0 8px; }
+
+        /* ── MOVIE LIST ── */
+        #movie-list { display: flex; flex-direction: column; gap: 0; }
+
+        .movie-row {
+            border-bottom: 1px solid #e0e8f0;
+            padding: 8px 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: white;
+            transition: background 0.1s;
+        }
+        .movie-row:hover { background: #f8fbff; }
+        .movie-row:nth-child(even) { background: #f4f8fc; }
+        .movie-row:nth-child(even):hover { background: #eef4fb; }
+
+        .movie-num {
+            font-size: 9px; color: #aabbcc; min-width: 28px;
+            text-align: right; padding-top: 2px; flex-shrink: 0;
+        }
+        .movie-stars { min-width: 72px; flex-shrink: 0; white-space: nowrap; padding-top: 1px; }
+        .stars { color: #ffaa00; font-size: 12px; letter-spacing: 0.5px; }
+        .stars-empty { color: #cccccc; font-size: 12px; }
+        .no-rating { font-size: 9px; color: #aaa; font-style: italic; }
+
+        .movie-main { flex: 1; min-width: 0; }
+        .movie-title-row { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+        .movie-title { font-size: 12px; font-weight: bold; color: #001155; }
+        .movie-year { font-size: 10px; color: #778899; }
+        .movie-date { font-size: 10px; color: #889aaa; white-space: nowrap; }
+
+        .movie-meta-row { display: flex; align-items: center; gap: 6px; margin-top: 3px; flex-wrap: wrap; }
+        .rewatch-badge { font-size: 8px; background: #e8f4e8; border: 1px solid #99cc99; color: #336633; padding: 1px 5px; border-radius: 2px; white-space: nowrap; }
+        .tag-badge { font-size: 8px; background: #eef0f8; border: 1px solid #c0cce0; color: #446; padding: 1px 5px; border-radius: 2px; white-space: nowrap; }
+        .intheaters-badge { background: #fff0cc; border-color: #ddaa44; color: #664400; }
+        .imax-badge { background: #ffe8e8; border-color: #cc7777; color: #440000; }
+
+        .movie-review-toggle { font-size: 10px; color: #0033cc; cursor: pointer; text-decoration: underline; white-space: nowrap; margin-top: 2px; display: inline-block; }
+        .movie-review { display: none; margin-top: 5px; font-size: 10px; color: #446; line-height: 1.5; font-style: italic; background: #f4f8fc; border-left: 3px solid #88aacc; padding: 5px 8px; }
+        .movie-review.open { display: block; }
+
+        .movie-lb-link { flex-shrink: 0; padding-top: 1px; }
+        .lb-btn {
+            font-size: 9px; color: #3d7;  text-decoration: none; font-weight: bold;
+            background: #e8f8f0; border: 1px solid #66cc99; padding: 2px 6px;
+            border-radius: 2px; white-space: nowrap;
+        }
+        .lb-btn:hover { background: #d0f0e0; color: #2a6; }
+        .lb-btn:visited { color: #3d7; }
+
+        #empty-state { text-align: center; padding: 40px; color: #778; display: none; }
+        #empty-state p { font-size: 13px; }
 
         /* ── FOOTER ── */
-        #footer {
-            background: linear-gradient(to bottom, #d0d8e4, #b8c4d4);
-            border-top: 2px solid #889ab0;
-            padding: 12px 16px;
-            text-align: center;
-        }
+        #footer { background: linear-gradient(to bottom, #d0d8e4, #b8c4d4); border-top: 2px solid #889ab0; padding: 12px 16px; text-align: center; }
         #footer p { font-size: 10px; color: #556; margin-bottom: 4px; }
-        #footer .counter {
-            display: inline-block;
-            background: #001155;
-            color: #44ff44;
-            font-family: "Courier New", monospace;
-            font-size: 14px;
-            padding: 3px 10px;
-            border: 1px solid #003399;
-            letter-spacing: 3px;
-            margin: 4px 0;
-        }
-        #footer .divider {
-            height: 1px;
-            background: linear-gradient(to right, transparent, #889ab0, transparent);
-            margin: 8px 0;
-        }
+        #footer .counter { display: inline-block; background: #001155; color: #44ff44; font-family: "Courier New", monospace; font-size: 14px; padding: 3px 10px; border: 1px solid #003399; letter-spacing: 3px; margin: 4px 0; }
+        #footer .divider { height: 1px; background: linear-gradient(to right, transparent, #889ab0, transparent); margin: 8px 0; }
         #footer .links a { margin: 0 8px; font-size: 10px; color: #335; }
+
+        /* ── PASSWORD MODAL ── */
+        #pw-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,50,0.6); z-index: 99999; align-items: center; justify-content: center; }
+        #pw-modal.open { display: flex; }
+        #pw-box { background: #e8f0f8; border: 2px solid #5577aa; width: 320px; box-shadow: 4px 4px 0 rgba(0,0,0,0.3); }
+        #pw-title { background: linear-gradient(to bottom, #002288, #0033aa); color: white; padding: 8px 14px; font-size: 12px; font-weight: bold; display: flex; justify-content: space-between; }
+        #pw-body { padding: 16px; }
+        #pw-body label { display: block; font-size: 10px; font-weight: bold; color: #334; margin-bottom: 4px; }
+        #pw-input { width: 100%; height: 28px; border: 1px solid #99aabb; background: white; padding: 0 8px; font-size: 12px; font-family: Verdana, sans-serif; }
+        #pw-error { font-size: 10px; color: #cc0000; margin-top: 4px; height: 14px; }
+        #pw-footer { padding: 8px 16px; display: flex; justify-content: flex-end; gap: 6px; background: #f0f4f8; border-top: 1px solid #c0ccd8; }
+        .pw-btn { padding: 4px 14px; border: 1px solid #8899bb; background: linear-gradient(to bottom,#e8eef6,#ccd8e8); cursor:pointer; font-size:11px; font-family:Verdana,sans-serif; }
+        .pw-btn.ok { background: linear-gradient(to bottom,#336633,#225522); color:white; border-color:#224422; }
+
+        @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 60%{transform:translateX(6px)} }
+        .shake { animation: shake 0.4s; }
+
+        @media (max-width: 600px) {
+            .movie-num { display: none; }
+            .movie-stars { min-width: 60px; }
+        }
     </style>
 </head>
 <body>
-
 <div id="wrapper">
 
     <!-- HEADER -->
@@ -197,17 +228,13 @@
             <div id="header-icon">🎬</div>
             <div id="header-text">
                 <div id="site-title">Greg's Movie Log</div>
-                <div id="site-subtitle">A personal record of films watched and loved — est. 2024</div>
+                <div id="site-subtitle">Every film watched, rated, and remembered — via Letterboxd — est. 2021</div>
             </div>
         </div>
         <div id="marquee-band">
-            <div class="marquee-inner">
-                ★ Welcome to Greg's Movie Log! ★ &nbsp;&nbsp;&nbsp; Tracking films watched since forever &nbsp;&nbsp;&nbsp; ★ All opinions are my own ★ &nbsp;&nbsp;&nbsp; Updated regularly &nbsp;&nbsp;&nbsp; ★ Best viewed in Internet Explorer 7 at 1024x768 ★ &nbsp;&nbsp;&nbsp; Cinema is life &nbsp;&nbsp;&nbsp; ★ Welcome to Greg's Movie Log! ★ &nbsp;&nbsp;&nbsp; Tracking films watched since forever &nbsp;&nbsp;&nbsp; ★ All opinions are my own ★ &nbsp;&nbsp;&nbsp; Updated regularly &nbsp;&nbsp;&nbsp; ★ Best viewed in Internet Explorer 7 at 1024x768 ★ &nbsp;&nbsp;&nbsp;
-            </div>
+            <div class="marquee-inner">★ Welcome to Greg's Movie Log! ★ &nbsp;&nbsp;&nbsp; Powered by Letterboxd data &nbsp;&nbsp;&nbsp; ★ All opinions are my own ★ &nbsp;&nbsp;&nbsp; Updated regularly &nbsp;&nbsp;&nbsp; ★ Best viewed in Internet Explorer 7 at 1024x768 ★ &nbsp;&nbsp;&nbsp; Cinema is life &nbsp;&nbsp;&nbsp; ★ Welcome to Greg's Movie Log! ★ &nbsp;&nbsp;&nbsp; Powered by Letterboxd data &nbsp;&nbsp;&nbsp; ★ All opinions are my own ★ &nbsp;&nbsp;&nbsp; Updated regularly &nbsp;&nbsp;&nbsp; ★ Best viewed in Internet Explorer 7 at 1024x768 ★ &nbsp;&nbsp;&nbsp;</div>
         </div>
-        <div id="lock-corner">
-            <button id="lock-btn-page" onclick="return false">🔒</button>
-        </div>
+        <div id="lock-corner"><button id="lock-btn-page" onclick="toggleLockPage()">🔒</button></div>
     </div>
 
     <!-- NAVBAR -->
@@ -223,13 +250,65 @@
         </ul>
     </div>
 
+    <!-- STATS BANNER -->
+    <div id="stats-banner">
+        <div class="stat-item"><span class="stat-num" id="stat-total">0</span><span class="stat-label">Films Logged</span></div>
+        <div class="stat-item"><span class="stat-num" id="stat-avg">—</span><span class="stat-label">Avg Rating</span></div>
+        <div class="stat-item"><span class="stat-num" id="stat-theaters">0</span><span class="stat-label">In Theaters</span></div>
+        <div class="stat-item"><span class="stat-num" id="stat-rewatch">0</span><span class="stat-label">Rewatches</span></div>
+        <div class="stat-item"><span class="stat-num" id="stat-fives">0</span><span class="stat-label">★★★★★</span></div>
+        <div class="stat-item"><span class="stat-num" id="stat-year">0</span><span class="stat-label">This Year</span></div>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div id="filter-bar">
+        <div class="filter-group">
+            <label>Year:</label>
+            <select id="f-year" onchange="applyFilters()"><option value="">All</option></select>
+        </div>
+        <div class="filter-group">
+            <label>Rating:</label>
+            <select id="f-rating" onchange="applyFilters()">
+                <option value="">All</option>
+                <option value="5">★★★★★</option>
+                <option value="4.5">★★★★½</option>
+                <option value="4">★★★★</option>
+                <option value="3.5">★★★½</option>
+                <option value="3">★★★</option>
+                <option value="2.5">★★½</option>
+                <option value="2">★★</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Tag:</label>
+            <select id="f-tag" onchange="applyFilters()"><option value="">All</option></select>
+        </div>
+        <div class="filter-group">
+            <label><input type="checkbox" id="f-rewatch" onchange="applyFilters()" style="margin-right:3px">Rewatches only</label>
+        </div>
+        <div class="filter-group">
+            <label><input type="checkbox" id="f-reviewed" onchange="applyFilters()" style="margin-right:3px">Has review</label>
+        </div>
+        <div class="filter-group">
+            <input type="text" id="search-input" placeholder="Search films..." oninput="applyFilters()">
+        </div>
+        <button class="retro-btn" onclick="clearFilters()">Clear</button>
+        <div class="filter-group" style="margin-left:auto;">
+            <span class="sort-label">Sort:</span>
+            <div id="sort-btns">
+                <button class="sort-btn active" onclick="setSort('date',this)">Date ▼</button>
+                <button class="sort-btn" onclick="setSort('rating',this)">Rating ▼</button>
+                <button class="sort-btn" onclick="setSort('title',this)">Title ▲</button>
+            </div>
+        </div>
+        <span id="filter-count"></span>
+    </div>
+
     <!-- CONTENT -->
     <div id="content">
-        <div id="empty-state">
-            <span class="empty-icon">🎬</span>
-            <h2>Coming Soon</h2>
-            <p>Movie log coming soon — tracking films watched with ratings, notes, and where I saw them.</p>
-        </div>
+        <div id="movie-list"></div>
+        <div id="empty-state"><p>No films match your filters. <a href="#" onclick="clearFilters();return false;">Clear filters</a></p></div>
+        <div id="pagination"></div>
     </div>
 
     <!-- FOOTER -->
@@ -241,52 +320,934 @@
         <p>Greg's Personal Diary &copy; 2024 — All Rights Reserved</p>
         <p style="margin-top:4px;">Best viewed in Internet Explorer 7 at 1024x768 resolution</p>
         <div class="links">
-            <a href="index.html">Home</a>
-            <a href="games.html">Games</a>
-            <a href="countries.html">Countries</a>
-            <a href="plays.html">Plays</a>
-            <a href="movies.html">Movies</a>
-            <a href="restaurants.html">Restaurants</a>
-            <a href="places.html">Places</a>
+            <a href="index.html">Home</a> <a href="games.html">Games</a>
+            <a href="plays.html">Plays</a> <a href="movies.html">Movies</a>
         </div>
-        <p style="margin-top:6px; color:#889; font-size:9px;">
-            Last updated: <span id="last-updated"></span>
-        </p>
+        <p style="margin-top:6px; color:#889; font-size:9px;">Last updated: <span id="last-updated"></span></p>
+    </div>
+</div>
+
+<!-- PASSWORD MODAL -->
+<div id="pw-modal">
+    <div id="pw-box">
+        <div id="pw-title"><span>🔒 Login Required</span><span onclick="closePwModal()" style="cursor:pointer;">✕</span></div>
+        <div id="pw-body">
+            <label>Password:</label>
+            <input type="password" id="pw-input" placeholder="Enter password" onkeydown="if(event.key==='Enter') doPwLogin()">
+            <div id="pw-error"></div>
+        </div>
+        <div id="pw-footer">
+            <button class="pw-btn" onclick="closePwModal()">Cancel</button>
+            <button class="pw-btn ok" onclick="doPwLogin()">Login</button>
+        </div>
     </div>
 </div>
 
 <script>
-// Auth handler matching games.html pattern
+const MOVIES_SEED = [
+  {id:1,title:"Cherry",year:2021,date:"2021-03-14",rating:2.5,rewatch:false,tags:"in theaters",review:"If u think wanna see the inside of Spider-Man’s asshole then go see this",uri:"https://boxd.it/1ISMhV"},
+  {id:2,title:"Zack Snyder's Justice League",year:2021,date:"2021-03-19",rating:4.5,rewatch:false,tags:"dc",review:"Might just be nerd horny for Darkseid idk",uri:"https://boxd.it/1JvFlJ"},
+  {id:3,title:"Godzilla vs. Kong",year:2021,date:"2021-03-31",rating:3.0,rewatch:false,tags:"in theaters, isa",review:"me vs chicken nuggets in my freezer",uri:"https://boxd.it/1LeB4N"},
+  {id:4,title:"Mortal Kombat",year:2021,date:"2021-04-27",rating:3.0,rewatch:false,tags:"in theaters",review:"I watched this baked with a box of crunch bunch and popcorn in an imax theatre and I think this is a once in the lifetime experience. I would compare it to ecstasy to be honest.",uri:"https://boxd.it/1P8i2d"},
+  {id:5,title:"Nomadland",year:2020,date:"2021-05-03",rating:3.5,rewatch:false,tags:"in theaters",review:"I went to the Museum of Modern Art before this and I think it was just so much intellectual shit going on in one day and I think I should’ve just saw Shrek 20th anniversary, movie was still good ig",uri:"https://boxd.it/1PYbTj"},
+  {id:6,title:"Scott Pilgrim vs. the World",year:2010,date:"2021-05-05",rating:4.5,rewatch:true,tags:"in theaters",review:"I luckily was able to see this movie for the 10 year anniversary in theaters which means I saw captain america fight michael cera in theaters and I will forever be grateful",uri:"https://boxd.it/1QkjKj"},
+  {id:7,title:"Mortal Kombat Legends: Scorpion's Revenge",year:2020,date:"2021-05-10",rating:3.0,rewatch:false,tags:"subway watching",review:"If it wasn’t for the 9 year old sitting next to me I would’ve felt more inclined to pay attention but I think his mom was judging me as i’m showing a random little kid fatalities",uri:"https://boxd.it/1QW3hB"},
+  {id:8,title:"Batman",year:1989,date:"2021-05-10",rating:4.0,rewatch:true,tags:"subway watching, dc",review:"The score in this movie is mesmerizing, like they stab a man with a quill pen in a Batman movie and then you get to listen to Prince ?!!? Like what’s better than that ?",uri:"https://boxd.it/1QW4nv"},
+  {id:9,title:"Grave of the Fireflies",year:1988,date:"2021-05-10",rating:4.5,rewatch:false,tags:"",review:"This shit is so damn sad and I tried watching Emperor’s New Groove to cheer me up and I was still sad.",uri:"https://boxd.it/1QW8K9"},
+  {id:10,title:"The Green Hornet",year:2011,date:"2021-05-11",rating:2.0,rewatch:true,tags:"",review:"It’s final week I should not be watching this now or really ever",uri:"https://boxd.it/1R3KJ3"},
+  {id:11,title:"Chef",year:2014,date:"2021-05-12",rating:4.0,rewatch:false,tags:"",review:"I think in the new Dr Strange movie there will be an alternate universe where this movie is cannon in the MCU",uri:"https://boxd.it/1RcrYL"},
+  {id:12,title:"Spiral: From the Book of Saw",year:2021,date:"2021-05-14",rating:3.0,rewatch:false,tags:"In theaters",review:"This movie screams heterosexual",uri:"https://boxd.it/1Ru8Nv"},
+  {id:13,title:"Divergent",year:2014,date:"2021-05-14",rating:1.5,rewatch:true,tags:"",review:"I watched this so I can reread the second book in hopes of skipping rereading the first. Holy shit this movie makes reading more fun than a movie for me.",uri:"https://boxd.it/1RvS57"},
+  {id:14,title:"The Mitchells vs. the Machines",year:2021,date:"2021-05-15",rating:4.0,rewatch:false,tags:"",review:"3 stars for dad jokes 1 star for the dog",uri:"https://boxd.it/1REhyT"},
+  {id:15,title:"Mortal Kombat",year:1995,date:"2021-05-16",rating:2.5,rewatch:false,tags:"",review:"I gotta stop smoking weed",uri:"https://boxd.it/1RJBNT"},
+  {id:16,title:"Digimon Adventure: Last Evolution Kizuna",year:2020,date:"2021-05-17",rating:4.0,rewatch:false,tags:"",review:"Truly does the original series justice, makes you feel like a kid watching. The dub is fantastic and this movie also proves that there is porn in the digital world.",uri:"https://boxd.it/1RSTUV"},
+  {id:17,title:"Fantastic Four",year:2005,date:"2021-05-17",rating:2.0,rewatch:true,tags:"isa, marvel",review:"This was also the only movie I had for my portable DVD player at a Camp so I love it",uri:"https://boxd.it/1RXd5B"},
+  {id:18,title:"Army of the Dead",year:2021,date:"2021-05-21",rating:3.0,rewatch:false,tags:"",review:"The second act is so fun to watch. Made me realize how badly I want a Dave Bautista Bane movie.",uri:"https://boxd.it/1Sp3ad"},
+  {id:19,title:"Adventure Time: Distant Lands",year:2020,date:"2021-05-26",rating:4.0,rewatch:false,tags:"",review:"What a heartfelt homage to the series. The last special puts a beautiful bow on the series.",uri:"https://boxd.it/1T2AVf"},
+  {id:20,title:"A Quiet Place Part II",year:2020,date:"2021-05-28",rating:3.5,rewatch:false,tags:"in theaters",review:"Could’ve gotten another half star if it wasn’t for all the feet.",uri:"https://boxd.it/1Tm8Rz"},
+  {id:21,title:"Perfect Blue",year:1997,date:"2021-05-31",rating:5.0,rewatch:false,tags:"rainy day films",review:"I really hope they had youtube analysis videos in 1997",uri:"https://boxd.it/1TH3Wh"},
+  {id:22,title:"Demon Slayer -Kimetsu no Yaiba- The Movie: Mugen Train",year:2020,date:"2021-06-01",rating:3.5,rewatch:false,tags:"in theaters, alex",review:"Everything after the train is gas. Animation is so gorgeous on the big screen.",uri:"https://boxd.it/1TUC75"},
+  {id:23,title:"Birds of Prey (and the Fantabulous Emancipation of One Harley Quinn)",year:2020,date:"2021-06-07",rating:2.5,rewatch:false,tags:"dc",review:"It’s so bad but also kinda good",uri:"https://boxd.it/1UIjRt"},
+  {id:24,title:"The Conjuring: The Devil Made Me Do It",year:2021,date:"2021-06-07",rating:3.5,rewatch:false,tags:"in theaters",review:"An interesting take on the franchise in a slightly different direction. I feel like they could do an endless number of movies of anything in that showroom.  James Wan better not let me down with Aquaman 2, I mean like cmon you just built a whole horror universe just make Black Manta sick as fuck.",uri:"https://boxd.it/1ULjSn"},
+  {id:25,title:"Harry Potter and the Philosopher's Stone",year:2001,date:"2021-06-08",rating:3.5,rewatch:false,tags:"",review:"Such a great throwback, they’re all so wholesome and a lot ages poorly but some of it now is just too great. Could be the nostalgia but oh well. I guess I can blame Queens Gambit for the reason I love the chess match even more.",uri:"https://boxd.it/1UQAct"},
+  {id:26,title:"Harry Potter and the Chamber of Secrets",year:2002,date:"2021-06-08",rating:3.0,rewatch:false,tags:"",review:"I wish I could cast a spell to make others eat slugs   Lucius is so devious it’s honestly incomprehensible, no one should be able to live that diabolically",uri:"https://boxd.it/1USlR1"},
+  {id:27,title:"Harry Potter and the Prisoner of Azkaban",year:2004,date:"2021-06-09",rating:4.5,rewatch:false,tags:"",review:"Teen wolf and time travel plot ??? So much fun",uri:"https://boxd.it/1UXWX1"},
+  {id:28,title:"Harry Potter and the Goblet of Fire",year:2005,date:"2021-06-10",rating:4.5,rewatch:false,tags:"",review:"This movies great and all but it would be even better if there wasn’t a 5 second clip of Voldemort’s long ass feet on Robert Pattinson’s face",uri:"https://boxd.it/1V5d5f"},
+  {id:29,title:"Harry Potter and the Order of the Phoenix",year:2007,date:"2021-06-13",rating:4.0,rewatch:false,tags:"",review:"To be a centaur and fuck up umbridge",uri:"https://boxd.it/1Vrh2D"},
+  {id:30,title:"Harry Potter and the Half-Blood Prince",year:2009,date:"2021-06-13",rating:3.5,rewatch:false,tags:"",review:"Way too much love in this one",uri:"https://boxd.it/1VrEId"},
+  {id:31,title:"Harry Potter and the Deathly Hallows: Part 1",year:2010,date:"2021-06-14",rating:3.5,rewatch:false,tags:"",review:"Fuck dobby",uri:"https://boxd.it/1VCH9H"},
+  {id:32,title:"Hitman's Wife's Bodyguard",year:2021,date:"2021-06-17",rating:1.5,rewatch:false,tags:"in theaters",review:"Samuel Jackson swinging a mace  And Ryan Reynolds yelling take the L So like if that sounds like your type then you’ll love it",uri:"https://boxd.it/1VZ2dp"},
+  {id:33,title:"Harry Potter and the Deathly Hallows: Part 2",year:2011,date:"2021-06-18",rating:4.0,rewatch:false,tags:"",review:"Fred’s death always gets me",uri:"https://boxd.it/1W3n2F"},
+  {id:34,title:"Luca",year:2021,date:"2021-06-21",rating:4.0,rewatch:false,tags:"",review:"Buono",uri:"https://boxd.it/1WsyuZ"},
+  {id:35,title:"Cruella",year:2021,date:"2021-06-21",rating:3.5,rewatch:false,tags:"in theaters",review:"CGI dogs are so weird",uri:"https://boxd.it/1Wxd1H"},
+  {id:36,title:"Batman: The Long Halloween, Part One",year:2021,date:"2021-06-22",rating:4.0,rewatch:false,tags:"dc",review:"I really appreciate that DC does this for the comic book reader. To have all these adaptations that make you feel like you’re reading the comic is all I could want. Excluding Killing Joke   Now I have a lot of bias since this is my favorite comic. But wow it is so much dumb fun. The animation is not my type and some of the voice acting can be harsh at times. Definitely will be looking forward to the next.   Now if you’ve never read the comic, it probably sucks.",uri:"https://boxd.it/1Wyi3v"},
+  {id:37,title:"Justice League: The New Frontier",year:2008,date:"2021-06-22",rating:3.0,rewatch:false,tags:"dc",review:"Any Justice League taking place in the 60s already has me sold",uri:"https://boxd.it/1WAOlP"},
+  {id:38,title:"F9",year:2021,date:"2021-06-25",rating:2.0,rewatch:false,tags:"in theaters",review:"Brilliant",uri:"https://boxd.it/1WX2lX"},
+  {id:39,title:"Zola",year:2020,date:"2021-07-01",rating:4.0,rewatch:false,tags:"in theaters, a24",review:"Chief Keef’s Hannah Montana in an A24 movie 🤝",uri:"https://boxd.it/1XN2uT"},
+  {id:40,title:"The Forever Purge",year:2021,date:"2021-07-02",rating:2.0,rewatch:false,tags:"in theaters",review:"Two stars for the Wilhelm scream only",uri:"https://boxd.it/1XUP2X"},
+  {id:41,title:"Blazing Saddles",year:1974,date:"2021-07-05",rating:4.5,rewatch:true,tags:"uncle chris",review:"Anyone in the judiciary system deserves a paddle ball instead of a gavel",uri:"https://boxd.it/1YhpKF"},
+  {id:42,title:"Black Widow",year:2021,date:"2021-07-08",rating:3.5,rewatch:false,tags:"in theaters, imax, marvel",review:"The opposite of a girl boss is a man",uri:"https://boxd.it/1YNOvp"},
+  {id:43,title:"Summer of Soul (...Or, When the Revolution Could Not Be Televised)",year:2021,date:"2021-07-11",rating:4.5,rewatch:false,tags:"in theaters, doc",review:"nothing will dethrone March of the Penguins",uri:"https://boxd.it/1ZhQKL"},
+  {id:44,title:"Loki",year:2021,date:"2021-07-17",rating:4.0,rewatch:false,tags:"marvel, tv",review:"Woo for Disney to continue to make lots of money !!!!",uri:"https://boxd.it/206Bqt"},
+  {id:45,title:"Space Jam: A New Legacy",year:2021,date:"2021-07-17",rating:1.5,rewatch:false,tags:"in theaters, rainy day films",review:"The longest circlejerk I have ever witnessed, and that circle jerk has Don Cheadle in it 🥰🥰",uri:"https://boxd.it/20c2xB"},
+  {id:46,title:"Batman: The Long Halloween, Part Two",year:2021,date:"2021-07-28",rating:3.5,rewatch:false,tags:"dc",review:"Definitely cool with them building a new universe especially with Jensen Ackles.",uri:"https://boxd.it/21MtQV"},
+  {id:47,title:"Neon Genesis Evangelion",year:1995,date:"2021-07-29",rating:5.0,rewatch:false,tags:"anime, tv",review:"I’m just tryna watch robots fight not hate myself when I smoke weed",uri:"https://boxd.it/21V8JH"},
+  {id:48,title:"Jungle Cruise",year:2021,date:"2021-07-29",rating:2.5,rewatch:false,tags:"in theaters, isa",review:"Boats n hoes",uri:"https://boxd.it/21XigJ"},
+  {id:49,title:"Batman Returns",year:1992,date:"2021-07-31",rating:4.5,rewatch:true,tags:"dc, quarantine",review:"Why is Danny DeVito so horny in this",uri:"https://boxd.it/22fDgV"},
+  {id:50,title:"Neon Genesis Evangelion: The End of Evangelion",year:1997,date:"2021-08-01",rating:5.0,rewatch:false,tags:"anime, quarantine",review:"Damn that’s crazy",uri:"https://boxd.it/22jW8T"},
+  {id:51,title:"Train to Busan",year:2016,date:"2021-08-01",rating:4.0,rewatch:false,tags:"quarantine",review:"",uri:"https://boxd.it/22nzqD"},
+  {id:52,title:"Fallen Angels",year:1995,date:"2021-08-01",rating:4.5,rewatch:false,tags:"quarantine, criterion",review:"",uri:"https://boxd.it/22pfor"},
+  {id:53,title:"Batman: Mask of the Phantasm",year:1993,date:"2021-08-03",rating:4.5,rewatch:true,tags:"dc, quarantine",review:"",uri:"https://boxd.it/22Eipn"},
+  {id:54,title:"Superman",year:1978,date:"2021-08-03",rating:4.5,rewatch:true,tags:"dc, quarantine",review:"",uri:"https://boxd.it/22Giqz"},
+  {id:55,title:"Superman II",year:1980,date:"2021-08-04",rating:3.0,rewatch:true,tags:"dc, quarantine",review:"",uri:"https://boxd.it/22LuoZ"},
+  {id:56,title:"From Up on Poppy Hill",year:2011,date:"2021-08-04",rating:4.0,rewatch:false,tags:"quarantine, ghibli",review:"",uri:"https://boxd.it/22PTHF"},
+  {id:57,title:"Only Yesterday",year:1991,date:"2021-08-05",rating:3.5,rewatch:false,tags:"quarantine, ghibli",review:"This bitch need to learn to let go",uri:"https://boxd.it/22XtbJ"},
+  {id:58,title:"The Suicide Squad",year:2021,date:"2021-08-06",rating:4.5,rewatch:false,tags:"dc, tyler, in theaters, imax",review:"Fuck Pete davidson",uri:"https://boxd.it/237wcP"},
+  {id:59,title:"Porco Rosso",year:1992,date:"2021-08-07",rating:5.0,rewatch:false,tags:"ghibli",review:"",uri:"https://boxd.it/23ihRF"},
+  {id:60,title:"The Iron Giant",year:1999,date:"2021-08-08",rating:4.5,rewatch:true,tags:"in theaters",review:"",uri:"https://boxd.it/23sqY1"},
+  {id:61,title:"The Green Knight",year:2021,date:"2021-08-12",rating:4.0,rewatch:false,tags:"in theaters, a24",review:"Lol Dev Patel cum shot",uri:"https://boxd.it/23ZNS7"},
+  {id:62,title:"Free Guy",year:2021,date:"2021-08-19",rating:2.5,rewatch:false,tags:"in theaters",review:"This movie was made by twitch chat and a bunch of discord mods",uri:"https://boxd.it/24ZH1b"},
+  {id:63,title:"Star Wars",year:1977,date:"2021-08-21",rating:5.0,rewatch:true,tags:"mom",review:"",uri:"https://boxd.it/25j14R"},
+  {id:64,title:"Evangelion: 1.0 You Are (Not) Alone",year:2007,date:"2021-08-23",rating:3.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/25B7If"},
+  {id:65,title:"He's All That",year:2021,date:"2021-09-02",rating:0.5,rewatch:false,tags:"dorm",review:"I fuckin hate myself",uri:"https://boxd.it/26W7f9"},
+  {id:66,title:"Shang-Chi and the Legend of the Ten Rings",year:2021,date:"2021-09-03",rating:3.5,rewatch:false,tags:"marvel, imax, in theaters",review:"Awkwafina should deliver one liners at my funeral",uri:"https://boxd.it/271scv"},
+  {id:67,title:"Black Dynamite",year:2009,date:"2021-09-09",rating:5.0,rewatch:true,tags:"dorm",review:"I fuckin dig it",uri:"https://boxd.it/27XFHx"},
+  {id:68,title:"Mortal Kombat Legends: Battle of the Realms",year:2021,date:"2021-09-10",rating:2.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/284WDB"},
+  {id:69,title:"Punch-Drunk Love",year:2002,date:"2021-09-17",rating:4.5,rewatch:true,tags:"dorm, criterion",review:"",uri:"https://boxd.it/293mP9"},
+  {id:70,title:"Ghost in the Shell",year:1995,date:"2021-09-19",rating:4.0,rewatch:true,tags:"imax, in theaters",review:"",uri:"https://boxd.it/29o0rV"},
+  {id:71,title:"Spree",year:2020,date:"2021-09-22",rating:2.5,rewatch:false,tags:"dorm",review:"",uri:"https://boxd.it/29F0v3"},
+  {id:72,title:"Malignant",year:2021,date:"2021-09-22",rating:3.0,rewatch:false,tags:"dorm, alex",review:"",uri:"https://boxd.it/29I5q9"},
+  {id:73,title:"Fantastic Mr. Fox",year:2009,date:"2021-09-22",rating:5.0,rewatch:true,tags:"dorm, criterion",review:"William Dafoe as a rat fighting George Clooney as a fox to western music.",uri:"https://boxd.it/29KCyJ"},
+  {id:74,title:"School of Rock",year:2003,date:"2021-09-24",rating:4.5,rewatch:false,tags:"dorm",review:"",uri:"https://boxd.it/29Sd8d"},
+  {id:75,title:"Atlantis: The Lost Empire",year:2001,date:"2021-09-25",rating:4.0,rewatch:false,tags:"dorm",review:"Early 2000s cgi 2d animation fucks",uri:"https://boxd.it/2a40e7"},
+  {id:76,title:"Titane",year:2021,date:"2021-09-26",rating:4.5,rewatch:false,tags:"nyff, connor, neon",review:"Kachow",uri:"https://boxd.it/2aiDdl"},
+  {id:77,title:"Spawn",year:1997,date:"2021-09-28",rating:1.0,rewatch:false,tags:"dorm",review:"",uri:"https://boxd.it/2arcsB"},
+  {id:78,title:"The Great Gatsby",year:2013,date:"2021-09-29",rating:3.0,rewatch:false,tags:"dorm",review:"",uri:"https://boxd.it/2aATHd"},
+  {id:79,title:"Red Rocket",year:2021,date:"2021-09-30",rating:4.5,rewatch:false,tags:"connor, nyff, a24, matt",review:"Soft porn but cinematically pleasing",uri:"https://boxd.it/2aGo4L"},
+  {id:80,title:"Venom: Let There Be Carnage",year:2021,date:"2021-10-01",rating:3.0,rewatch:false,tags:"alex, in theaters, marvel",review:"",uri:"https://boxd.it/2aPNw9"},
+  {id:81,title:"The Guilty",year:2021,date:"2021-10-02",rating:2.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/2b3uGR"},
+  {id:82,title:"The Evil Dead",year:1981,date:"2021-10-03",rating:4.5,rewatch:false,tags:"halloween",review:"",uri:"https://boxd.it/2bb7wP"},
+  {id:83,title:"The Many Saints of Newark",year:2021,date:"2021-10-03",rating:3.5,rewatch:false,tags:"uncle chris, in theaters",review:"Went to a dine in movie theatre and they had no fuckin prosciutto",uri:"https://boxd.it/2belQ1"},
+  {id:84,title:"Dave Chappelle: The Closer",year:2021,date:"2021-10-06",rating:2.0,rewatch:false,tags:"dorm",review:"",uri:"https://boxd.it/2bDSVN"},
+  {id:85,title:"Evil Dead II",year:1987,date:"2021-10-08",rating:5.0,rewatch:false,tags:"halloween",review:"Tryna get my soul swallowed",uri:"https://boxd.it/2bUaNf"},
+  {id:86,title:"Lamb",year:2021,date:"2021-10-09",rating:3.5,rewatch:false,tags:"in theaters, a24",review:"After seeing a lamb give birth 3 times fuck that shit I ain’t havin a kid",uri:"https://boxd.it/2c9pvZ"},
+  {id:87,title:"Army of Darkness",year:1992,date:"2021-10-11",rating:4.0,rewatch:false,tags:"halloween, dorm",review:"",uri:"https://boxd.it/2cp1cV"},
+  {id:88,title:"Predator",year:1987,date:"2021-10-11",rating:4.5,rewatch:false,tags:"dorm",review:"",uri:"https://boxd.it/2crFnt"},
+  {id:89,title:"Jennifer's Body",year:2009,date:"2021-10-12",rating:4.0,rewatch:false,tags:"halloween, dorm",review:"",uri:"https://boxd.it/2cD12T"},
+  {id:90,title:"The Last Duel",year:2021,date:"2021-10-15",rating:4.0,rewatch:false,tags:"in theaters",review:"Lol ben affleck adam driver orgy",uri:"https://boxd.it/2cY6r7"},
+  {id:91,title:"Injustice",year:2021,date:"2021-10-20",rating:1.5,rewatch:false,tags:"dc",review:"This is really not it",uri:"https://boxd.it/2dKQLN"},
+  {id:92,title:"Batman: Under the Red Hood",year:2010,date:"2021-10-22",rating:4.0,rewatch:false,tags:"dorm, dc",review:"",uri:"https://boxd.it/2e4dX1"},
+  {id:93,title:"The French Dispatch of the Liberty, Kansas Evening Sun",year:2021,date:"2021-10-26",rating:4.5,rewatch:false,tags:"in theaters",review:"Timothee chalamet is def the type of guy to ride in the back of the moped",uri:"https://boxd.it/2eNdBp"},
+  {id:94,title:"The Loft",year:2014,date:"2021-10-27",rating:2.0,rewatch:false,tags:"dorm",review:"",uri:"https://boxd.it/2eVgOn"},
+  {id:95,title:"21",year:2008,date:"2021-11-01",rating:2.0,rewatch:false,tags:"dorm, stats, criterion",review:"",uri:"https://boxd.it/2fM9J7"},
+  {id:96,title:"Old School",year:2003,date:"2021-11-03",rating:2.5,rewatch:false,tags:"dorm",review:"",uri:"https://boxd.it/2g4uWH"},
+  {id:97,title:"Eternals",year:2021,date:"2021-11-05",rating:3.0,rewatch:false,tags:"marvel, imax, in theaters",review:"Of course Kumail Nanjiani has finger guns",uri:"https://boxd.it/2gjBkZ"},
+  {id:98,title:"Batman & Mr. Freeze: SubZero",year:1998,date:"2021-11-06",rating:3.0,rewatch:false,tags:"dorm, dc",review:"",uri:"https://boxd.it/2gs7vL"},
+  {id:99,title:"Batman: Bad Blood",year:2016,date:"2021-11-06",rating:3.5,rewatch:false,tags:"dc, dorm",review:"",uri:"https://boxd.it/2gsLSZ"},
+  {id:100,title:"Moonstruck",year:1987,date:"2021-11-07",rating:4.0,rewatch:false,tags:"dorm, criterion",review:"",uri:"https://boxd.it/2gJB5H"},
+  {id:101,title:"It's Complicated",year:2009,date:"2021-11-07",rating:2.0,rewatch:false,tags:"dorm",review:"",uri:"https://boxd.it/2gN6AH"},
+  {id:102,title:"Phone Booth",year:2002,date:"2021-11-09",rating:2.0,rewatch:false,tags:"dorm",review:"",uri:"https://boxd.it/2gZM51"},
+  {id:103,title:"Watchmen",year:2019,date:"2021-11-10",rating:5.0,rewatch:true,tags:"tv, dc",review:"",uri:"https://boxd.it/2h5Bzr"},
+  {id:104,title:"Spencer",year:2021,date:"2021-11-12",rating:4.5,rewatch:false,tags:"in theaters, neon",review:"Corgis",uri:"https://boxd.it/2hqV67"},
+  {id:105,title:"Rogue One: A Star Wars Story",year:2016,date:"2021-11-14",rating:4.0,rewatch:true,tags:"in theaters, mom, isa",review:"",uri:"https://boxd.it/2hKmQz"},
+  {id:106,title:"Scooby-Doo",year:2002,date:"2021-11-15",rating:5.0,rewatch:true,tags:"dorm",review:"",uri:"https://boxd.it/2i0vTp"},
+  {id:107,title:"The Death of Superman",year:2018,date:"2021-11-16",rating:3.0,rewatch:false,tags:"dc, dorm",review:"",uri:"https://boxd.it/2i98y7"},
+  {id:108,title:"The Internship",year:2013,date:"2021-11-16",rating:1.0,rewatch:true,tags:"dorm",review:"I’m gonna bomb my interview tomorrow cuz I decided to take a break from practicing and watch fucking Vince Vaughn",uri:"https://boxd.it/2icZsR"},
+  {id:109,title:"Rounders",year:1998,date:"2021-11-19",rating:4.5,rewatch:false,tags:"dorm, roommates",review:"I watched this with a kid who’s down 1600 to 5 bookies and he took this as inspiration",uri:"https://boxd.it/2ivJp1"},
+  {id:110,title:"Belfast",year:2021,date:"2021-11-19",rating:4.0,rewatch:false,tags:"in theaters",review:"Cute as fuck",uri:"https://boxd.it/2iAN7v"},
+  {id:111,title:"Jurassic Park III",year:2001,date:"2021-11-22",rating:2.0,rewatch:false,tags:"dorm",review:"",uri:"https://boxd.it/2iZMLf"},
+  {id:112,title:"The Lost World: Jurassic Park",year:1997,date:"2021-11-23",rating:2.5,rewatch:false,tags:"dorm",review:"",uri:"https://boxd.it/2jaYmN"},
+  {id:113,title:"Eight Crazy Nights",year:2002,date:"2021-11-25",rating:5.0,rewatch:true,tags:"certified jew classic 💯",review:"certified jew classic 💯",uri:"https://boxd.it/2jwhrJ"},
+  {id:114,title:"Casablanca",year:1942,date:"2021-11-26",rating:4.5,rewatch:true,tags:"nana, criterion",review:"",uri:"https://boxd.it/2jDnTt"},
+  {id:115,title:"The Humans",year:2021,date:"2021-11-27",rating:3.5,rewatch:false,tags:"a24",review:"Fuckin Catholics man",uri:"https://boxd.it/2jQ2Vz"},
+  {id:116,title:"Licorice Pizza",year:2021,date:"2021-11-28",rating:5.0,rewatch:false,tags:"70mm, in theaters, angelika, certified jew classic 💯, matt",review:"PTA backing the big Jewish nose community again 🤝",uri:"https://boxd.it/2jSCVJ"},
+  {id:117,title:"C'mon C'mon",year:2021,date:"2021-11-28",rating:5.0,rewatch:false,tags:"a24, in theaters",review:"This movie feels like a therapist",uri:"https://boxd.it/2jXQHh"},
+  {id:118,title:"Licorice Pizza",year:2021,date:"2021-11-30",rating:5.0,rewatch:true,tags:"70mm, in theaters",review:"OUR LOVE IS ALIVEEEE",uri:"https://boxd.it/2kcHjv"},
+  {id:119,title:"Spider-Man",year:2002,date:"2021-12-02",rating:5.0,rewatch:true,tags:"dorm, marvel",review:"",uri:"https://boxd.it/2kAjO3"},
+  {id:120,title:"Justice League: The Flashpoint Paradox",year:2013,date:"2021-12-03",rating:3.5,rewatch:false,tags:"dc, dorm",review:"",uri:"https://boxd.it/2kDXcz"},
+  {id:121,title:"Dunkirk",year:2017,date:"2021-12-07",rating:4.0,rewatch:false,tags:"dorm",review:"",uri:"https://boxd.it/2lj5wT"},
+  {id:122,title:"Spider-Man 2",year:2004,date:"2021-12-09",rating:5.0,rewatch:true,tags:"marvel, dorm",review:"",uri:"https://boxd.it/2lx6nh"},
+  {id:123,title:"The Mummy",year:1999,date:"2021-12-10",rating:4.0,rewatch:true,tags:"dorm",review:"",uri:"https://boxd.it/2lGFul"},
+  {id:124,title:"Spider-Man 3",year:2007,date:"2021-12-11",rating:3.5,rewatch:true,tags:"marvel, dorm",review:"Jazz pianist Toby maguire",uri:"https://boxd.it/2lTY5F"},
+  {id:125,title:"Spider-Man: Homecoming",year:2017,date:"2021-12-14",rating:3.0,rewatch:true,tags:"marvel, dorm",review:"",uri:"https://boxd.it/2mkmMb"},
+  {id:126,title:"The Amazing Spider-Man",year:2012,date:"2021-12-14",rating:3.0,rewatch:true,tags:"marvel, dorm",review:"",uri:"https://boxd.it/2mmJcp"},
+  {id:127,title:"The Amazing Spider-Man 2",year:2014,date:"2021-12-15",rating:2.0,rewatch:true,tags:"marvel, dorm",review:"Lol electricity straightens jaime foxx’s teeth",uri:"https://boxd.it/2msXU3"},
+  {id:128,title:"Spider-Man: No Way Home",year:2021,date:"2021-12-16",rating:4.5,rewatch:false,tags:"marvel, in theaters, alex",review:"Jaime foxx got that new new",uri:"https://boxd.it/2mGe5x"},
+  {id:129,title:"Wonder Woman",year:2009,date:"2021-12-17",rating:3.0,rewatch:false,tags:"dc",review:"",uri:"https://boxd.it/2mO6ZX"},
+  {id:130,title:"Encanto",year:2021,date:"2021-12-17",rating:3.5,rewatch:false,tags:"in theaters, isa",review:"",uri:"https://boxd.it/2mTLUJ"},
+  {id:131,title:"tick, tick... BOOM!",year:2021,date:"2021-12-18",rating:4.0,rewatch:false,tags:"mom, isa, musical",review:"It’s like the 80s Broadway version of endgame in that diner",uri:"https://boxd.it/2n65tx"},
+  {id:132,title:"Spider-Man: No Way Home",year:2021,date:"2021-12-21",rating:0,rewatch:true,tags:"in theaters, isa, marvel",review:"Surprised spider-pig wasn’t in this from the simpsons knowing Disney",uri:"https://boxd.it/2nzwD3"},
+  {id:133,title:"The Matrix",year:1999,date:"2021-12-21",rating:5.0,rewatch:false,tags:"mom",review:"",uri:"https://boxd.it/2nG3Kj"},
+  {id:134,title:"Hawkeye",year:2021,date:"2021-12-22",rating:3.0,rewatch:false,tags:"marvel",review:"Lol a post credit musical number",uri:"https://boxd.it/2nLDB3"},
+  {id:135,title:"Good Time",year:2017,date:"2021-12-23",rating:4.5,rewatch:true,tags:"a24",review:"",uri:"https://boxd.it/2nTPRt"},
+  {id:136,title:"The Holiday",year:2006,date:"2021-12-23",rating:3.5,rewatch:false,tags:"mom",review:"Hans zimmer and jack black combo",uri:"https://boxd.it/2o5h4B"},
+  {id:137,title:"The Star Wars Holiday Special",year:1978,date:"2021-12-24",rating:0.5,rewatch:false,tags:"uncle chris",review:"My annual escape into another room so I do not have to converse with anyone from Staten Island at the family Christmas party",uri:"https://boxd.it/2offof"},
+  {id:138,title:"Don't Look Up",year:2021,date:"2021-12-26",rating:3.0,rewatch:false,tags:"mom",review:"Someone says it’s lit in this movie",uri:"https://boxd.it/2oA1Kt"},
+  {id:139,title:"The Florida Project",year:2017,date:"2021-12-31",rating:4.5,rewatch:false,tags:"mom, a24",review:"Of course William dafoe is a peck typer",uri:"https://boxd.it/2pXOVZ"},
+  {id:140,title:"Street Gang: How We Got to Sesame Street",year:2021,date:"2022-01-01",rating:3.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/2qjR5r"},
+  {id:141,title:"Licorice Pizza",year:2021,date:"2022-01-02",rating:5.0,rewatch:true,tags:"in theaters, matt",review:"",uri:"https://boxd.it/2qDoof"},
+  {id:142,title:"The Super Bob Einstein Movie",year:2021,date:"2022-01-02",rating:3.0,rewatch:false,tags:"doc",review:"",uri:"https://boxd.it/2qEgxF"},
+  {id:143,title:"The Empire Strikes Back",year:1980,date:"2022-01-02",rating:5.0,rewatch:true,tags:"",review:"Saying “Boring conversation anyway” is the greatest way to end a convo",uri:"https://boxd.it/2qHHyL"},
+  {id:144,title:"Superman: Man of Tomorrow",year:2020,date:"2022-01-03",rating:3.5,rewatch:false,tags:"dc",review:"",uri:"https://boxd.it/2qT6sF"},
+  {id:145,title:"Rain Man",year:1988,date:"2022-01-04",rating:3.5,rewatch:false,tags:"mom",review:"",uri:"https://boxd.it/2rndn3"},
+  {id:146,title:"Fantastic Beasts and Where to Find Them",year:2016,date:"2022-01-07",rating:2.0,rewatch:false,tags:"isa",review:"Roach in teapot bullshit",uri:"https://boxd.it/2s3nKv"},
+  {id:147,title:"Station Eleven",year:2021,date:"2022-01-15",rating:4.5,rewatch:false,tags:"mom, tv",review:"I hope T poses lived on in the traveling theatre kid group",uri:"https://boxd.it/2u5RC9"},
+  {id:148,title:"Harry Potter 20th Anniversary: Return to Hogwarts",year:2022,date:"2022-01-15",rating:3.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/2u5S4x"},
+  {id:149,title:"The 355",year:2022,date:"2022-01-16",rating:2.5,rewatch:false,tags:"katy, in theaters",review:"Made me feel like a bad bitch",uri:"https://boxd.it/2umdkN"},
+  {id:150,title:"Harry Potter and the Chamber of Secrets",year:2002,date:"2022-01-17",rating:3.5,rewatch:true,tags:"isa, in theaters",review:"This happened to be in theaters for my sisters 10th birthday. No one was in the theater and she tried to take her socks off and i retaliated. I don’t know if I ruined her birthday",uri:"https://boxd.it/2uw9CD"},
+  {id:151,title:"Scream",year:2022,date:"2022-01-20",rating:3.5,rewatch:false,tags:"in theaters, roommates",review:"I wish they did FaceTimes instead of phone calls",uri:"https://boxd.it/2v8Pct"},
+  {id:152,title:"Kung Fu Panda",year:2008,date:"2022-01-21",rating:4.5,rewatch:true,tags:"dorm, roommates",review:"",uri:"https://boxd.it/2vsbLj"},
+  {id:153,title:"Hereditary",year:2018,date:"2022-01-22",rating:4.0,rewatch:true,tags:"roommates, a24",review:"",uri:"https://boxd.it/2vCA5H"},
+  {id:154,title:"Nightmare Alley",year:2021,date:"2022-01-23",rating:3.5,rewatch:false,tags:"in theaters",review:"",uri:"https://boxd.it/2vRpSj"},
+  {id:155,title:"Transformers",year:2007,date:"2022-01-23",rating:2.5,rewatch:true,tags:"roommates",review:"",uri:"https://boxd.it/2vZFWn"},
+  {id:156,title:"Transformers: Revenge of the Fallen",year:2009,date:"2022-01-24",rating:2.0,rewatch:true,tags:"roommates",review:"",uri:"https://boxd.it/2w6qzx"},
+  {id:157,title:"Transformers: Dark of the Moon",year:2011,date:"2022-01-24",rating:2.5,rewatch:false,tags:"roommates",review:"Watching three michael bay movies one after another is like a drug in itself",uri:"https://boxd.it/2w6qWL"},
+  {id:158,title:"Transformers: Age of Extinction",year:2014,date:"2022-01-25",rating:1.5,rewatch:false,tags:"dorm",review:"",uri:"https://boxd.it/2wmHvT"},
+  {id:159,title:"Transformers: The Last Knight",year:2017,date:"2022-01-27",rating:2.0,rewatch:false,tags:"roommates",review:"",uri:"https://boxd.it/2wIahD"},
+  {id:160,title:"Rise of the Planet of the Apes",year:2011,date:"2022-01-29",rating:3.0,rewatch:true,tags:"roommates, dorm",review:"",uri:"https://boxd.it/2x41oz"},
+  {id:161,title:"We Need to Talk About Cosby",year:2022,date:"2022-01-30",rating:3.5,rewatch:false,tags:"roommates, doc",review:"Holy shit",uri:"https://boxd.it/2xmMVh"},
+  {id:162,title:"Dawn of the Planet of the Apes",year:2014,date:"2022-01-31",rating:3.5,rewatch:true,tags:"dorm, roommates",review:"",uri:"https://boxd.it/2xtxHt"},
+  {id:163,title:"An American in Paris",year:1951,date:"2022-02-05",rating:4.0,rewatch:false,tags:"nana, musical",review:"Crazy 50’s rave at the end of this",uri:"https://boxd.it/2yljhJ"},
+  {id:164,title:"Singin' in the Rain",year:1952,date:"2022-02-06",rating:5.0,rewatch:false,tags:"nana, musical",review:"",uri:"https://boxd.it/2yHaUL"},
+  {id:165,title:"Jackass Forever",year:2022,date:"2022-02-07",rating:3.5,rewatch:false,tags:"roommates, in theaters",review:"God is a woman",uri:"https://boxd.it/2yRk3n"},
+  {id:166,title:"War for the Planet of the Apes",year:2017,date:"2022-02-08",rating:3.5,rewatch:true,tags:"roommates",review:"",uri:"https://boxd.it/2yVedf"},
+  {id:167,title:"jeen-yuhs: A Kanye Trilogy",year:2022,date:"2022-02-11",rating:0,rewatch:false,tags:"in theaters, roommates, doc",review:"this shit hilarious",uri:"https://boxd.it/2zv8lJ"},
+  {id:168,title:"A Beautiful Mind",year:2001,date:"2022-02-14",rating:3.5,rewatch:false,tags:"roommates",review:"I thought I was tripping when I saw the filming location for Harvard in this and it was my bum ass college in the bronx",uri:"https://boxd.it/2A8Xif"},
+  {id:169,title:"Kimi",year:2022,date:"2022-02-16",rating:2.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/2AthH5"},
+  {id:170,title:"Prisoners",year:2013,date:"2022-02-17",rating:4.0,rewatch:false,tags:"roommates",review:"All too well",uri:"https://boxd.it/2AxZfd"},
+  {id:171,title:"Uncharted",year:2022,date:"2022-02-20",rating:2.5,rewatch:false,tags:"imax, in theaters, roommates",review:"Back to back movies with a rave for Sony",uri:"https://boxd.it/2Besod"},
+  {id:172,title:"Batman Begins",year:2005,date:"2022-02-22",rating:4.0,rewatch:true,tags:"roommates, dc",review:"\"So when did the nut take over the nut house?\"",uri:"https://boxd.it/2BCe9r"},
+  {id:173,title:"Chernobyl",year:2019,date:"2022-02-25",rating:5.0,rewatch:false,tags:"tv",review:"",uri:"https://boxd.it/2C0BpP"},
+  {id:174,title:"The Dark Knight",year:2008,date:"2022-02-25",rating:5.0,rewatch:true,tags:"roommates, dc",review:"RACHEL",uri:"https://boxd.it/2C2umX"},
+  {id:175,title:"Catwoman: Hunted",year:2022,date:"2022-02-27",rating:3.5,rewatch:false,tags:"dc",review:"",uri:"https://boxd.it/2CnFpZ"},
+  {id:176,title:"The Godfather",year:1972,date:"2022-02-27",rating:5.0,rewatch:true,tags:"in theaters",review:"No post credit scene for godfather 2 ???",uri:"https://boxd.it/2CrLPd"},
+  {id:177,title:"Batman: Mystery of the Batwoman",year:2003,date:"2022-02-28",rating:2.5,rewatch:false,tags:"dorm, dc",review:"",uri:"https://boxd.it/2CzWfB"},
+  {id:178,title:"The Dark Knight Rises",year:2012,date:"2022-02-28",rating:4.5,rewatch:true,tags:"dc, roommates",review:"",uri:"https://boxd.it/2CD1rN"},
+  {id:179,title:"The Batman",year:2022,date:"2022-03-02",rating:5.0,rewatch:false,tags:"dc, in theaters, imax",review:"Felt more during this movie than I did when my dad said he was getting milk and moved to another side of the country",uri:"https://boxd.it/2CPfNR"},
+  {id:180,title:"Jonah Hex",year:2010,date:"2022-03-04",rating:1.0,rewatch:false,tags:"dc",review:"Lol",uri:"https://boxd.it/2DbWan"},
+  {id:181,title:"Batman: Year One",year:2011,date:"2022-03-08",rating:3.0,rewatch:true,tags:"dc",review:"",uri:"https://boxd.it/2E4C79"},
+  {id:182,title:"Gladiator",year:2000,date:"2022-03-09",rating:3.5,rewatch:false,tags:"dorm",review:"Russel crowe MF DOOM mask",uri:"https://boxd.it/2EdjPz"},
+  {id:183,title:"Fresh",year:2022,date:"2022-03-12",rating:3.5,rewatch:false,tags:"mom",review:"",uri:"https://boxd.it/2EJeTP"},
+  {id:184,title:"American Psycho",year:2000,date:"2022-03-18",rating:4.0,rewatch:true,tags:"",review:"Ate way too much fuckin dominoes pizza during this movie",uri:"https://boxd.it/2FS5GJ"},
+  {id:185,title:"Turning Red",year:2022,date:"2022-03-18",rating:3.5,rewatch:false,tags:"isa",review:"My 10 year old sister forgot to set a timer for the cookies she made and the fire alarm went off during this. If this was in theatres I wouldn’t have had this problem.",uri:"https://boxd.it/2FXp2J"},
+  {id:186,title:"The Eyes of Tammy Faye",year:2021,date:"2022-03-19",rating:3.0,rewatch:false,tags:"mom",review:"",uri:"https://boxd.it/2G36mH"},
+  {id:187,title:"After Yang",year:2021,date:"2022-03-20",rating:4.0,rewatch:false,tags:"mom, a24",review:"Deleted tik tok after watching this",uri:"https://boxd.it/2Gd2VN"},
+  {id:188,title:"X",year:2022,date:"2022-03-24",rating:4.0,rewatch:false,tags:"alex, dan, in theaters, a24",review:"No kid cudi hums",uri:"https://boxd.it/2H7DMF"},
+  {id:189,title:"Jujutsu Kaisen 0",year:2021,date:"2022-03-25",rating:3.5,rewatch:false,tags:"anime, in theaters, dan",review:"Damn that’s crazy",uri:"https://boxd.it/2Hjtul"},
+  {id:190,title:"Tenet",year:2020,date:"2022-03-29",rating:4.0,rewatch:false,tags:"roommates",review:"Imagine farting in reverse",uri:"https://boxd.it/2HUk5l"},
+  {id:191,title:"King Richard",year:2021,date:"2022-03-31",rating:3.5,rewatch:false,tags:"dorm",review:"",uri:"https://boxd.it/2IgtWH"},
+  {id:192,title:"Fantastic Beasts: The Crimes of Grindelwald",year:2018,date:"2022-03-31",rating:2.5,rewatch:false,tags:"isa",review:"",uri:"https://boxd.it/2IhpqJ"},
+  {id:193,title:"Morbius",year:2022,date:"2022-03-31",rating:1.0,rewatch:false,tags:"dan, alex, in theaters, marvel",review:"Love watching Jared Leto fail in his long hair arc",uri:"https://boxd.it/2IlL3v"},
+  {id:194,title:"Everything Everywhere All at Once",year:2022,date:"2022-04-01",rating:4.5,rewatch:false,tags:"in theaters, dan, a24",review:"Ratatouille multiverse 🤎",uri:"https://boxd.it/2IxG2r"},
+  {id:195,title:"Enough Said",year:2013,date:"2022-04-03",rating:3.5,rewatch:false,tags:"dorm",review:"James gandolfini is definitely a birks guy",uri:"https://boxd.it/2IVUKF"},
+  {id:196,title:"Sonic the Hedgehog",year:2020,date:"2022-04-05",rating:2.5,rewatch:false,tags:"dorm",review:"",uri:"https://boxd.it/2JbTVf"},
+  {id:197,title:"Tony Hawk: Until the Wheels Fall Off",year:2022,date:"2022-04-06",rating:3.5,rewatch:false,tags:"dorm, roommates, doc",review:"",uri:"https://boxd.it/2JijHZ"},
+  {id:198,title:"Avenues",year:2017,date:"2022-04-08",rating:3.0,rewatch:false,tags:"matt",review:"michael cera the melodist",uri:"https://boxd.it/2JKETj"},
+  {id:199,title:"Marry Me",year:2022,date:"2022-04-10",rating:2.0,rewatch:false,tags:"airplane",review:"jlo and I have both been within punching distance of Jimmy Fallon",uri:"https://boxd.it/2K4FAH"},
+  {id:200,title:"Star Wars: Episode III – Revenge of the Sith",year:2005,date:"2022-04-13",rating:5.0,rewatch:true,tags:"roommates",review:"Most quotable movie of all time",uri:"https://boxd.it/2KCAHL"},
+  {id:201,title:"The Northman",year:2022,date:"2022-04-21",rating:4.5,rewatch:false,tags:"in theaters, dan, alex",review:"leif erikson day",uri:"https://boxd.it/2M9bA1"},
+  {id:202,title:"Arrival",year:2016,date:"2022-04-28",rating:4.5,rewatch:false,tags:"roommates",review:"",uri:"https://boxd.it/2Nn9PP"},
+  {id:203,title:"Doctor Strange",year:2016,date:"2022-05-06",rating:3.5,rewatch:true,tags:"dorm, marvel",review:"",uri:"https://boxd.it/2OFZZR"},
+  {id:204,title:"Doctor Strange in the Multiverse of Madness",year:2022,date:"2022-05-06",rating:4.0,rewatch:false,tags:"marvel, alex, dan, in theaters",review:"Sam raimi prosperity 🫀",uri:"https://boxd.it/2OJp73"},
+  {id:205,title:"The Unbearable Weight of Massive Talent",year:2022,date:"2022-05-08",rating:3.0,rewatch:false,tags:"in theaters",review:"Remi wolf and nic cage 🤯",uri:"https://boxd.it/2OZYKr"},
+  {id:206,title:"Shrek",year:2001,date:"2022-05-12",rating:5.0,rewatch:true,tags:"roommates",review:"",uri:"https://boxd.it/2PKxXH"},
+  {id:207,title:"Futurama: Bender's Big Score",year:2007,date:"2022-05-17",rating:3.5,rewatch:false,tags:"tv",review:"the Gore Bush bit is absolutely hilarious",uri:"https://boxd.it/2QHW91"},
+  {id:208,title:"Sonic the Hedgehog 2",year:2022,date:"2022-05-19",rating:3.0,rewatch:false,tags:"in theaters",review:"Holy sorbet",uri:"https://boxd.it/2QV7G7"},
+  {id:209,title:"Fantastic Beasts: The Secrets of Dumbledore",year:2022,date:"2022-05-25",rating:2.5,rewatch:false,tags:"in theaters",review:"Just another dumbo day",uri:"https://boxd.it/2Sfull"},
+  {id:210,title:"Men",year:2022,date:"2022-05-28",rating:1.0,rewatch:false,tags:"in theaters, a24",review:"Not many times I walk out of the movie theater thinking “damn I wish I saw Bob’s burgers instead”",uri:"https://boxd.it/2SIlJr"},
+  {id:211,title:"Top Gun: Maverick",year:2022,date:"2022-06-08",rating:4.0,rewatch:false,tags:"in theaters, imax",review:"New balance shoe movie",uri:"https://boxd.it/2UCFop"},
+  {id:212,title:"Hustle",year:2022,date:"2022-06-12",rating:3.0,rewatch:false,tags:"isa",review:"I wish adam Sandler was the one going to the nba",uri:"https://boxd.it/2Vk5A3"},
+  {id:213,title:"Lightyear",year:2022,date:"2022-06-16",rating:2.5,rewatch:false,tags:"in theaters, isa",review:"Review from my 10 year old sister “I don’t know how this made Andy buy the toy “",uri:"https://boxd.it/2W2P1r"},
+  {id:214,title:"The Wind Rises",year:2013,date:"2022-06-18",rating:5.0,rewatch:true,tags:"ghibli",review:"Always hits",uri:"https://boxd.it/2Wh2W9"},
+  {id:215,title:"Jurassic World Dominion",year:2022,date:"2022-06-19",rating:1.5,rewatch:false,tags:"in theaters, mom, isa, 3d",review:"The only that could’ve saved this hot pile of dinosaur dogshit was Vince Vaughn",uri:"https://boxd.it/2WD5Af"},
+  {id:216,title:"A Clockwork Orange",year:1971,date:"2022-06-21",rating:5.0,rewatch:true,tags:"in theaters, angelika, 35mm",review:"Can’t believe this was in space jam 2",uri:"https://boxd.it/2X2qAF"},
+  {id:217,title:"The Times of Harvey Milk",year:1984,date:"2022-06-23",rating:4.0,rewatch:false,tags:"criterion",review:"",uri:"https://boxd.it/2Xl7bz"},
+  {id:218,title:"Elvis",year:2022,date:"2022-06-23",rating:3.0,rewatch:false,tags:"in theaters, alex",review:"I didn’t know my brain could think of so many other things than this movie in 3 hours",uri:"https://boxd.it/2XrQXb"},
+  {id:219,title:"Minions: The Rise of Gru",year:2022,date:"2022-07-05",rating:2.0,rewatch:false,tags:"in theaters, isa",review:"My 10 year old sister  “Movie of the year”   Way too many damn people are seeing this",uri:"https://boxd.it/2ZGNh5"},
+  {id:220,title:"A Love Song",year:2022,date:"2022-07-06",rating:3.5,rewatch:false,tags:"in theaters, alex, angelika, surprise screening",review:"How does she shower",uri:"https://boxd.it/2ZRzmH"},
+  {id:221,title:"Thor: Love and Thunder",year:2022,date:"2022-07-09",rating:2.5,rewatch:false,tags:"marvel, in theaters, dan, alex",review:"Natalie Portman 💛",uri:"https://boxd.it/30qA5d"},
+  {id:222,title:"Cha Cha Real Smooth",year:2022,date:"2022-07-10",rating:5.0,rewatch:false,tags:"certified jew classic 💯, mom, in theaters, angelika",review:"Cooper Raiff should just get Jdate",uri:"https://boxd.it/30FZPb"},
+  {id:223,title:"The Bob's Burgers Movie",year:2022,date:"2022-07-14",rating:3.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/31sOaJ"},
+  {id:224,title:"Twilight",year:2008,date:"2022-07-18",rating:2.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/32c5fL"},
+  {id:225,title:"The Twilight Saga: New Moon",year:2009,date:"2022-07-18",rating:2.0,rewatch:false,tags:"",review:"Jorts r cool",uri:"https://boxd.it/32c5w3"},
+  {id:226,title:"The Twilight Saga: Eclipse",year:2010,date:"2022-07-19",rating:1.5,rewatch:false,tags:"",review:"Why in the world would u make the backstory of a vampire a confederate",uri:"https://boxd.it/32oYXd"},
+  {id:227,title:"The Twilight Saga: Breaking Dawn – Part 1",year:2011,date:"2022-07-19",rating:1.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/32ve1B"},
+  {id:228,title:"The Twilight Saga: Breaking Dawn – Part 2",year:2012,date:"2022-07-19",rating:3.0,rewatch:false,tags:"",review:"Actually a cool plot twist",uri:"https://boxd.it/32veb7"},
+  {id:229,title:"Nope",year:2022,date:"2022-07-21",rating:4.5,rewatch:false,tags:"imax, in theaters, dan",review:"Steven Yeun deserves his own blockbuster at this point",uri:"https://boxd.it/32RV7L"},
+  {id:230,title:"Marcel the Shell with Shoes On",year:2021,date:"2022-07-22",rating:3.5,rewatch:false,tags:"ritz, in theaters, a24",review:"A kids movie combining Thomas Mann and Nathan Fielder while doing a 60 minutes bit is crazy",uri:"https://boxd.it/334aQP"},
+  {id:231,title:"Harry Potter and the Philosopher's Stone",year:2001,date:"2022-07-23",rating:3.5,rewatch:true,tags:"cineconcert",review:"Getting to see a John Williams soundtrack played by an orchestra during a movie was wild",uri:"https://boxd.it/33jcM1"},
+  {id:232,title:"Secret Origin: The Story of DC Comics",year:2010,date:"2022-07-25",rating:2.5,rewatch:false,tags:"dc",review:"",uri:"https://boxd.it/33Fyv1"},
+  {id:233,title:"In Search of Steve Ditko",year:2007,date:"2022-07-25",rating:3.0,rewatch:false,tags:"marvel, doc",review:"",uri:"https://boxd.it/33GBir"},
+  {id:234,title:"Spirited Away",year:2001,date:"2022-08-07",rating:4.5,rewatch:true,tags:"ghibli",review:"",uri:"https://boxd.it/36JaCx"},
+  {id:235,title:"The Simpsons Movie",year:2007,date:"2022-08-07",rating:3.5,rewatch:true,tags:"",review:"Woke",uri:"https://boxd.it/36JbL1"},
+  {id:236,title:"Bodies Bodies Bodies",year:2022,date:"2022-08-13",rating:4.0,rewatch:false,tags:"in theaters, alex, a24",review:"Why does every Greg suck in everything",uri:"https://boxd.it/37Zedd"},
+  {id:237,title:"Batman & Bill",year:2017,date:"2022-08-16",rating:3.5,rewatch:false,tags:"dc, doc",review:"",uri:"https://boxd.it/38zrCn"},
+  {id:238,title:"Bullet Train",year:2022,date:"2022-08-16",rating:3.0,rewatch:false,tags:"in theaters, alex",review:"If instagram reels were a movie",uri:"https://boxd.it/38F2Eb"},
+  {id:239,title:"Hoop Dreams",year:1994,date:"2022-08-18",rating:5.0,rewatch:false,tags:"doc, criterion",review:"",uri:"https://boxd.it/38WzlP"},
+  {id:240,title:"Funny Pages",year:2022,date:"2022-08-20",rating:4.5,rewatch:false,tags:"a24",review:"Average day in Jersey",uri:"https://boxd.it/39t8jt"},
+  {id:241,title:"Clueless",year:1995,date:"2022-08-23",rating:4.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/3a1iWj"},
+  {id:242,title:"LIGHT & MAGIC",year:2022,date:"2022-08-29",rating:4.0,rewatch:false,tags:"doc",review:"",uri:"https://boxd.it/3b8Upb"},
+  {id:243,title:"This Is the End",year:2013,date:"2022-08-30",rating:3.0,rewatch:false,tags:"alex, dan",review:"",uri:"https://boxd.it/3bhW4x"},
+  {id:244,title:"Jaws",year:1975,date:"2022-09-05",rating:5.0,rewatch:true,tags:"imax, dan, alex, in theaters",review:"I’m gonna need some bigger pants. It almost made me shit myself !",uri:"https://boxd.it/3cwnxD"},
+  {id:245,title:"Milestone Generations",year:2022,date:"2022-09-08",rating:2.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/3cYrLF"},
+  {id:246,title:"More than a Game",year:2008,date:"2022-09-14",rating:3.5,rewatch:false,tags:"doc",review:"",uri:"https://boxd.it/3e2tjF"},
+  {id:247,title:"Barbarian",year:2022,date:"2022-09-14",rating:3.5,rewatch:false,tags:"dan, in theaters",review:"Lol justin long first person pov",uri:"https://boxd.it/3e7DtZ"},
+  {id:248,title:"Batman Returns",year:1992,date:"2022-09-17",rating:4.5,rewatch:true,tags:"dan",review:"",uri:"https://boxd.it/3eDXan"},
+  {id:249,title:"Golden Boy",year:1995,date:"2022-09-22",rating:3.5,rewatch:false,tags:"anime",review:"Weird but the last episode plays into itself really well",uri:"https://boxd.it/3fx809"},
+  {id:250,title:"Don't Worry Darling",year:2022,date:"2022-09-23",rating:3.0,rewatch:false,tags:"in theaters, alex, dan",review:"Who let nick kroll",uri:"https://boxd.it/3fDT37"},
+  {id:251,title:"Pearl",year:2022,date:"2022-09-28",rating:3.5,rewatch:false,tags:"in theaters, a24",review:"Mia goth has powers",uri:"https://boxd.it/3gHcQn"},
+  {id:252,title:"The Squid and the Whale",year:2005,date:"2022-09-29",rating:4.5,rewatch:false,tags:"criterion",review:"Owen Kline u devil u",uri:"https://boxd.it/3gTOaX"},
+  {id:253,title:"White Noise",year:2022,date:"2022-10-01",rating:3.5,rewatch:false,tags:"nyff, connor, in theaters",review:"Netflix what’s goin on here",uri:"https://boxd.it/3hkcAR"},
+  {id:254,title:"Master Gardener",year:2022,date:"2022-10-01",rating:3.0,rewatch:false,tags:"connor, nyff, in theaters",review:"My plants all died anyways so",uri:"https://boxd.it/3hqlaZ"},
+  {id:255,title:"Empire of Dreams: The Story of the Star Wars Trilogy",year:2004,date:"2022-10-03",rating:3.5,rewatch:false,tags:"doc",review:"",uri:"https://boxd.it/3hN9LZ"},
+  {id:256,title:"Spielberg",year:2017,date:"2022-10-03",rating:3.5,rewatch:false,tags:"doc",review:"",uri:"https://boxd.it/3hQpEr"},
+  {id:257,title:"Avatar",year:2009,date:"2022-10-04",rating:4.5,rewatch:true,tags:"in theaters, imax, 3d, dan",review:"You know it’s avatar when you hear people asleep in those fuckin glasses",uri:"https://boxd.it/3i6Tgh"},
+  {id:258,title:"Night of the Living Dead",year:1968,date:"2022-10-08",rating:3.5,rewatch:false,tags:"halloween, criterion",review:"",uri:"https://boxd.it/3iNxQj"},
+  {id:259,title:"The Fly",year:1986,date:"2022-10-11",rating:4.5,rewatch:false,tags:"halloween",review:"How do u cast urself as the gynecologist",uri:"https://boxd.it/3jAAsH"},
+  {id:260,title:"Triangle of Sadness",year:2022,date:"2022-10-12",rating:4.5,rewatch:false,tags:"in theaters, neon, criterion",review:"Caviar sucks anyways",uri:"https://boxd.it/3jP70T"},
+  {id:261,title:"Armageddon Time",year:2022,date:"2022-10-13",rating:4.0,rewatch:false,tags:"nyff, certified jew classic 💯, in theaters, matt",review:"Wish jeremy strong was my dad so he could’ve beaten me",uri:"https://boxd.it/3k13pT"},
+  {id:262,title:"The Banshees of Inisherin",year:2022,date:"2022-10-21",rating:4.5,rewatch:false,tags:"in theaters, connor",review:"This movie feels so sad it’s like when my dog died and my parents brought me to see dark knight returns for the 3rd time that week to get over it",uri:"https://boxd.it/3lEHDX"},
+  {id:263,title:"38 at the Garden",year:2022,date:"2022-10-26",rating:2.5,rewatch:false,tags:"doc",review:"Imagine sleeping on a couch in a shoe box sized apartment eating 7 dollar halal food and then waking up and dropping 38 at the garden",uri:"https://boxd.it/3mERM5"},
+  {id:264,title:"Aftersun",year:2022,date:"2022-10-28",rating:5.0,rewatch:false,tags:"in theaters, a24",review:"",uri:"https://boxd.it/3mYViN"},
+  {id:265,title:"Corpse Bride",year:2005,date:"2022-11-01",rating:3.5,rewatch:false,tags:"halloween",review:"",uri:"https://boxd.it/3o5t2b"},
+  {id:266,title:"Pride and Prejudice and Zombies",year:2016,date:"2022-11-01",rating:1.0,rewatch:false,tags:"halloween",review:"",uri:"https://boxd.it/3o5tET"},
+  {id:267,title:"TÁR",year:2022,date:"2022-11-01",rating:4.5,rewatch:false,tags:"in theaters, dan",review:"Don’t know if it was better or worse considering the theatre was filled with all the orchadorks from Juilliard across the street.",uri:"https://boxd.it/3o92Ol"},
+  {id:268,title:"Black Adam",year:2022,date:"2022-11-05",rating:1.5,rewatch:false,tags:"in theaters, imax, dc",review:"Frankly not good",uri:"https://boxd.it/3oJLih"},
+  {id:269,title:"Black Panther: Wakanda Forever",year:2022,date:"2022-11-11",rating:3.0,rewatch:false,tags:"marvel, 3d, isa, mom, in theaters",review:"I wish there would be a way to measure if more people fall asleep to this or avatar 2",uri:"https://boxd.it/3qbE8z"},
+  {id:270,title:"The Fabelmans",year:2022,date:"2022-11-15",rating:5.0,rewatch:false,tags:"in theaters, certified jew classic 💯, dan",review:"Why are divorces so expensive ? Because they are worth it.",uri:"https://boxd.it/3r8swn"},
+  {id:271,title:"Spider-Man 2",year:2004,date:"2022-11-20",rating:5.0,rewatch:true,tags:"marvel",review:"Honestly one of the funniest movies ever to me.",uri:"https://boxd.it/3s1hxT"},
+  {id:272,title:"Bones and All",year:2022,date:"2022-11-20",rating:4.0,rewatch:false,tags:"in theaters",review:"Timothee gets his ass ate",uri:"https://boxd.it/3saEyj"},
+  {id:273,title:"Uncharted",year:2022,date:"2022-11-24",rating:2.5,rewatch:true,tags:"",review:"Only logging this cause it got worse the second time while watching it for 10 minutes with a bunch of tourists in amsterdam at a coffeeshop.",uri:"https://boxd.it/3sHzER"},
+  {id:274,title:"Lost in Translation",year:2003,date:"2022-11-27",rating:3.5,rewatch:false,tags:"airplane",review:"Just a terrible airplane movie, hope they left bill there",uri:"https://boxd.it/3tyifh"},
+  {id:275,title:"The Menu",year:2022,date:"2022-11-29",rating:3.5,rewatch:false,tags:"in theaters, dan, mj",review:"They’re so lucky Adam richman from Man Vs Food wasn’t there",uri:"https://boxd.it/3u1syh"},
+  {id:276,title:"Open Season",year:2006,date:"2022-12-04",rating:1.0,rewatch:false,tags:"alex",review:"Make it make sense",uri:"https://boxd.it/3v2HgX"},
+  {id:277,title:"Shiva Baby",year:2020,date:"2022-12-06",rating:4.0,rewatch:false,tags:"certified jew classic 💯",review:"",uri:"https://boxd.it/3vsA9n"},
+  {id:278,title:"Moonage Daydream",year:2022,date:"2022-12-07",rating:4.5,rewatch:false,tags:"in theaters, neon, imax, criterion",review:"Euphoric and exhilarating. Inject this shit in my veins.",uri:"https://boxd.it/3vDGcf"},
+  {id:279,title:"The Whale",year:2022,date:"2022-12-08",rating:4.0,rewatch:false,tags:"dan, in theaters",review:"If brendan fraser was a religion call me one of his disciples",uri:"https://boxd.it/3vPY4d"},
+  {id:280,title:"The Fabelmans",year:2022,date:"2022-12-12",rating:5.0,rewatch:true,tags:"in theaters",review:"Had 6 hours to kill after my foot surgery before a data structures final. Decided to rewatch this on enough painkillers to take out a small monkey along with a bowl from sweet green in an empty theatre at 3 pm just like Spielberg intended. Third act is maybe the best of the year.",uri:"https://boxd.it/3wHaUV"},
+  {id:281,title:"Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",year:1964,date:"2022-12-14",rating:5.0,rewatch:true,tags:"in theaters, metrograph, criterion",review:"I can only hope Nolan makes nuclear bombs this funny.",uri:"https://boxd.it/3xb8iv"},
+  {id:282,title:"The Incredibles",year:2004,date:"2022-12-16",rating:5.0,rewatch:false,tags:"mj, dan",review:"",uri:"https://boxd.it/3xugJH"},
+  {id:283,title:"Avatar: The Way of Water",year:2022,date:"2022-12-18",rating:4.0,rewatch:false,tags:"in theaters, 3d, dan",review:"Why the fuck would you become an avatar to then choose to wear sunglasses",uri:"https://boxd.it/3y0QJn"},
+  {id:284,title:"The Muppet Christmas Carol",year:1992,date:"2022-12-20",rating:4.5,rewatch:true,tags:"musical",review:"There should be an entire series dedicated to Michael Caine and muppet mischief",uri:"https://boxd.it/3yDohD"},
+  {id:285,title:"Glass Onion",year:2022,date:"2022-12-23",rating:3.5,rewatch:false,tags:"mom",review:"",uri:"https://boxd.it/3zoHHf"},
+  {id:286,title:"Puss in Boots: The Last Wish",year:2022,date:"2022-12-24",rating:4.0,rewatch:false,tags:"in theaters, isa",review:"My 10 year old sisters review she typed after she found out Christmas was cancelled  “I love Puss in Boots because when they added in Goldilocks it made the movie much better but when the wolf came in it wasn’t like excitement to me and the Big Jack oh I wish they didn’t but when they were fighting over the map I was so in the moment so my review is a 5 star”",uri:"https://boxd.it/3zQiZz"},
+  {id:287,title:"House",year:1977,date:"2022-12-27",rating:4.5,rewatch:false,tags:"criterion",review:"Soundtrack slaps",uri:"https://boxd.it/3AZHkD"},
+  {id:288,title:"Taxi Driver",year:1976,date:"2022-12-28",rating:4.5,rewatch:false,tags:"connor, in theaters, basie",review:"Me",uri:"https://boxd.it/3BzxzF"},
+  {id:289,title:"Garden State",year:2004,date:"2022-12-31",rating:4.0,rewatch:false,tags:"",review:"Natalie Portman, Jewish, jersey raised and loves The Shins. Someone get me a fuckin medic i’m shattered.",uri:"https://boxd.it/3CsCEv"},
+  {id:290,title:"Beast",year:2022,date:"2023-01-05",rating:2.0,rewatch:false,tags:"airplane",review:"",uri:"https://boxd.it/3EfTy7"},
+  {id:291,title:"The Worst Person in the World",year:2021,date:"2023-01-05",rating:4.5,rewatch:false,tags:"airplane, neon, criterion",review:"She flashed her tits as soon as my flight attendant came to drop off my kosher dinner",uri:"https://boxd.it/3EfUz1"},
+  {id:292,title:"Dazed and Confused",year:1993,date:"2023-01-05",rating:4.0,rewatch:false,tags:"airplane, criterion",review:"",uri:"https://boxd.it/3EfWuH"},
+  {id:293,title:"In the Mood for Love",year:2000,date:"2023-01-05",rating:4.5,rewatch:false,tags:"airplane, criterion",review:"",uri:"https://boxd.it/3EfXyb"},
+  {id:294,title:"The Redeem Team",year:2022,date:"2023-01-17",rating:3.0,rewatch:false,tags:"airplane",review:"Such a shame people started to make Lebron an internet meme when he’s actually hilarious",uri:"https://boxd.it/3IPWuv"},
+  {id:295,title:"Breakfast at Tiffany's",year:1961,date:"2023-01-18",rating:4.5,rewatch:false,tags:"airplane",review:"",uri:"https://boxd.it/3Jb2aD"},
+  {id:296,title:"50 First Dates",year:2004,date:"2023-01-18",rating:2.5,rewatch:false,tags:"airplane",review:"",uri:"https://boxd.it/3Jb2CH"},
+  {id:297,title:"Shaun of the Dead",year:2004,date:"2023-01-18",rating:4.0,rewatch:false,tags:"airplane",review:"",uri:"https://boxd.it/3Jb313"},
+  {id:298,title:"Babylon",year:2022,date:"2023-01-21",rating:4.0,rewatch:false,tags:"in theaters, owen",review:"",uri:"https://boxd.it/3JZOGd"},
+  {id:299,title:"Infinity Pool",year:2023,date:"2023-01-23",rating:3.5,rewatch:false,tags:"in theaters, neon",review:"Great movie to watch with mom",uri:"https://boxd.it/3KPXNV"},
+  {id:300,title:"His Girl Friday",year:1940,date:"2023-02-06",rating:4.5,rewatch:false,tags:"class, criterion",review:"",uri:"https://boxd.it/3Pa8sZ"},
+  {id:301,title:"Knock at the Cabin",year:2023,date:"2023-02-06",rating:3.0,rewatch:false,tags:"in theaters",review:"This happened to me and boys in our Airbnb in Fort Lauderdale",uri:"https://boxd.it/3PcZzN"},
+  {id:302,title:"Videodrome",year:1983,date:"2023-02-08",rating:4.5,rewatch:false,tags:"in theaters, mj, dan, metrograph, criterion",review:"I wish I could dress as well as him",uri:"https://boxd.it/3PBZOX"},
+  {id:303,title:"Rome, Open City",year:1945,date:"2023-02-14",rating:3.0,rewatch:false,tags:"class, criterion",review:"",uri:"https://boxd.it/3TvxDh"},
+  {id:304,title:"Titanic",year:1997,date:"2023-02-20",rating:5.0,rewatch:true,tags:"in theaters, 3d, isa, mom",review:"My 10 year old sister review  “I love titanic because the way when Rose explained the titanic story made the movie better. When the violin players at the end where they said their goodbyes and then he starts playing and they all join in was my favorite part. If I had to change something I would not add to much bad language. All and all it was one of my favorite movie. “",uri:"https://boxd.it/3SW8Hj"},
+  {id:305,title:"Shutter Island",year:2010,date:"2023-02-22",rating:4.5,rewatch:false,tags:"dan, alex, mj",review:"if mental institutions really give you that nice of an outfit then check me in !",uri:"https://boxd.it/3TpPSd"},
+  {id:306,title:"Meshes of the Afternoon",year:1943,date:"2023-03-02",rating:4.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/3VEIHl"},
+  {id:307,title:"Cocaine Bear",year:2023,date:"2023-03-07",rating:3.0,rewatch:false,tags:"in theaters, dan",review:"Need ice cubes son in an elongated story arc on Euphoria",uri:"https://boxd.it/3Xdw8H"},
+  {id:308,title:"Scream VI",year:2023,date:"2023-03-11",rating:3.5,rewatch:false,tags:"in theaters",review:"This series just turned itself inside out",uri:"https://boxd.it/3Y410t"},
+  {id:309,title:"65",year:2023,date:"2023-03-19",rating:1.0,rewatch:false,tags:"in theaters",review:"Looking forward to forgetting this already",uri:"https://boxd.it/40qkQ1"},
+  {id:310,title:"A Good Person",year:2023,date:"2023-03-25",rating:3.0,rewatch:false,tags:"in theaters, alex",review:"Can’t blame Florence Pugh for splitting up with Zach after making her go through this flaming hot garbage of a script",uri:"https://boxd.it/422vOF"},
+  {id:311,title:"Saturday Night Fever",year:1977,date:"2023-03-28",rating:4.0,rewatch:false,tags:"",review:"Groovy but not always groovy",uri:"https://boxd.it/42FWVr"},
+  {id:312,title:"Empire Records",year:1995,date:"2023-03-31",rating:4.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/43ssIb"},
+  {id:313,title:"John Wick: Chapter 4",year:2023,date:"2023-04-02",rating:3.0,rewatch:false,tags:"in theaters, dan",review:"absolutely 0 stakes this.",uri:"https://boxd.it/445Byd"},
+  {id:314,title:"Jaws",year:1975,date:"2023-04-02",rating:5.0,rewatch:true,tags:"",review:"",uri:"https://boxd.it/445BWJ"},
+  {id:315,title:"Rye Lane",year:2023,date:"2023-04-02",rating:4.5,rewatch:false,tags:"",review:"Was longing for some British drill rap to come in",uri:"https://boxd.it/44a62l"},
+  {id:316,title:"The End of the Tour",year:2015,date:"2023-04-03",rating:4.0,rewatch:false,tags:"a24",review:"",uri:"https://boxd.it/44hyuB"},
+  {id:317,title:"Carmen",year:2022,date:"2023-04-05",rating:2.5,rewatch:false,tags:"in theaters",review:"",uri:"https://boxd.it/450D6f"},
+  {id:318,title:"The Super Mario Bros. Movie",year:2023,date:"2023-04-07",rating:5.0,rewatch:false,tags:"in theaters, isa",review:"I loved the movie it is one of my favorites. I think they should have made Mario’s voice Italian. I loved Donkey Kong’s laugh it was so funny and when Bowser sang 2 songs it was so hilarious. So that is my review - my 11 year old sister",uri:"https://boxd.it/45JzwX"},
+  {id:319,title:"I Love You, Man",year:2009,date:"2023-04-09",rating:3.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/46hFSj"},
+  {id:320,title:"Sliding Doors",year:1998,date:"2023-04-10",rating:3.0,rewatch:false,tags:"mom",review:"My mother loves to show me movies where men are awful people",uri:"https://boxd.it/46CKEt"},
+  {id:321,title:"When Harry Met Sally...",year:1989,date:"2023-04-11",rating:4.5,rewatch:false,tags:"mom, certified jew classic 💯",review:"",uri:"https://boxd.it/46LgDj"},
+  {id:322,title:"Burnt",year:2015,date:"2023-04-12",rating:2.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/46Yxln"},
+  {id:323,title:"Notting Hill",year:1999,date:"2023-04-14",rating:4.5,rewatch:false,tags:"mom",review:"Amazing cast of characters. Would watch them do any life scenario",uri:"https://boxd.it/47n7Mn"},
+  {id:324,title:"Suzume",year:2022,date:"2023-04-17",rating:3.0,rewatch:false,tags:"in theaters, isa",review:"",uri:"https://boxd.it/48jtsl"},
+  {id:325,title:"Beau Is Afraid",year:2023,date:"2023-04-21",rating:4.0,rewatch:false,tags:"in theaters, certified jew classic 💯, imax",review:"my dad is also a dick left in the attic",uri:"https://boxd.it/49fxEr"},
+  {id:326,title:"Sleepless in Seattle",year:1993,date:"2023-04-30",rating:3.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/4bHNMb"},
+  {id:327,title:"After Hours",year:1985,date:"2023-04-30",rating:4.5,rewatch:false,tags:"criterion",review:"",uri:"https://boxd.it/4bHObl"},
+  {id:328,title:"Return of the Jedi",year:1983,date:"2023-05-03",rating:5.0,rewatch:true,tags:"in theaters, dan",review:"I would punt an Ewok 15 yards down field",uri:"https://boxd.it/4cF2xX"},
+  {id:329,title:"Chungking Express",year:1994,date:"2023-05-04",rating:4.5,rewatch:false,tags:"criterion, class",review:"I was luckily blessed with this as my final presentation in my first film class.   A beautiful inverted, untraditional love story. It’s such a rare film that displays all the unique qualities of Hong Kong films showing a different yet honest perspective on romantic loss and hopeless romantics. Yes the end of a relationship may feel like the end of a life, but in reality it is the end of a routine, uncovering the listless life that can be created internally. It brings for the need for a new pattern for yourself while discovering how the loss of romance isn’t the danger, it is the acceptance of change. Sometimes if timing was different, things can work out. Just keep an eye out on those brush right by you.",uri:"https://boxd.it/4cP5IT"},
+  {id:330,title:"Jerry Maguire",year:1996,date:"2023-05-15",rating:4.5,rewatch:false,tags:"mom",review:"Any sort of humor comes at the most unexpected times",uri:"https://boxd.it/4fxUdN"},
+  {id:331,title:"How to Lose a Guy in 10 Days",year:2003,date:"2023-05-21",rating:3.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/4h3ne7"},
+  {id:332,title:"The Little Mermaid",year:2023,date:"2023-05-31",rating:2.0,rewatch:false,tags:"in theaters, isa",review:"I will be playing the awkwafina songs on every touch tune device at a bar for the foreseeable future",uri:"https://boxd.it/4jwSCl"},
+  {id:333,title:"Pieces of April",year:2003,date:"2023-05-31",rating:3.0,rewatch:false,tags:"mom",review:"",uri:"https://boxd.it/4jCOBF"},
+  {id:334,title:"Past Lives",year:2023,date:"2023-06-06",rating:4.5,rewatch:false,tags:"in theaters, a24, certified jew classic 💯",review:"An east village jew getting slandered in the most endearing movie",uri:"https://boxd.it/4li3xf"},
+  {id:335,title:"The Flash",year:2023,date:"2023-06-18",rating:1.5,rewatch:false,tags:"in theaters, mom, isa, dc",review:"Don’t agree with any of this except making Michael Keatons Bruce Wayne wear a neck handkerchief and flip flops",uri:"https://boxd.it/4owl4b"},
+  {id:336,title:"Spider-Man: Across the Spider-Verse",year:2023,date:"2023-06-19",rating:4.5,rewatch:true,tags:"in theaters, isa",review:"Got way too drunk the first time around",uri:"https://boxd.it/4oXtfv"},
+  {id:337,title:"Aftersun",year:2022,date:"2023-06-21",rating:5.0,rewatch:true,tags:"mom",review:"",uri:"https://boxd.it/4ppX1J"},
+  {id:338,title:"American Graffiti",year:1973,date:"2023-06-21",rating:4.5,rewatch:true,tags:"mom",review:"",uri:"https://boxd.it/4ppXgT"},
+  {id:339,title:"Clerks",year:1994,date:"2023-06-25",rating:4.5,rewatch:true,tags:"in theaters, metrograph",review:"So fucking jersey",uri:"https://boxd.it/4qETOL"},
+  {id:340,title:"Asteroid City",year:2023,date:"2023-06-27",rating:4.0,rewatch:false,tags:"in theaters, dan",review:"Definitely a lot weirder than normal but in a good way",uri:"https://boxd.it/4raKnb"},
+  {id:341,title:"Chicken Run",year:2000,date:"2023-06-28",rating:4.0,rewatch:true,tags:"alex",review:"I would too if I was a chicken",uri:"https://boxd.it/4ru5CT"},
+  {id:342,title:"Catch Me If You Can",year:2002,date:"2023-07-09",rating:4.0,rewatch:false,tags:"airplane",review:"",uri:"https://boxd.it/4uytbx"},
+  {id:343,title:"Blade",year:1998,date:"2023-07-12",rating:4.5,rewatch:true,tags:"marvel, tyler",review:"Truly brilliant. Wish everyone wore leather",uri:"https://boxd.it/4vLIAd"},
+  {id:344,title:"Shrek 2",year:2004,date:"2023-07-16",rating:5.0,rewatch:true,tags:"in theaters",review:"when getting the chance to watch this in a theatre every needle drop feels like how I imagine ecstasy.",uri:"https://boxd.it/4wV14R"},
+  {id:345,title:"Talk to Me",year:2022,date:"2023-07-19",rating:3.5,rewatch:false,tags:"in theaters, a24, alex",review:"not enough dead kangaroos",uri:"https://boxd.it/4xPWzf"},
+  {id:346,title:"Greenberg",year:2010,date:"2023-07-20",rating:3.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/4y9CFx"},
+  {id:347,title:"Scanners",year:1981,date:"2023-07-20",rating:4.5,rewatch:false,tags:"criterion",review:"me when i beat my brother in mario kart double dash",uri:"https://boxd.it/4yeDe3"},
+  {id:348,title:"Oppenheimer",year:2023,date:"2023-07-22",rating:5.0,rewatch:false,tags:"certified jew classic 💯, dan, alex, 70mm, in theaters, profile",review:"lost at the concept of watching the first atomic bomb go off and run to grab your bongos and go fuckin ham",uri:"https://boxd.it/4yIc5X"},
+  {id:349,title:"Paterson",year:2016,date:"2023-07-26",rating:4.0,rewatch:false,tags:"",review:"My uncle is also a bus driver. Instead of writing poems he has an extensive DVD catalog and flips them on Facebook marketplace",uri:"https://boxd.it/4AEKNf"},
+  {id:350,title:"Barbie",year:2023,date:"2023-07-26",rating:4.5,rewatch:false,tags:"in theaters",review:"Need that michael cera knitted polo",uri:"https://boxd.it/4APJKV"},
+  {id:351,title:"Reality Bites",year:1994,date:"2023-08-01",rating:3.0,rewatch:false,tags:"mom",review:"",uri:"https://boxd.it/4CVc0F"},
+  {id:352,title:"The Nice Guys",year:2016,date:"2023-08-01",rating:3.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/4CXRrL"},
+  {id:353,title:"Teenage Mutant Ninja Turtles: Mutant Mayhem",year:2023,date:"2023-08-06",rating:4.0,rewatch:false,tags:"in theaters, 3d",review:"The villains are from Staten Island and so is my mom",uri:"https://boxd.it/4EORiJ"},
+  {id:354,title:"Dead Ringers",year:1988,date:"2023-08-07",rating:3.5,rewatch:false,tags:"criterion",review:"",uri:"https://boxd.it/4F5Ay5"},
+  {id:355,title:"Raging Bull",year:1980,date:"2023-08-14",rating:4.5,rewatch:false,tags:"criterion",review:"",uri:"https://boxd.it/4HbNZj"},
+  {id:356,title:"Sleepover",year:2004,date:"2023-08-16",rating:2.0,rewatch:false,tags:"",review:"How do 8th graders go to an adult club and then still have time for a school dance like what time is the Cosmo Club getting active and then go win prom queen after",uri:"https://boxd.it/4HNPU7"},
+  {id:357,title:"Galaxy Quest",year:1999,date:"2023-08-16",rating:4.0,rewatch:false,tags:"",review:"Justin long should save the day in every movie",uri:"https://boxd.it/4HWoK3"},
+  {id:358,title:"Oldboy",year:2003,date:"2023-08-16",rating:5.0,rewatch:false,tags:"neon, in theaters, dan",review:"Revolting and wild with some absurd action sequences .",uri:"https://boxd.it/4I5cNx"},
+  {id:359,title:"Oppenheimer",year:2023,date:"2023-08-17",rating:5.0,rewatch:true,tags:"in theaters, imax, 70mm",review:"Things I realized on a bigger screen this time, Josh peck calls Oppenheimer ‘Oppy’",uri:"https://boxd.it/4IlFIX"},
+  {id:360,title:"Jurassic Park",year:1993,date:"2023-08-25",rating:5.0,rewatch:true,tags:"in theaters, 3d, connor",review:"Fuck them kids",uri:"https://boxd.it/4KBjrF"},
+  {id:361,title:"54",year:1998,date:"2023-08-26",rating:2.5,rewatch:false,tags:"mom",review:"",uri:"https://boxd.it/4KXGxl"},
+  {id:362,title:"BS High",year:2023,date:"2023-09-01",rating:4.0,rewatch:false,tags:"doc",review:"Terrifying",uri:"https://boxd.it/4MM7Al"},
+  {id:363,title:"Telemarketers",year:2023,date:"2023-09-01",rating:4.0,rewatch:false,tags:"doc",review:"",uri:"https://boxd.it/4MM7KZ"},
+  {id:364,title:"The Big Short",year:2015,date:"2023-09-05",rating:3.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/4O4lNt"},
+  {id:365,title:"So I Married an Axe Murderer",year:1993,date:"2023-09-06",rating:2.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/4OpwO5"},
+  {id:366,title:"Dredd",year:2012,date:"2023-09-11",rating:4.0,rewatch:false,tags:"dan",review:"",uri:"https://boxd.it/4PNgHT"},
+  {id:367,title:"Dumb Money",year:2023,date:"2023-09-12",rating:2.5,rewatch:false,tags:"in theaters, alex",review:"WAP needle drop in the first three minutes",uri:"https://boxd.it/4QbvSb"},
+  {id:368,title:"Theater Camp",year:2023,date:"2023-09-20",rating:4.0,rewatch:false,tags:"matt, dana",review:"",uri:"https://boxd.it/4Sfywj"},
+  {id:369,title:"Entourage",year:2015,date:"2023-09-26",rating:1.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/4U4opj"},
+  {id:370,title:"Air",year:2023,date:"2023-09-28",rating:3.0,rewatch:false,tags:"matt",review:"",uri:"https://boxd.it/4Uq3Kp"},
+  {id:371,title:"Drive Me Crazy",year:1999,date:"2023-09-30",rating:2.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/4UZ9sB"},
+  {id:372,title:"Maestro",year:2023,date:"2023-10-03",rating:4.0,rewatch:false,tags:"nyff, certified jew classic 💯, matt",review:"There’s like not one scene where Bradley Cooper didn’t put a cigarette in his mouth.",uri:"https://boxd.it/4W5FEl"},
+  {id:373,title:"Child's Play",year:1988,date:"2023-10-06",rating:3.5,rewatch:false,tags:"halloween",review:"I’d send this thing 45 yards downfield with an airtime of 4 seconds",uri:"https://boxd.it/4XbWSb"},
+  {id:374,title:"The Birds",year:1963,date:"2023-10-06",rating:4.0,rewatch:true,tags:"halloween",review:"My grandfather showed me this when I was 8",uri:"https://boxd.it/4XhAtF"},
+  {id:375,title:"Alien",year:1979,date:"2023-10-08",rating:5.0,rewatch:true,tags:"mom, isa, halloween",review:"",uri:"https://boxd.it/4XLfR7"},
+  {id:376,title:"A.I. Artificial Intelligence",year:2001,date:"2023-10-09",rating:4.0,rewatch:false,tags:"halloween, mom",review:"Beautiful movie besides the fact that the aliens are built like the new demigod NBA draft prospects",uri:"https://boxd.it/4Ym3tL"},
+  {id:377,title:"Piranha",year:1978,date:"2023-10-10",rating:3.5,rewatch:false,tags:"mom, halloween",review:"Terror, horror, death",uri:"https://boxd.it/4YoZPJ"},
+  {id:378,title:"Saw X",year:2023,date:"2023-10-10",rating:3.5,rewatch:false,tags:"in theaters, halloween",review:"",uri:"https://boxd.it/4YIfgN"},
+  {id:379,title:"Little Shop of Horrors",year:1986,date:"2023-10-20",rating:4.0,rewatch:false,tags:"halloween, musical",review:"",uri:"https://boxd.it/51CnMd"},
+  {id:380,title:"Past Lives",year:2023,date:"2023-10-20",rating:5.0,rewatch:true,tags:"airplane, a24",review:"",uri:"https://boxd.it/51EGyX"},
+  {id:381,title:"Mars Attacks!",year:1996,date:"2023-10-21",rating:3.0,rewatch:false,tags:"halloween",review:"",uri:"https://boxd.it/51YRGt"},
+  {id:382,title:"The Graduate",year:1967,date:"2023-10-21",rating:4.5,rewatch:false,tags:"nana, criterion",review:"Love it when my 90 year old grandma recommends an affair movie",uri:"https://boxd.it/52cN1z"},
+  {id:383,title:"Carrie",year:1976,date:"2023-10-22",rating:4.5,rewatch:true,tags:"halloween",review:"That dance number had me in a trance",uri:"https://boxd.it/52m9gz"},
+  {id:384,title:"Priscilla",year:2023,date:"2023-11-10",rating:3.5,rewatch:false,tags:"in theaters, a, a24",review:"",uri:"https://boxd.it/58QVft"},
+  {id:385,title:"Dream Scenario",year:2023,date:"2023-11-17",rating:4.0,rewatch:false,tags:"in theaters, dan, a24",review:"",uri:"https://boxd.it/5aWjRz"},
+  {id:386,title:"The Boy and the Heron",year:2023,date:"2023-12-03",rating:4.5,rewatch:false,tags:"in theaters, dan, ghibli, a",review:"Nothing like watching a bewildering animated movie about grief while the bass of the Beyoncé concert blares through the fucking wall at any tender moment",uri:"https://boxd.it/5gAPl1"},
+  {id:387,title:"Napoleon",year:2023,date:"2023-12-05",rating:3.5,rewatch:false,tags:"in theaters",review:"Sassy",uri:"https://boxd.it/5h8VLR"},
+  {id:388,title:"Eight Crazy Nights",year:2002,date:"2023-12-07",rating:5.0,rewatch:true,tags:"matt, certified jew classic 💯",review:"it is easy to understand that the only feature film about Hanukah is an animated musical that fails to grasp at adult humor or child humor",uri:"https://boxd.it/5hT62l"},
+  {id:389,title:"The Iron Claw",year:2023,date:"2023-12-14",rating:4.5,rewatch:false,tags:"in theaters, a24, a",review:"",uri:"https://boxd.it/5k92SH"},
+  {id:390,title:"Wonka",year:2023,date:"2023-12-16",rating:3.0,rewatch:false,tags:"in theaters, imax, matt",review:"",uri:"https://boxd.it/5kIlFH"},
+  {id:391,title:"When Harry Met Sally...",year:1989,date:"2023-12-18",rating:4.5,rewatch:true,tags:"nana",review:"",uri:"https://boxd.it/5lPcEt"},
+  {id:392,title:"Ferrari",year:2023,date:"2023-12-20",rating:4.0,rewatch:false,tags:"in theaters, connor, neon",review:"Patrick Dempsey having a huge year as the sexiest man alive and the fastest driver in Europe",uri:"https://boxd.it/5mFxZr"},
+  {id:393,title:"Blast of Silence",year:1961,date:"2023-12-22",rating:4.0,rewatch:false,tags:"criterion",review:"",uri:"https://boxd.it/5njaxJ"},
+  {id:394,title:"Holiday Affair",year:1949,date:"2023-12-25",rating:3.5,rewatch:false,tags:"mom",review:"",uri:"https://boxd.it/5oGr4T"},
+  {id:395,title:"Love Actually",year:2003,date:"2023-12-26",rating:3.0,rewatch:true,tags:"mom, a",review:"",uri:"https://boxd.it/5pf279"},
+  {id:396,title:"Arrival",year:2016,date:"2024-01-02",rating:4.5,rewatch:true,tags:"mom",review:"Alien globalization",uri:"https://boxd.it/5tbk59"},
+  {id:397,title:"Poor Things",year:2023,date:"2024-01-02",rating:4.5,rewatch:false,tags:"in theaters, tyler",review:"Will be doing the William dafoe god costume for Halloween this year",uri:"https://boxd.it/5tUDDp"},
+  {id:398,title:"The Boy and the Heron",year:2023,date:"2024-01-05",rating:4.5,rewatch:true,tags:"in theaters, isa",review:"My 11-year-old sister’s first Miyazaki and her review:  “First of all id like to say it was a very good movie. It had very detailed parts. It showed how hard it can be without a family member you love.  I think it deserves a 10/10 because it looked pretty. I think the heron symbolizes death and anger and many more. Edward from twilight who played the heron sounded so crazy. But was amazing”",uri:"https://boxd.it/5vDYVt"},
+  {id:399,title:"May December",year:2023,date:"2024-01-06",rating:4.0,rewatch:false,tags:"mom",review:"Shattering , specifically how conceded Melton’s character is down to his posture.",uri:"https://boxd.it/5wjOar"},
+  {id:400,title:"The Holdovers",year:2023,date:"2024-01-09",rating:4.5,rewatch:false,tags:"",review:"Angus is added to my entourage of fictional characters , need that puffer coat",uri:"https://boxd.it/5xYOFP"},
+  {id:401,title:"Polytechnique",year:2009,date:"2024-01-09",rating:4.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/5ylZhv"},
+  {id:402,title:"Airplane!",year:1980,date:"2024-01-10",rating:4.5,rewatch:false,tags:"isa, in theaters",review:"",uri:"https://boxd.it/5yObDz"},
+  {id:403,title:"Frances Ha",year:2012,date:"2024-01-11",rating:4.0,rewatch:false,tags:"mom",review:"",uri:"https://boxd.it/5yTdWN"},
+  {id:404,title:"Shithouse",year:2020,date:"2024-01-12",rating:4.0,rewatch:false,tags:"mom",review:"College flick soaked in vulnerability",uri:"https://boxd.it/5zwPTb"},
+  {id:405,title:"The Blair Witch Project",year:1999,date:"2024-01-13",rating:1.5,rewatch:false,tags:"alex",review:"",uri:"https://boxd.it/5A4yMv"},
+  {id:406,title:"The Curse",year:2023,date:"2024-01-17",rating:4.5,rewatch:false,tags:"a24",review:"",uri:"https://boxd.it/5CmXk1"},
+  {id:407,title:"All of Us Strangers",year:2023,date:"2024-01-17",rating:4.0,rewatch:false,tags:"in theaters",review:"Ryan Beatty song I think ? If not would’ve worked/ felt like partys over",uri:"https://boxd.it/5Cufmj"},
+  {id:408,title:"Mean Girls",year:2024,date:"2024-01-21",rating:2.5,rewatch:false,tags:"in theaters, isa, a",review:"",uri:"https://boxd.it/5EDspL"},
+  {id:409,title:"Nausicaä of the Valley of the Wind",year:1984,date:"2024-01-22",rating:4.5,rewatch:true,tags:"ghibli",review:"",uri:"https://boxd.it/5FcYdd"},
+  {id:410,title:"The Zone of Interest",year:2023,date:"2024-01-24",rating:4.5,rewatch:false,tags:"in theaters, a24",review:"Sound that makes it feel like your heart is going rip out of your chest.",uri:"https://boxd.it/5FJp6d"},
+  {id:411,title:"Dune",year:2021,date:"2024-01-25",rating:4.5,rewatch:false,tags:"in theaters, imax",review:"Catastrophic shit",uri:"https://boxd.it/5GhkjJ"},
+  {id:412,title:"Godzilla Minus One",year:2023,date:"2024-01-29",rating:4.5,rewatch:false,tags:"in theaters",review:"",uri:"https://boxd.it/5IMhLP"},
+  {id:413,title:"The Passion of Joan of Arc",year:1928,date:"2024-02-01",rating:4.5,rewatch:false,tags:"3260, criterion",review:"Ominous",uri:"https://boxd.it/5JUDet"},
+  {id:414,title:"Man with a Movie Camera",year:1929,date:"2024-02-08",rating:4.0,rewatch:false,tags:"3260",review:"",uri:"https://boxd.it/5N2Qdh"},
+  {id:415,title:"All About Eve",year:1950,date:"2024-02-22",rating:4.0,rewatch:false,tags:"3260",review:"",uri:"https://boxd.it/5Tl0YH"},
+  {id:416,title:"Perfect Days",year:2023,date:"2024-02-25",rating:4.5,rewatch:false,tags:"in theaters, neon",review:"",uri:"https://boxd.it/5UJcBx"},
+  {id:417,title:"Dune: Part Two",year:2024,date:"2024-02-25",rating:5.0,rewatch:false,tags:"imax, in theaters, 70mm",review:"Wish I could have milked my post movie interview more to help WB  “This movie is sublime”",uri:"https://boxd.it/5V7eTB"},
+  {id:418,title:"Blade Runner",year:1982,date:"2024-02-28",rating:3.5,rewatch:false,tags:"in theaters",review:"",uri:"https://boxd.it/5WneYd"},
+  {id:419,title:"The Big Combo",year:1955,date:"2024-03-07",rating:4.5,rewatch:false,tags:"3260",review:"Made me throw on my trenchcoat and pose with my Dyson vacuum as a Thompson",uri:"https://boxd.it/603pTp"},
+  {id:420,title:"Encounters at the End of the World",year:2007,date:"2024-03-11",rating:3.0,rewatch:false,tags:"3260",review:"Penguin has a sincere nihilistic moment",uri:"https://boxd.it/629s9J"},
+  {id:421,title:"The Wizard of Oz",year:1939,date:"2024-03-13",rating:4.5,rewatch:false,tags:"3260",review:"",uri:"https://boxd.it/62Oj4n"},
+  {id:422,title:"Dune: Part Two",year:2024,date:"2024-03-22",rating:5.0,rewatch:true,tags:"in theaters, imax, 70mm, dan, shrooms",review:"Sublime",uri:"https://boxd.it/66D61f"},
+  {id:423,title:"The Magnificent Ambersons",year:1942,date:"2024-03-26",rating:3.5,rewatch:false,tags:"3260",review:"mad fade ins",uri:"https://boxd.it/68Vswj"},
+  {id:424,title:"Invasion of the Body Snatchers",year:1956,date:"2024-03-28",rating:4.5,rewatch:false,tags:"3260",review:"Hysteria - Def Leppard",uri:"https://boxd.it/69H96n"},
+  {id:425,title:"Kung Fu Panda 4",year:2024,date:"2024-03-29",rating:2.5,rewatch:false,tags:"in theaters, isa, a",review:"More children starve the more awkwafina gets these voice acting roles in unnecessary movies",uri:"https://boxd.it/6aoDyR"},
+  {id:426,title:"Invasion of the Body Snatchers",year:1978,date:"2024-03-31",rating:4.5,rewatch:false,tags:"3260",review:"",uri:"https://boxd.it/6bune3"},
+  {id:427,title:"Vertigo",year:1958,date:"2024-04-04",rating:4.5,rewatch:true,tags:"3260",review:"",uri:"https://boxd.it/6d8aWb"},
+  {id:428,title:"Monkey Man",year:2024,date:"2024-04-07",rating:3.5,rewatch:false,tags:"in theaters",review:"Kitchen action sequence may have the best kill I’ve ever witnessed",uri:"https://boxd.it/6eG8LH"},
+  {id:429,title:"Civil War",year:2024,date:"2024-04-14",rating:3.0,rewatch:false,tags:"in theaters, a24",review:"Feels irresponsible",uri:"https://boxd.it/6hcUk7"},
+  {id:430,title:"Spider-Man",year:2002,date:"2024-04-16",rating:5.0,rewatch:true,tags:"in theaters, dan, mj",review:"Best transitions of any movie ever. My brain is absolutely deep fried when I watch this.",uri:"https://boxd.it/6hYaDt"},
+  {id:431,title:"West Side Story",year:1961,date:"2024-04-23",rating:4.0,rewatch:false,tags:"nana",review:"Fuck the jets",uri:"https://boxd.it/6kNvNp"},
+  {id:432,title:"Late Night with the Devil",year:2023,date:"2024-04-23",rating:3.0,rewatch:false,tags:"in theaters",review:"Elongated adult swim sketch",uri:"https://boxd.it/6kWcHZ"},
+  {id:433,title:"The Apartment",year:1960,date:"2024-04-25",rating:4.5,rewatch:false,tags:"nana",review:"",uri:"https://boxd.it/6lCSih"},
+  {id:434,title:"Challengers",year:2024,date:"2024-04-27",rating:5.0,rewatch:false,tags:"in theaters",review:"",uri:"https://boxd.it/6miewd"},
+  {id:435,title:"I Saw the TV Glow",year:2024,date:"2024-05-03",rating:4.0,rewatch:false,tags:"in theaters, a24",review:"There was a heartbreak that was central to this, an acknowledgment that most of the time it must be better not to go back to what we once loved and what we were because now it looks different.",uri:"https://boxd.it/6oLLxz"},
+  {id:436,title:"Star Wars: Episode I – The Phantom Menace",year:1999,date:"2024-05-08",rating:3.0,rewatch:true,tags:"in theaters, dan",review:"I have friends and family that I’ve known less intimately than I know the phantom menace",uri:"https://boxd.it/6reQsl"},
+  {id:437,title:"Kingdom of the Planet of the Apes",year:2024,date:"2024-05-21",rating:3.0,rewatch:false,tags:"in theaters, imax",review:"",uri:"https://boxd.it/6w8dYl"},
+  {id:438,title:"Uncut Gems",year:2019,date:"2024-05-22",rating:5.0,rewatch:true,tags:"imax, in theaters, a24",review:"i spent a week with a jewish jeweler who works for benny da jeweler who made ice spice’s obnoxiously large Betty boop chain, but quickly learned that this is an archetype of people that actually truly exist.   <a href=\"https://imgur.com/a/wI3LQ0w\" rel=\"nofollow\">pic of me in the exact same cartier glasses from the jeweler and chain in question</a>",uri:"https://boxd.it/6wL9tV"},
+  {id:439,title:"Pulp Fiction",year:1994,date:"2024-05-29",rating:4.5,rewatch:true,tags:"in theaters, metrograph, 35mm",review:"",uri:"https://boxd.it/6zwCtR"},
+  {id:440,title:"Take Out",year:2004,date:"2024-05-29",rating:3.5,rewatch:false,tags:"criterion",review:"",uri:"https://boxd.it/6zLOdL"},
+  {id:441,title:"The Big Chill",year:1983,date:"2024-06-05",rating:3.0,rewatch:false,tags:"criterion",review:"",uri:"https://boxd.it/6CmkiD"},
+  {id:442,title:"The Secret World of Arrietty",year:2010,date:"2024-06-12",rating:3.5,rewatch:false,tags:"in theaters, ghibli, isa",review:"",uri:"https://boxd.it/6Fck5h"},
+  {id:443,title:"Wise Guy: David Chase and The Sopranos",year:2024,date:"2024-06-14",rating:4.0,rewatch:false,tags:"in theaters, tribeca, matt",review:"David chase is the best television writer of all time and deserves a 3 hour documentary towards himself",uri:"https://boxd.it/6FS7Od"},
+  {id:444,title:"Janet Planet",year:2023,date:"2024-06-27",rating:3.5,rewatch:false,tags:"in theaters, a24, connor",review:"",uri:"https://boxd.it/6L0Ydv"},
+  {id:445,title:"A Quiet Place: Day One",year:2024,date:"2024-06-29",rating:3.0,rewatch:false,tags:"in theaters, isa",review:"My sister snored through half of this",uri:"https://boxd.it/6LEncb"},
+  {id:446,title:"Men in Black",year:1997,date:"2024-07-04",rating:3.5,rewatch:true,tags:"",review:"",uri:"https://boxd.it/6NTqVh"},
+  {id:447,title:"MaXXXine",year:2024,date:"2024-07-09",rating:2.0,rewatch:false,tags:"in theaters, a24, connor",review:"So middle of the road and so frontloaded. 0 intensity compared to the other films",uri:"https://boxd.it/6Q9OLZ"},
+  {id:448,title:"Inside Out 2",year:2024,date:"2024-07-13",rating:3.5,rewatch:false,tags:"in theaters, 3d, a",review:"",uri:"https://boxd.it/6RS4Zv"},
+  {id:449,title:"Booksmart",year:2019,date:"2024-07-14",rating:3.5,rewatch:true,tags:"airplane",review:"",uri:"https://boxd.it/6SFREJ"},
+  {id:450,title:"Longlegs",year:2024,date:"2024-07-16",rating:4.0,rewatch:false,tags:"in theaters, neon",review:"",uri:"https://boxd.it/6TziIt"},
+  {id:451,title:"Sing Sing",year:2023,date:"2024-07-23",rating:4.5,rewatch:false,tags:"in theaters, a24",review:"",uri:"https://boxd.it/6WsfdP"},
+  {id:452,title:"North by Northwest",year:1959,date:"2024-07-23",rating:4.5,rewatch:false,tags:"in theaters, 70mm",review:"",uri:"https://boxd.it/6WLoPB"},
+  {id:453,title:"Obsession",year:1976,date:"2024-07-25",rating:3.0,rewatch:false,tags:"criterion",review:"",uri:"https://boxd.it/6Xf96B"},
+  {id:454,title:"Dìdi (弟弟)",year:2024,date:"2024-07-26",rating:4.0,rewatch:false,tags:"in theaters",review:"",uri:"https://boxd.it/6XRaG7"},
+  {id:455,title:"Deadpool & Wolverine",year:2024,date:"2024-07-28",rating:2.5,rewatch:false,tags:"in theaters, marvel, tyler",review:"Weightless fun",uri:"https://boxd.it/6YBNmd"},
+  {id:456,title:"Aliens",year:1986,date:"2024-07-31",rating:5.0,rewatch:true,tags:"",review:"Imaging the xenomorph getting in the elevator and pressing the button in that final scene",uri:"https://boxd.it/705A61"},
+  {id:457,title:"Trap",year:2024,date:"2024-08-01",rating:4.0,rewatch:false,tags:"in theaters, connor",review:"Even match of comedy and tension. Sporadically unhinged josh hartnett makes this a lot of fun",uri:"https://boxd.it/70Kr8J"},
+  {id:458,title:"Cuckoo",year:2024,date:"2024-08-12",rating:3.5,rewatch:false,tags:"in theaters, neon",review:"",uri:"https://boxd.it/75B6Pz"},
+  {id:459,title:"The Daytrippers",year:1996,date:"2024-08-14",rating:4.0,rewatch:false,tags:"criterion",review:"",uri:"https://boxd.it/76gLGl"},
+  {id:460,title:"Alien: Romulus",year:2024,date:"2024-08-16",rating:3.5,rewatch:false,tags:"in theaters",review:"If I could place a future bet on David Jonsson career success I would bet all of my life on it",uri:"https://boxd.it/77kFMf"},
+  {id:461,title:"Total Recall",year:1990,date:"2024-08-17",rating:3.5,rewatch:false,tags:"mom",review:"",uri:"https://boxd.it/77zjbr"},
+  {id:462,title:"The Godfather",year:1972,date:"2024-08-18",rating:5.0,rewatch:true,tags:"cineconcert",review:"There is purpose in this life",uri:"https://boxd.it/78qoCN"},
+  {id:463,title:"Twister",year:1996,date:"2024-08-19",rating:2.5,rewatch:true,tags:"mom",review:"",uri:"https://boxd.it/78TIBX"},
+  {id:464,title:"Whisper of the Heart",year:1995,date:"2024-08-27",rating:5.0,rewatch:false,tags:"in theaters, ghibli",review:"",uri:"https://boxd.it/7cApNX"},
+  {id:465,title:"Nashville",year:1975,date:"2024-09-02",rating:4.5,rewatch:false,tags:"in theaters, MoMa",review:"",uri:"https://boxd.it/7f4WZ1"},
+  {id:466,title:"Party Monster",year:2003,date:"2024-09-05",rating:4.0,rewatch:false,tags:"in theaters, a, Roxy",review:"Maybe the best B movie performances I’ve seen.",uri:"https://boxd.it/7glPqB"},
+  {id:467,title:"Metropolis",year:1927,date:"2024-09-10",rating:4.0,rewatch:false,tags:"4900",review:"",uri:"https://boxd.it/7iIfuV"},
+  {id:468,title:"Between the Temples",year:2024,date:"2024-09-12",rating:4.0,rewatch:false,tags:"in theaters, certified jew classic 💯, FLC",review:"",uri:"https://boxd.it/7jt2vv"},
+  {id:469,title:"My Old Ass",year:2024,date:"2024-09-16",rating:4.0,rewatch:false,tags:"in theaters",review:"",uri:"https://boxd.it/7lDbzf"},
+  {id:470,title:"La Chimera",year:2023,date:"2024-09-19",rating:4.5,rewatch:false,tags:"in theaters, ifc",review:"",uri:"https://boxd.it/7mJ3dL"},
+  {id:471,title:"Whiplash",year:2014,date:"2024-09-21",rating:5.0,rewatch:true,tags:"in theaters, matt",review:"Haunting. Always will be one of my favorites",uri:"https://boxd.it/7ngA3Z"},
+  {id:472,title:"The Substance",year:2024,date:"2024-09-25",rating:4.5,rewatch:false,tags:"in theaters",review:"",uri:"https://boxd.it/7ptnyz"},
+  {id:473,title:"Howl's Moving Castle",year:2004,date:"2024-09-30",rating:3.5,rewatch:true,tags:"in theaters, a, ghibli",review:"",uri:"https://boxd.it/7rtaGX"},
+  {id:474,title:"The Wild Robot",year:2024,date:"2024-10-03",rating:4.0,rewatch:false,tags:"in theaters, isa",review:"Lands nicely",uri:"https://boxd.it/7t09aL"},
+  {id:475,title:"It's the Great Pumpkin, Charlie Brown",year:1966,date:"2024-10-05",rating:5.0,rewatch:true,tags:"a",review:"The best snoopy subplot",uri:"https://boxd.it/7tGPZb"},
+  {id:476,title:"A Real Pain",year:2024,date:"2024-10-06",rating:4.0,rewatch:false,tags:"in theaters, nyff, matt, certified jew classic 💯",review:"",uri:"https://boxd.it/7uDP1N"},
+  {id:477,title:"April",year:2024,date:"2024-10-08",rating:3.0,rewatch:false,tags:"in theaters, nyff, connor",review:"hair standing on end watching parts of this",uri:"https://boxd.it/7vjdRZ"},
+  {id:478,title:"Hellraiser",year:1987,date:"2024-10-09",rating:3.5,rewatch:true,tags:"in theaters, nyff",review:"",uri:"https://boxd.it/7vWiwF"},
+  {id:479,title:"The Apprentice",year:2024,date:"2024-10-11",rating:4.0,rewatch:false,tags:"in theaters",review:"Big fuckin bozo",uri:"https://boxd.it/7wyAmp"},
+  {id:480,title:"Joker: Folie à Deux",year:2024,date:"2024-10-14",rating:3.0,rewatch:false,tags:"in theaters",review:"It insists upon itself !!!!",uri:"https://boxd.it/7y9qOr"},
+  {id:481,title:"The Nightmare Before Christmas",year:1993,date:"2024-10-16",rating:4.5,rewatch:true,tags:"in theaters, isa",review:"",uri:"https://boxd.it/7zi7ZR"},
+  {id:482,title:"Anora",year:2024,date:"2024-10-21",rating:4.5,rewatch:false,tags:"in theaters, 35mm, a, neon",review:"",uri:"https://boxd.it/7BVSCV"},
+  {id:483,title:"PlayTime",year:1967,date:"2024-10-22",rating:5.0,rewatch:false,tags:"4900",review:"",uri:"https://boxd.it/7Cv1gz"},
+  {id:484,title:"We Live in Time",year:2024,date:"2024-10-26",rating:4.0,rewatch:false,tags:"in theaters, a24",review:"",uri:"https://boxd.it/7EgF21"},
+  {id:485,title:"Invasion of the Body Snatchers",year:1978,date:"2024-10-28",rating:4.5,rewatch:true,tags:"a",review:"",uri:"https://boxd.it/7FtBMJ"},
+  {id:486,title:"Escape from New York",year:1981,date:"2024-11-01",rating:4.0,rewatch:false,tags:"4900",review:"",uri:"https://boxd.it/7Ht1Jn"},
+  {id:487,title:"They Live",year:1988,date:"2024-11-02",rating:4.0,rewatch:false,tags:"alex, in theaters",review:"",uri:"https://boxd.it/7Jl8Wb"},
+  {id:488,title:"Saturday Night",year:2024,date:"2024-11-06",rating:3.5,rewatch:false,tags:"in theaters",review:"",uri:"https://boxd.it/7KqOkR"},
+  {id:489,title:"The Lighthouse",year:2019,date:"2024-11-14",rating:5.0,rewatch:true,tags:"in theaters, a24, imax",review:"hauntingly surreal lighting in this",uri:"https://boxd.it/7O7evn"},
+  {id:490,title:"Ella Enchanted",year:2004,date:"2024-11-16",rating:4.5,rewatch:false,tags:"a",review:"",uri:"https://boxd.it/7P9NP1"},
+  {id:491,title:"Wicked",year:2024,date:"2024-11-22",rating:3.5,rewatch:false,tags:"in theaters, a",review:"Ethan slater is dressed like an urban outfitters munchkin",uri:"https://boxd.it/7S4iRH"},
+  {id:492,title:"Hairspray",year:2007,date:"2024-11-25",rating:4.0,rewatch:true,tags:"nana, matt, a",review:"",uri:"https://boxd.it/7TPw9d"},
+  {id:493,title:"Gladiator II",year:2024,date:"2024-12-01",rating:3.5,rewatch:false,tags:"in theaters, dan, imax",review:"almost slapstick levels of funny with some of the choices in this",uri:"https://boxd.it/7WLzJ3"},
+  {id:494,title:"Interstellar",year:2014,date:"2024-12-07",rating:5.0,rewatch:true,tags:"in theaters, imax, 70mm",review:"",uri:"https://boxd.it/7ZBBGH"},
+  {id:495,title:"Kicking and Screaming",year:1995,date:"2024-12-18",rating:4.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/85r1st"},
+  {id:496,title:"The Umbrellas of Cherbourg",year:1964,date:"2024-12-22",rating:5.0,rewatch:false,tags:"in theaters, musical, a",review:"spectacle",uri:"https://boxd.it/87SphB"},
+  {id:497,title:"Nickel Boys",year:2024,date:"2024-12-27",rating:5.0,rewatch:false,tags:"in theaters, a24",review:"Floored me",uri:"https://boxd.it/8bTxX9"},
+  {id:498,title:"Sonic the Hedgehog 3",year:2024,date:"2024-12-28",rating:3.0,rewatch:false,tags:"in theaters, dan, alex, mj",review:"Would’ve loved to have chain smoked parliaments during this one",uri:"https://boxd.it/8cAFlD"},
+  {id:499,title:"Across the Universe",year:2007,date:"2024-12-29",rating:3.0,rewatch:false,tags:"a, musical",review:"",uri:"https://boxd.it/8e5FmR"},
+  {id:500,title:"The Holdovers",year:2023,date:"2024-12-30",rating:5.0,rewatch:true,tags:"mom",review:"",uri:"https://boxd.it/8ewWqb"},
+  {id:501,title:"Nosferatu",year:2024,date:"2024-12-31",rating:4.0,rewatch:false,tags:"in theaters, a",review:"",uri:"https://boxd.it/8fMPIX"},
+  {id:502,title:"A Complete Unknown",year:2024,date:"2025-01-04",rating:3.5,rewatch:false,tags:"in theaters",review:"",uri:"https://boxd.it/8jM1OH"},
+  {id:503,title:"The Aristocats",year:1970,date:"2025-01-05",rating:4.5,rewatch:false,tags:"a",review:"My fav Disney jazz number",uri:"https://boxd.it/8kPRRD"},
+  {id:504,title:"The Brutalist",year:2024,date:"2025-01-08",rating:5.0,rewatch:false,tags:"in theaters, 70mm, connor, a24",review:"it is where we end up that matters more than the trip there",uri:"https://boxd.it/8n1Mj9"},
+  {id:505,title:"Paprika",year:2006,date:"2025-01-09",rating:3.5,rewatch:false,tags:"in theaters",review:"",uri:"https://boxd.it/8oh39z"},
+  {id:506,title:"Se7en",year:1995,date:"2025-01-09",rating:4.0,rewatch:false,tags:"in theaters, imax",review:"",uri:"https://boxd.it/8oJMk9"},
+  {id:507,title:"The Last Showgirl",year:2024,date:"2025-01-12",rating:3.5,rewatch:false,tags:"in theaters, a",review:"I think it blows that the negative discourse around this is has to do with the sharp focus and hazy backgrounds in the first half because I found it clever. Suddenly her world comes crashing down, she starts to engage more with her reality, and the world becomes clearer. Give Pamela her renaissance <3",uri:"https://boxd.it/8sqny9"},
+  {id:508,title:"Moana 2",year:2024,date:"2025-01-20",rating:2.5,rewatch:false,tags:"in theaters, isa",review:"",uri:"https://boxd.it/8yAVLF"},
+  {id:509,title:"A Different Man",year:2024,date:"2025-01-20",rating:4.5,rewatch:false,tags:"mom",review:"poignant",uri:"https://boxd.it/8yGlLV"},
+  {id:510,title:"Presence",year:2024,date:"2025-01-24",rating:1.0,rewatch:false,tags:"in theaters, neon, tyler",review:"",uri:"https://boxd.it/8AQASl"},
+  {id:511,title:"Death of a Salesman",year:1985,date:"2025-02-09",rating:4.0,rewatch:false,tags:"nana",review:"You can’t eat the orange and throw the peel awayyyyyyyyyy",uri:"https://boxd.it/8MEE0h"},
+  {id:512,title:"Rope",year:1948,date:"2025-02-09",rating:4.5,rewatch:false,tags:"nana",review:"",uri:"https://boxd.it/8N2NRx"},
+  {id:513,title:"Me and Earl and the Dying Girl",year:2015,date:"2025-02-15",rating:5.0,rewatch:true,tags:"a",review:"middle school classic",uri:"https://boxd.it/8Qr2P7"},
+  {id:514,title:"Buena Vista Social Club",year:1999,date:"2025-02-16",rating:4.0,rewatch:false,tags:"criterion, a, Cuba",review:"",uri:"https://boxd.it/8R8wcl"},
+  {id:515,title:"When Marnie Was There",year:2014,date:"2025-02-17",rating:3.0,rewatch:false,tags:"a",review:"hope she grew out of asthma",uri:"https://boxd.it/8Sm8Tx"},
+  {id:516,title:"Conclave",year:2024,date:"2025-02-24",rating:4.0,rewatch:false,tags:"matt, dana",review:"",uri:"https://boxd.it/8WRAkD"},
+  {id:517,title:"The Brutalist",year:2024,date:"2025-02-25",rating:5.0,rewatch:true,tags:"70mm",review:"",uri:"https://boxd.it/8XiYQH"},
+  {id:518,title:"Shrek",year:2001,date:"2025-03-02",rating:5.0,rewatch:true,tags:"in theaters, a",review:"",uri:"https://boxd.it/90z8rh"},
+  {id:519,title:"Godzilla",year:1954,date:"2025-03-07",rating:4.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/93fkfz"},
+  {id:520,title:"Everything Will Be OK",year:2006,date:"2025-03-09",rating:0,rewatch:false,tags:"dan, alex",review:"",uri:"https://boxd.it/94TYON"},
+  {id:521,title:"Grave of the Fireflies",year:1988,date:"2025-03-12",rating:5.0,rewatch:true,tags:"",review:"",uri:"https://boxd.it/96xmcb"},
+  {id:522,title:"Mickey 17",year:2025,date:"2025-03-13",rating:4.0,rewatch:false,tags:"in theaters, tyler",review:"",uri:"https://boxd.it/97inUR"},
+  {id:523,title:"The Day the Earth Blew Up: A Looney Tunes Movie",year:2024,date:"2025-03-17",rating:3.5,rewatch:false,tags:"in theaters, isa",review:"Great to catch up with the pig and the duck",uri:"https://boxd.it/99ZDt7"},
+  {id:524,title:"Opus",year:2025,date:"2025-03-19",rating:3.0,rewatch:false,tags:"in theaters, connor",review:"",uri:"https://boxd.it/9aVNz1"},
+  {id:525,title:"Tampopo",year:1985,date:"2025-03-24",rating:5.0,rewatch:false,tags:"a",review:"",uri:"https://boxd.it/9dEJ5T"},
+  {id:526,title:"Princess Mononoke",year:1997,date:"2025-03-26",rating:5.0,rewatch:true,tags:"in theaters, isa, ghibli",review:"“Atrocities of man” - my thirteen year old sister",uri:"https://boxd.it/9f1HV9"},
+  {id:527,title:"Hell of a Summer",year:2023,date:"2025-04-05",rating:3.0,rewatch:false,tags:"in theaters, neon",review:"so quirky",uri:"https://boxd.it/9k80cp"},
+  {id:528,title:"Shin Godzilla",year:2016,date:"2025-04-06",rating:4.0,rewatch:false,tags:"",review:"theres a body horror aspect to godzilla in this take, painful to be alive.",uri:"https://boxd.it/9kP15v"},
+  {id:529,title:"Cure",year:1997,date:"2025-04-07",rating:5.0,rewatch:false,tags:"criterion",review:"The part that’s sticking with me is the idea that when you open yourself up leads to the manipulation and suggestion",uri:"https://boxd.it/9lw0VV"},
+  {id:530,title:"Tetsuo: The Iron Man",year:1989,date:"2025-04-07",rating:3.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/9lSGFJ"},
+  {id:531,title:"Ping Pong the Animation",year:2014,date:"2025-04-08",rating:0,rewatch:false,tags:"tv",review:"",uri:"https://boxd.it/9miS7B"},
+  {id:532,title:"High and Low",year:1963,date:"2025-04-09",rating:5.0,rewatch:false,tags:"",review:"nearly every frame shows a disparity",uri:"https://boxd.it/9mrFdz"},
+  {id:533,title:"Vampire Hunter D",year:1985,date:"2025-04-09",rating:3.5,rewatch:false,tags:"in theaters",review:"had like every 80’s anime genre tropes but looked raw",uri:"https://boxd.it/9mQ7Nt"},
+  {id:534,title:"Look Back",year:2024,date:"2025-04-10",rating:4.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/9nkkDh"},
+  {id:535,title:"Evil Does Not Exist",year:2023,date:"2025-04-11",rating:3.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/9nGP0p"},
+  {id:536,title:"Supermarket Woman",year:1996,date:"2025-04-14",rating:4.5,rewatch:false,tags:"a, criterion",review:"",uri:"https://boxd.it/9pqt4Z"},
+  {id:537,title:"Audition",year:1999,date:"2025-04-15",rating:4.0,rewatch:false,tags:"criterion",review:"",uri:"https://boxd.it/9pVFZZ"},
+  {id:538,title:"Ring",year:1998,date:"2025-04-16",rating:3.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/9qpiLb"},
+  {id:539,title:"Stray Dog",year:1949,date:"2025-04-16",rating:3.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/9qDBGx"},
+  {id:540,title:"Throne of Blood",year:1957,date:"2025-04-17",rating:4.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/9rmvTZ"},
+  {id:541,title:"Her",year:2013,date:"2025-04-20",rating:4.0,rewatch:false,tags:"",review:"put the most pitiful man in the highest waisted pants to make it practical",uri:"https://boxd.it/9tahfv"},
+  {id:542,title:"Sinners",year:2025,date:"2025-04-22",rating:4.5,rewatch:false,tags:"in theaters, imax",review:"",uri:"https://boxd.it/9upARH"},
+  {id:543,title:"When Harry Met Sally...",year:1989,date:"2025-04-23",rating:4.5,rewatch:true,tags:"nana",review:"",uri:"https://boxd.it/9v09Mp"},
+  {id:544,title:"Star Wars: Episode III – Revenge of the Sith",year:2005,date:"2025-04-27",rating:5.0,rewatch:true,tags:"in theaters, matt",review:"",uri:"https://boxd.it/9x8Vw9"},
+  {id:545,title:"Jim Henson Idea Man",year:2024,date:"2025-05-04",rating:3.5,rewatch:false,tags:"a",review:"",uri:"https://boxd.it/9BQOD7"},
+  {id:546,title:"Thunderbolts*",year:2025,date:"2025-05-07",rating:3.0,rewatch:false,tags:"in theaters, isa",review:"",uri:"https://boxd.it/9D2IeN"},
+  {id:547,title:"Ikiru",year:1952,date:"2025-05-09",rating:5.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/9Ea4oD"},
+  {id:548,title:"Ocean Waves",year:1993,date:"2025-05-12",rating:2.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/9Gb4Vx"},
+  {id:549,title:"A Minecraft Movie",year:2025,date:"2025-05-13",rating:1.0,rewatch:false,tags:"in theaters, isa, 3d",review:"1 hour and 41 minutes closer to death",uri:"https://boxd.it/9GNRmx"},
+  {id:550,title:"Final Destination Bloodlines",year:2025,date:"2025-05-15",rating:2.5,rewatch:false,tags:"in theaters",review:"unreal post humorous role",uri:"https://boxd.it/9HPnYz"},
+  {id:551,title:"Castle in the Sky",year:1986,date:"2025-05-18",rating:4.0,rewatch:false,tags:"a",review:"laputa madre",uri:"https://boxd.it/9JOCal"},
+  {id:552,title:"Dreams",year:1990,date:"2025-05-19",rating:4.0,rewatch:false,tags:"a",review:"",uri:"https://boxd.it/9K2VsB"},
+  {id:553,title:"Kiki's Delivery Service",year:1989,date:"2025-05-20",rating:4.0,rewatch:false,tags:"a",review:"",uri:"https://boxd.it/9KI4wJ"},
+  {id:554,title:"Friendship",year:2024,date:"2025-05-29",rating:4.0,rewatch:false,tags:"in theaters, connor",review:"naming my firstborn jimp",uri:"https://boxd.it/9R7x8l"},
+  {id:555,title:"Millennium Actress",year:2001,date:"2025-05-31",rating:4.5,rewatch:false,tags:"a",review:"",uri:"https://boxd.it/9RqkJV"},
+  {id:556,title:"The Funeral",year:1984,date:"2025-06-02",rating:4.0,rewatch:false,tags:"a, criterion",review:"those few days following death are incredibly blurred and putting on a vhs to let you know how to act is exactly what would work",uri:"https://boxd.it/9SP0Kt"},
+  {id:557,title:"The Phoenician Scheme",year:2025,date:"2025-06-12",rating:3.5,rewatch:false,tags:"in theaters, mom",review:"",uri:"https://boxd.it/9YLlPF"},
+  {id:558,title:"Tokyo Drifter",year:1966,date:"2025-06-14",rating:4.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/a0bn7h"},
+  {id:559,title:"Ran",year:1985,date:"2025-06-16",rating:5.0,rewatch:false,tags:"in theaters",review:"",uri:"https://boxd.it/a1jv9v"},
+  {id:560,title:"Drive My Car",year:2021,date:"2025-06-16",rating:4.5,rewatch:true,tags:"",review:"",uri:"https://boxd.it/a1ugpb"},
+  {id:561,title:"The Tale of The Princess Kaguya",year:2013,date:"2025-06-20",rating:4.0,rewatch:false,tags:"airplane, a",review:"",uri:"https://boxd.it/a3PZcr"},
+  {id:562,title:"Mon Mon the Water Spider",year:2006,date:"2025-06-22",rating:0,rewatch:false,tags:"in theaters, a, matt, dana",review:"Forever grateful for the chance to see this in the most charming and unforgettable theater. Thankful for the good and the bad of my life to allow me to see this film and museum and country",uri:"https://boxd.it/a8nPQF"},
+  {id:563,title:"The Girl Who Leapt Through Time",year:2006,date:"2025-06-30",rating:3.5,rewatch:false,tags:"airplane, a",review:"",uri:"https://boxd.it/aatQed"},
+  {id:564,title:"28 Years Later",year:2025,date:"2025-07-03",rating:3.5,rewatch:false,tags:"in theaters",review:"",uri:"https://boxd.it/acIWt7"},
+  {id:565,title:"Superman",year:2025,date:"2025-07-15",rating:3.5,rewatch:false,tags:"in theaters, imax",review:"",uri:"https://boxd.it/altrfp"},
+  {id:566,title:"Edge of Tomorrow",year:2014,date:"2025-07-20",rating:4.5,rewatch:false,tags:"in theaters, 35mm, brain dead",review:"moved to LA for the time being which means new theaters. I’d go to any theater if it meant I could watch tom cruise get put down like a race horse that sprained its ankle",uri:"https://boxd.it/apVkO5"},
+  {id:567,title:"Bedazzled",year:1967,date:"2025-07-22",rating:4.5,rewatch:false,tags:"in theaters, los feliz",review:"",uri:"https://boxd.it/arth25"},
+  {id:568,title:"Eephus",year:2024,date:"2025-07-23",rating:4.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/asa4RF"},
+  {id:569,title:"Jaws @ 50: The Definitive Inside Story",year:2025,date:"2025-07-24",rating:3.0,rewatch:false,tags:"doc",review:"",uri:"https://boxd.it/asvyL5"},
+  {id:570,title:"War of the Worlds",year:2005,date:"2025-07-27",rating:3.0,rewatch:false,tags:"",review:"Divorced-dads Wednesday nights",uri:"https://boxd.it/av7Xt5"},
+  {id:571,title:"Kill Bill: The Whole Bloody Affair",year:2004,date:"2025-07-29",rating:5.0,rewatch:false,tags:"in theaters, 35mm, vista",review:"",uri:"https://boxd.it/awSZpH"},
+  {id:572,title:"The Fantastic 4: First Steps",year:2025,date:"2025-08-02",rating:3.0,rewatch:false,tags:"in theaters, imax",review:"Finally an adaptation that makes The Thing a mensch who tries to pickup women at a synagogue and eats black and white cookies",uri:"https://boxd.it/azUupx"},
+  {id:573,title:"2001: A Space Odyssey",year:1968,date:"2025-08-03",rating:5.0,rewatch:true,tags:"in theaters, 70mm, aero",review:"",uri:"https://boxd.it/aANQ1x"},
+  {id:574,title:"The Bad Guys 2",year:2025,date:"2025-08-06",rating:3.0,rewatch:false,tags:"in theaters",review:"",uri:"https://boxd.it/aDb1qn"},
+  {id:575,title:"F1",year:2025,date:"2025-08-07",rating:3.0,rewatch:false,tags:"in theaters",review:"c is for chaos",uri:"https://boxd.it/aDTA11"},
+  {id:576,title:"Jurassic Park",year:1993,date:"2025-08-09",rating:5.0,rewatch:true,tags:"cineconcert, shrooms, hollywoodbowl, matt",review:"is the spectacle the dinosaurs or jeff goldblum",uri:"https://boxd.it/aFLM9D"},
+  {id:577,title:"Weapons",year:2025,date:"2025-08-17",rating:3.5,rewatch:false,tags:"in theaters, imax",review:"",uri:"https://boxd.it/aLCNTD"},
+  {id:578,title:"Zoolander",year:2001,date:"2025-08-17",rating:4.5,rewatch:true,tags:"cinespia, a",review:"I’ve got a prostate the size of a honeydew",uri:"https://boxd.it/aLD2SF"},
+  {id:579,title:"The 40 Year Old Virgin",year:2005,date:"2025-08-27",rating:3.0,rewatch:true,tags:"in theaters",review:"",uri:"https://boxd.it/aSRBCN"},
+  {id:580,title:"Heat",year:1995,date:"2025-08-29",rating:5.0,rewatch:true,tags:"in theaters, vista, 35mm",review:"",uri:"https://boxd.it/aTL7rn"},
+  {id:581,title:"A Goofy Movie",year:1995,date:"2025-09-04",rating:4.0,rewatch:true,tags:"in theaters",review:"",uri:"https://boxd.it/aYmW45"},
+  {id:582,title:"The Day the Earth Stood Still",year:1951,date:"2025-09-07",rating:4.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/b0AVkd"},
+  {id:583,title:"RoboCop",year:1987,date:"2025-09-15",rating:4.0,rewatch:false,tags:"in theaters, dan, alex, vista, 35mm",review:"",uri:"https://boxd.it/b5hCsJ"},
+  {id:584,title:"One Battle After Another",year:2025,date:"2025-09-24",rating:5.0,rewatch:false,tags:"in theaters, vista, 35mm",review:"a cinematic incendiary i could only compare to watching 2016 lebron james . everything about this is both chaotic and mesmerizing.  filled with political allegory and absurdist comedy ending with top notch orchestrated action.",uri:"https://boxd.it/baH8G9"},
+  {id:585,title:"Evil Dead II",year:1987,date:"2025-10-01",rating:5.0,rewatch:true,tags:"a",review:"",uri:"https://boxd.it/bewKXV"},
+  {id:586,title:"The Fly",year:1986,date:"2025-10-05",rating:4.5,rewatch:true,tags:"in theaters, mom, isa, matt, brain dead",review:"Apparently my 13 year old sister was not ready for her first cronenberg like we thought",uri:"https://boxd.it/bh7bAJ"},
+  {id:587,title:"Jaws 2",year:1978,date:"2025-10-05",rating:2.0,rewatch:false,tags:"in theaters, 35mm, mom, isa",review:"Only intriguing thing is Officer Brody is such a troubled man he shoots a school of bluefish with sodium cyanide bullets with kids in the water.",uri:"https://boxd.it/bhFkZV"},
+  {id:588,title:"The Blob",year:1958,date:"2025-10-07",rating:3.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/biqkIJ"},
+  {id:589,title:"Rosemary's Baby",year:1968,date:"2025-10-07",rating:4.5,rewatch:false,tags:"in theaters, 35mm",review:"",uri:"https://boxd.it/biPIK5"},
+  {id:590,title:"Creature from the Black Lagoon",year:1954,date:"2025-10-18",rating:4.5,rewatch:true,tags:"in theaters, vidiots",review:"",uri:"https://boxd.it/bpNeXH"},
+  {id:591,title:"When Evil Lurks",year:2023,date:"2025-10-27",rating:2.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/bvLTMl"},
+  {id:592,title:"Frankenstein",year:2025,date:"2025-10-27",rating:4.0,rewatch:false,tags:"in theaters, imax, chinesetheater",review:"Humanizes elordi almost too much where i begin to loathe all changes made from the book. Great time regardless",uri:"https://boxd.it/bwh4uJ"},
+  {id:593,title:"Bride of Frankenstein",year:1935,date:"2025-10-29",rating:4.5,rewatch:true,tags:"in theaters, academy",review:"",uri:"https://boxd.it/bxkSu5"},
+  {id:594,title:"Ghidorah, the Three-Headed Monster",year:1964,date:"2025-11-08",rating:4.0,rewatch:false,tags:"in theaters, brain dead",review:"",uri:"https://boxd.it/bEpMbT"},
+  {id:595,title:"Terror of Mechagodzilla",year:1975,date:"2025-11-08",rating:3.0,rewatch:false,tags:"in theaters, brain dead",review:"",uri:"https://boxd.it/bEpNxB"},
+  {id:596,title:"Godzilla vs. Biollante",year:1989,date:"2025-11-08",rating:3.5,rewatch:false,tags:"in theaters, brain dead",review:"",uri:"https://boxd.it/bEpQkZ"},
+  {id:597,title:"Godzilla, Mothra and King Ghidorah: Giant Monsters All-Out Attack",year:2001,date:"2025-11-08",rating:4.5,rewatch:false,tags:"in theaters, brain dead",review:"godzilla day marathon",uri:"https://boxd.it/bEpSw9"},
+  {id:598,title:"Bugonia",year:2025,date:"2025-11-16",rating:4.0,rewatch:false,tags:"in theaters",review:"",uri:"https://boxd.it/bJGQLP"},
+  {id:599,title:"Wicked: For Good",year:2025,date:"2025-12-01",rating:3.0,rewatch:false,tags:"in theaters, mom, isa, a",review:"",uri:"https://boxd.it/bU0UOj"},
+  {id:600,title:"The Handmaiden",year:2016,date:"2025-12-06",rating:5.0,rewatch:false,tags:"in theaters, los feliz",review:"finding the camp while saying the aristocratic existence sucks, tons of fun",uri:"https://boxd.it/bX8z2V"},
+  {id:601,title:"Sentimental Value",year:2025,date:"2025-12-07",rating:5.0,rewatch:false,tags:"in theaters",review:"ripped my heart out",uri:"https://boxd.it/bXYjG5"},
+  {id:602,title:"No Other Choice",year:2025,date:"2025-12-08",rating:4.5,rewatch:false,tags:"in theaters, imax",review:"In this economy??? Can’t blame em",uri:"https://boxd.it/bZeEW5"},
+  {id:603,title:"Marty Supreme",year:2025,date:"2025-12-20",rating:4.5,rewatch:false,tags:"in theaters, 70mm, certified jew classic 💯, matt",review:"throw the ecstatic 80s synth over anything and im dialed in. big scaled excess boasting through marketing and performance pulled back down to earth by the ending",uri:"https://boxd.it/c8vJg9"},
+  {id:604,title:"The Holdovers",year:2023,date:"2025-12-25",rating:5.0,rewatch:true,tags:"mom",review:"life is a like a henhouse latter, shitty and short. merry christmas",uri:"https://boxd.it/cdOuuj"},
+  {id:605,title:"Sideways",year:2004,date:"2026-01-02",rating:4.0,rewatch:false,tags:"airplane",review:"shoutout airfrance for having this",uri:"https://boxd.it/covQOV"},
+  {id:606,title:"Submarine",year:2010,date:"2026-01-05",rating:3.5,rewatch:false,tags:"",review:"",uri:"https://boxd.it/cttuxf"},
+  {id:607,title:"Hacksaw Ridge",year:2016,date:"2026-01-07",rating:3.0,rewatch:false,tags:"airplane",review:"",uri:"https://boxd.it/cvCoMJ"},
+  {id:608,title:"King Kong",year:2005,date:"2026-01-14",rating:2.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/cE3pV9"},
+  {id:609,title:"All You Need Is Kill",year:2025,date:"2026-01-17",rating:2.5,rewatch:false,tags:"in theaters",review:"",uri:"https://boxd.it/cGG0Cx"},
+  {id:610,title:"Godzilla",year:1998,date:"2026-01-21",rating:2.0,rewatch:false,tags:"",review:"",uri:"https://boxd.it/cLaHCh"},
+  {id:611,title:"One Battle After Another",year:2025,date:"2026-01-26",rating:5.0,rewatch:true,tags:"in theaters, vista, 70mm, owen",review:"jack black sighting after splitting a bottle of crown royale during this movie",uri:"https://boxd.it/cQXEjp"},
+  {id:612,title:"Arco",year:2025,date:"2026-01-28",rating:3.5,rewatch:false,tags:"in theaters",review:"",uri:"https://boxd.it/cSmBPB"},
+  {id:613,title:"Hard Boiled",year:1992,date:"2026-01-29",rating:4.5,rewatch:false,tags:"in theaters",review:"maybe the best movie ever when u put ur brain in neutral",uri:"https://boxd.it/cThfwh"},
+  {id:614,title:"The Muppet Show",year:2026,date:"2026-02-09",rating:0,rewatch:false,tags:"",review:"I feel like Kermit with Sabrina carpenter when I am out with my gf",uri:"https://boxd.it/d3SbzP"},
+  {id:615,title:"Springsteen: Deliver Me from Nowhere",year:2025,date:"2026-02-10",rating:3.0,rewatch:false,tags:"airplane",review:"",uri:"https://boxd.it/d4EPyt"},
+  {id:616,title:"Send Help",year:2026,date:"2026-02-16",rating:4.0,rewatch:false,tags:"in theaters",review:"",uri:"https://boxd.it/dabo9n"},
+  {id:617,title:"The Moment",year:2026,date:"2026-02-16",rating:3.0,rewatch:false,tags:"in theaters, a, los feliz",review:"",uri:"https://boxd.it/dabuYr"},
+  {id:618,title:"Neon Genesis Evangelion: The End of Evangelion",year:1997,date:"2026-02-20",rating:0,rewatch:true,tags:"in theaters, a, brain dead",review:"shoutout to my girlfriend for this one. I wasn’t high enough",uri:"https://boxd.it/dehHBD"},
+  {id:619,title:"If I Had Legs I'd Kick You",year:2025,date:"2026-03-06",rating:4.0,rewatch:false,tags:"roommates",review:"",uri:"https://boxd.it/dpEreD"},
+  {id:620,title:"The King of Comedy",year:1982,date:"2026-03-19",rating:4.5,rewatch:false,tags:"in theaters, moma, 35mm",review:"“Once they picked her up for speeding. They clocked her doing 55. All right, but in our garage?”",uri:"https://boxd.it/dAoRml"},
+  {id:621,title:"Possession",year:1981,date:"2026-03-31",rating:3.5,rewatch:false,tags:"in theaters, paris",review:"",uri:"https://boxd.it/dLvTPH"},
+  {id:622,title:"The Drama",year:2026,date:"2026-04-02",rating:4.0,rewatch:false,tags:"in theaters",review:"",uri:"https://boxd.it/dNOmLN"},
+  {id:623,title:"The Super Mario Galaxy Movie",year:2026,date:"2026-04-13",rating:3.0,rewatch:false,tags:"in theaters, dan, alex, imax",review:"",uri:"https://boxd.it/dXXvNh"},
+  {id:624,title:"Speed Racer",year:2008,date:"2026-04-21",rating:4.5,rewatch:true,tags:"in theaters, imax",review:"so much about how the love and support of family help make us into the best possible versions of ourselves",uri:"https://boxd.it/e48HgP"}
+];
+// ═══════════════════════════════════════
+// CONFIG & AUTH
+// ═══════════════════════════════════════
+const PASSWORD = "diary2024";
 function isLoggedIn() { return sessionStorage.getItem('diary_auth') === 'true'; }
-
 function updateLockUI() {
-    const btn = document.getElementById('lock-btn-page');
-    if (isLoggedIn()) {
-        btn.textContent = '🔓';
+    document.getElementById('lock-btn-page').textContent = isLoggedIn() ? '🔓' : '🔒';
+}
+function toggleLockPage() {
+    if (isLoggedIn()) { sessionStorage.removeItem('diary_auth'); updateLockUI(); }
+    else { document.getElementById('pw-modal').classList.add('open'); setTimeout(()=>document.getElementById('pw-input').focus(),50); }
+}
+function doPwLogin() {
+    if (document.getElementById('pw-input').value === PASSWORD) {
+        sessionStorage.setItem('diary_auth','true'); closePwModal(); updateLockUI();
     } else {
-        btn.textContent = '🔒';
+        const inp = document.getElementById('pw-input');
+        inp.classList.add('shake'); setTimeout(()=>inp.classList.remove('shake'),500);
+        document.getElementById('pw-error').textContent = 'Incorrect password.';
     }
 }
-
-// Listen for auth messages from parent frame
+function closePwModal() {
+    document.getElementById('pw-modal').classList.remove('open');
+    document.getElementById('pw-input').value = '';
+    document.getElementById('pw-error').textContent = '';
+}
 window.addEventListener('message', e => {
-    if (e.data === 'auth:login') { sessionStorage.setItem('diary_auth', 'true'); updateLockUI(); }
+    if (e.data === 'auth:login')  { sessionStorage.setItem('diary_auth','true'); updateLockUI(); }
     if (e.data === 'auth:logout') { sessionStorage.removeItem('diary_auth'); updateLockUI(); }
 });
 
-// Visitor counter (fake)
-(function() {
-    let count = parseInt(localStorage.getItem('visitor_count_movies') || '0');
-    count += 1;
-    localStorage.setItem('visitor_count_movies', count);
-    const display = String(count).padStart(6, '0').slice(-6);
-    document.getElementById('visitor-counter').textContent = display;
-})();
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+let allMovies = [];
+let filteredMovies = [];
+let currentSort = 'date';
+let sortDir = { date: -1, rating: -1, title: 1 };
+const PER_PAGE = 100;
+let currentPage = 1;
 
-// Last updated
-document.getElementById('last-updated').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+// ═══════════════════════════════════════
+// INIT DATA
+// ═══════════════════════════════════════
+function loadMovies() {
+    allMovies = [...MOVIES_SEED].sort((a,b) => new Date(b.date) - new Date(a.date));
+}
 
-updateLockUI();
+// ═══════════════════════════════════════
+// STATS
+// ═══════════════════════════════════════
+function renderStats() {
+    const rated = allMovies.filter(m => m.rating > 0);
+    const avg = rated.length ? (rated.reduce((s,m)=>s+m.rating,0)/rated.length).toFixed(2) : '—';
+    const inTheaters = allMovies.filter(m => m.tags && m.tags.toLowerCase().includes('in theater')).length;
+    const rewatches = allMovies.filter(m => m.rewatch).length;
+    const fives = allMovies.filter(m => m.rating === 5).length;
+    const thisYear = new Date().getFullYear();
+    const thisYearCount = allMovies.filter(m => m.date && m.date.startsWith(String(thisYear))).length;
+
+    document.getElementById('stat-total').textContent = allMovies.length;
+    document.getElementById('stat-avg').textContent = avg === '—' ? '—' : avg + '/5';
+    document.getElementById('stat-theaters').textContent = inTheaters;
+    document.getElementById('stat-rewatch').textContent = rewatches;
+    document.getElementById('stat-fives').textContent = fives;
+    document.getElementById('stat-year').textContent = thisYearCount;
+}
+
+// ═══════════════════════════════════════
+// FILTER POPULATION
+// ═══════════════════════════════════════
+function populateFilters() {
+    const years = [...new Set(allMovies.map(m => m.date ? m.date.slice(0,4) : '').filter(Boolean))].sort().reverse();
+    const yEl = document.getElementById('f-year');
+    while (yEl.options.length > 1) yEl.remove(1);
+    years.forEach(y => yEl.add(new Option(y, y)));
+
+    // Build unique tags from all tag strings
+    const tagSet = new Set();
+    allMovies.forEach(m => {
+        if (m.tags) m.tags.split(',').forEach(t => {
+            const clean = t.trim().toLowerCase();
+            if (clean) tagSet.add(clean);
+        });
+    });
+    const tags = [...tagSet].sort();
+    const tEl = document.getElementById('f-tag');
+    while (tEl.options.length > 1) tEl.remove(1);
+    tags.forEach(t => tEl.add(new Option(t, t)));
+}
+
+// ═══════════════════════════════════════
+// FILTER & SORT
+// ═══════════════════════════════════════
+function getFiltered() {
+    const fy = document.getElementById('f-year').value;
+    const fr = document.getElementById('f-rating').value;
+    const ft = document.getElementById('f-tag').value;
+    const frw = document.getElementById('f-rewatch').checked;
+    const frev = document.getElementById('f-reviewed').checked;
+    const fs = document.getElementById('search-input').value.toLowerCase().trim();
+
+    return allMovies.filter(m => {
+        if (fy && (!m.date || !m.date.startsWith(fy))) return false;
+        if (fr && m.rating !== parseFloat(fr)) return false;
+        if (ft && !(m.tags||'').toLowerCase().split(',').map(t=>t.trim()).includes(ft)) return false;
+        if (frw && !m.rewatch) return false;
+        if (frev && !m.review) return false;
+        if (fs && !m.title.toLowerCase().includes(fs) && !(m.review||'').toLowerCase().includes(fs)) return false;
+        return true;
+    });
+}
+
+function getSorted(movies) {
+    return [...movies].sort((a,b) => {
+        if (currentSort === 'date') return sortDir.date * (new Date(b.date||0) - new Date(a.date||0));
+        if (currentSort === 'rating') return sortDir.rating * (b.rating - a.rating);
+        if (currentSort === 'title') return sortDir.title * a.title.localeCompare(b.title);
+        return 0;
+    });
+}
+
+function setSort(s, btn) {
+    if (currentSort === s) { sortDir[s] *= -1; } else { currentSort = s; }
+    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentPage = 1;
+    applyFilters();
+}
+
+function clearFilters() {
+    ['f-year','f-rating','f-tag'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('f-rewatch').checked = false;
+    document.getElementById('f-reviewed').checked = false;
+    document.getElementById('search-input').value = '';
+    currentPage = 1;
+    applyFilters();
+}
+
+function applyFilters() {
+    filteredMovies = getSorted(getFiltered());
+    currentPage = 1;
+    renderPage();
+    document.getElementById('filter-count').textContent = filteredMovies.length + ' of ' + allMovies.length + ' films';
+}
+
+// ═══════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════
+function esc(s) {
+    return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function starsHTML(r) {
+    if (!r) return '<span class="no-rating">no rating</span>';
+    const full = Math.floor(r), half = (r%1)>=0.5, empty = 5-full-(half?1:0);
+    return `<span class="stars">${'★'.repeat(full)}${half?'<span style="opacity:.75">½</span>':''}</span><span class="stars-empty">${'☆'.repeat(empty)}</span>`;
+}
+
+function fmtDate(d) {
+    if (!d) return '';
+    return new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+}
+
+function tagBadges(tags) {
+    if (!tags) return '';
+    return tags.split(',').map(t => {
+        const c = t.trim();
+        if (!c) return '';
+        const cl = c.toLowerCase();
+        let extra = '';
+        if (cl.includes('theater') || cl.includes('theatre')) extra = ' intheaters-badge';
+        else if (cl === 'imax' || cl.includes('imax')) extra = ' imax-badge';
+        return `<span class="tag-badge${extra}">${esc(c)}</span>`;
+    }).join('');
+}
+
+function renderPage() {
+    const list = document.getElementById('movie-list');
+    const empty = document.getElementById('empty-state');
+
+    if (filteredMovies.length === 0) {
+        list.innerHTML = '';
+        empty.style.display = 'block';
+        document.getElementById('pagination').innerHTML = '';
+        return;
+    }
+    empty.style.display = 'none';
+
+    const start = (currentPage - 1) * PER_PAGE;
+    const pageMovies = filteredMovies.slice(start, start + PER_PAGE);
+    const globalStart = start; // for row numbering
+
+    list.innerHTML = pageMovies.map((m, i) => {
+        const n = globalStart + i + 1;
+        const hasReview = m.review && m.review.trim();
+        return `<div class="movie-row">
+            <div class="movie-num">${n}</div>
+            <div class="movie-stars">${starsHTML(m.rating)}</div>
+            <div class="movie-main">
+                <div class="movie-title-row">
+                    <span class="movie-title">${esc(m.title)}</span>
+                    <span class="movie-year">(${m.year})</span>
+                    <span class="movie-date">${fmtDate(m.date)}</span>
+                </div>
+                <div class="movie-meta-row">
+                    ${m.rewatch ? '<span class="rewatch-badge">♻ Rewatch</span>' : ''}
+                    ${tagBadges(m.tags)}
+                </div>
+                ${hasReview ? `<a class="movie-review-toggle" onclick="toggleReview(${m.id},this);return false;">Show review ▼</a>
+                <div class="movie-review" id="rev-${m.id}">"${esc(m.review)}"</div>` : ''}
+            </div>
+            <div class="movie-lb-link">
+                <a class="lb-btn" href="${esc(m.uri)}" target="_blank" rel="noopener">LB ↗</a>
+            </div>
+        </div>`;
+    }).join('');
+
+    renderPagination();
+}
+
+function toggleReview(id, link) {
+    const el = document.getElementById('rev-'+id);
+    el.classList.toggle('open');
+    link.textContent = el.classList.contains('open') ? 'Hide review ▲' : 'Show review ▼';
+}
+
+function renderPagination() {
+    const totalPages = Math.ceil(filteredMovies.length / PER_PAGE);
+    const pg = document.getElementById('pagination');
+    if (totalPages <= 1) { pg.innerHTML = ''; return; }
+
+    let html = '';
+    html += `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>‹</button>`;
+
+    const start = Math.max(1, currentPage - 4);
+    const end = Math.min(totalPages, currentPage + 4);
+    if (start > 1) html += `<button class="page-btn" onclick="goPage(1)">1</button><span id="page-info">…</span>`;
+    for (let p = start; p <= end; p++) {
+        html += `<button class="page-btn${p===currentPage?' active':''}" onclick="goPage(${p})">${p}</button>`;
+    }
+    if (end < totalPages) html += `<span id="page-info">…</span><button class="page-btn" onclick="goPage(${totalPages})">${totalPages}</button>`;
+    html += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}>›</button>`;
+    html += `<span id="page-info">&nbsp;Page ${currentPage} of ${totalPages} (${filteredMovies.length} films)</span>`;
+
+    pg.innerHTML = html;
+}
+
+function goPage(p) {
+    const totalPages = Math.ceil(filteredMovies.length / PER_PAGE);
+    if (p < 1 || p > totalPages) return;
+    currentPage = p;
+    renderPage();
+    document.getElementById('content').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ═══════════════════════════════════════
+// VISITOR COUNTER
+// ═══════════════════════════════════════
+function initCounter() {
+    let c = parseInt(localStorage.getItem('diary_movies_visits') || '5241') + 1;
+    localStorage.setItem('diary_movies_visits', c);
+    document.getElementById('visitor-counter').textContent = String(c).padStart(6,'0');
+}
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+    loadMovies();
+    populateFilters();
+    renderStats();
+    applyFilters();
+    updateLockUI();
+    initCounter();
+    document.getElementById('last-updated').textContent =
+        new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+});
 </script>
 </body>
 </html>
