@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Greg's Diary</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            background: linear-gradient(to bottom, #1a3a6a 0%, #0f2040 100%);
+        }
+
+        /* Wallpaper */
+        .wallpaper {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(160deg, #1b3d6f 0%, #0e2244 50%, #07111f 100%);
+            z-index: -1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .wallpaper-text {
+            font-size: 5.5rem;
+            font-weight: 200;
+            color: rgba(255,255,255,0.05);
+            text-transform: uppercase;
+            letter-spacing: 1rem;
+            pointer-events: none;
+        }
+
+        /* Desktop */
+        .desktop {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: calc(100vh - 40px);
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 90px);
+            grid-auto-rows: 90px;
+            gap: 16px;
+            align-content: start;
+            overflow: auto;
+        }
+
+        .desktop-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 4px;
+            padding: 6px;
+            transition: background 0.15s;
+            text-align: center;
+        }
+        .desktop-icon:hover { background: rgba(255,255,255,0.12); }
+        .desktop-icon:active { background: rgba(255,255,255,0.22); }
+
+        .icon-img {
+            width: 48px; height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin-bottom: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+        .icon-label {
+            color: white;
+            font-size: 11px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+            line-height: 1.3;
+        }
+
+        /* Windows */
+        .window {
+            position: absolute;
+            background: white;
+            border: 1px solid #5c9ede;
+            border-radius: 8px 8px 2px 2px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08);
+            width: 960px;
+            height: 680px;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 100;
+            top: 40px;
+            left: 60px;
+        }
+        .window.active { display: flex; }
+
+        /* Win7 title bar */
+        .win-titlebar {
+            height: 30px;
+            background: linear-gradient(to bottom, #6bb6ff 0%, #5c9ede 25%, #4a90e2 50%, #3070c0 75%, #1e5aaa 100%);
+            display: flex;
+            align-items: center;
+            padding: 0 8px 0 10px;
+            cursor: move;
+            flex-shrink: 0;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+        }
+        .win-icon { font-size: 13px; margin-right: 6px; }
+        .win-title {
+            flex: 1;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .win-controls { display: flex; gap: 2px; }
+        .win-btn {
+            width: 22px; height: 20px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.25), rgba(255,255,255,0.08));
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 2px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 10px;
+            color: white;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+            transition: background 0.1s;
+        }
+        .win-btn:hover { background: linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(255,255,255,0.2)); }
+        .win-btn.close:hover { background: linear-gradient(to bottom, #f04040, #c00020); border-color: rgba(255,100,100,0.5); }
+
+        /* IE7-style toolbar */
+        .ie-toolbar {
+            background: linear-gradient(to bottom, #dce4ed, #c8d4e0);
+            border-bottom: 2px solid #b0bfcf;
+            padding: 4px 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex-shrink: 0;
+        }
+        .ie-nav-btn {
+            width: 26px; height: 22px;
+            background: linear-gradient(to bottom, #eef2f6, #d8e2ea);
+            border: 1px solid #aabbcc;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 11px;
+            color: #445;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .ie-nav-btn:hover { background: linear-gradient(to bottom, #f4f8fc, #e0eaf4); border-color: #7a9bb5; }
+        .ie-nav-btn:disabled { opacity: 0.4; cursor: default; }
+        .ie-sep { width: 1px; height: 18px; background: #aab; margin: 0 3px; }
+        .ie-address-wrap {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background: white;
+            border: 1px solid #7a9bb5;
+            border-radius: 2px;
+            height: 22px;
+            padding: 0 6px;
+            gap: 5px;
+        }
+        .ie-address-label { font-size: 10px; color: #668; white-space: nowrap; }
+        .ie-address-text { font-size: 11px; color: #336; flex: 1; font-family: "Segoe UI", Tahoma, sans-serif; }
+        .ie-go-btn {
+            padding: 1px 10px;
+            height: 22px;
+            background: linear-gradient(to bottom, #eef2f6, #d0dce8);
+            border: 1px solid #aabbcc;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 11px;
+            color: #334;
+        }
+        .ie-go-btn:hover { background: linear-gradient(to bottom, #f4f8fc, #dce8f4); }
+        .ie-security { font-size: 11px; color: #668; padding: 0 4px; white-space: nowrap; }
+
+        /* White content area that always covers the window body */
+        .win-content {
+            flex: 1;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .win-iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: none;
+        }
+
+        /* IE status bar */
+        .ie-statusbar {
+            height: 20px;
+            background: linear-gradient(to bottom, #dce4ed, #c8d4e0);
+            border-top: 1px solid #b0bfcf;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            flex-shrink: 0;
+        }
+        .ie-status-text { font-size: 10px; color: #557; flex: 1; }
+        .ie-zone { font-size: 10px; color: #668; padding: 0 4px; border-left: 1px solid #aab; }
+
+        /* Taskbar */
+        .taskbar {
+            position: fixed;
+            bottom: 0; left: 0;
+            width: 100%;
+            height: 40px;
+            background: linear-gradient(to bottom, #4a90e2 0%, #2171b5 50%, #1e5a96 100%);
+            border-top: 1px solid rgba(255,255,255,0.12);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 -2px 12px rgba(0,0,0,0.4);
+        }
+        .start-btn {
+            width: 68px; height: 100%;
+            background: linear-gradient(to bottom, #5c9ede 0%, #2171b5 50%, #1e5a96 100%);
+            border: none; border-right: 1px solid rgba(0,0,0,0.2);
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            gap: 5px;
+        }
+        .start-btn:hover { background: linear-gradient(to bottom, #6bb6ff 0%, #3d83c6 50%, #2171b5 100%); }
+        .start-orb {
+            width: 22px; height: 22px;
+            background: radial-gradient(circle at 30% 30%, #fff 0%, #4a90e2 100%);
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.35);
+            position: relative;
+        }
+        .start-orb::before {
+            content: "⊞";
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            color: white; font-size: 12px; font-weight: bold;
+        }
+        .taskbar-items {
+            display: flex;
+            gap: 3px;
+            padding: 0 6px;
+            flex: 1;
+            overflow: hidden;
+        }
+        .tb-item {
+            height: 28px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 3px;
+            padding: 0 10px;
+            display: flex; align-items: center;
+            cursor: pointer;
+            font-size: 11px;
+            color: white;
+            gap: 5px;
+            white-space: nowrap;
+            transition: background 0.1s;
+        }
+        .tb-item:hover { background: rgba(255,255,255,0.25); }
+        .tb-item.focused { background: rgba(255,255,255,0.3); border-color: rgba(255,255,255,0.4); }
+        .system-tray {
+            margin-left: auto;
+            height: 100%;
+            display: flex; align-items: center;
+            padding: 0 10px;
+            background: rgba(0,0,0,0.12);
+            gap: 8px;
+            border-left: 1px solid rgba(255,255,255,0.08);
+        }
+        .lock-btn {
+            background: none; border: none;
+            cursor: pointer; font-size: 16px;
+            padding: 4px;
+            border-radius: 3px;
+            transition: background 0.15s;
+        }
+        .lock-btn:hover { background: rgba(255,255,255,0.2); }
+        .clock { color: white; font-size: 11px; text-align: right; line-height: 1.4; }
+
+        /* Password Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.55);
+            z-index: 9999;
+            display: none;
+            align-items: center; justify-content: center;
+        }
+        .modal-overlay.open { display: flex; }
+        .modal {
+            background: #e8f0f8;
+            border: 2px solid #3d83c6;
+            border-radius: 6px;
+            width: 360px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+            overflow: hidden;
+            animation: modalIn 0.2s ease;
+        }
+        @keyframes modalIn { from{transform:scale(0.88);opacity:0} to{transform:scale(1);opacity:1} }
+        .modal-titlebar {
+            height: 30px;
+            background: linear-gradient(to bottom, #6bb6ff 0%, #4a90e2 50%, #2171b5 100%);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 10px;
+        }
+        .modal-titlebar span { color: white; font-size: 12px; font-weight: 600; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        .modal-close {
+            background: none; border: none; color: white; cursor: pointer; font-size: 16px; line-height: 1;
+        }
+        .modal-body { padding: 24px; }
+        .modal-body p { font-size: 12px; color: #445; margin-bottom: 14px; line-height: 1.5; }
+        .modal-body label { display: block; font-size: 11px; color: #556; margin-bottom: 4px; font-weight: 600; }
+        .modal-body input[type=password] {
+            width: 100%; height: 30px;
+            border: 1px solid #7a9bb5;
+            border-radius: 2px;
+            padding: 0 10px;
+            font-size: 13px;
+            background: white;
+            outline: none;
+        }
+        .modal-body input[type=password]:focus { border-color: #4a90e2; box-shadow: 0 0 0 2px rgba(74,144,226,0.2); }
+        .modal-body input.shake { animation: shake 0.4s; border-color: #e00; }
+        .modal-error { font-size: 11px; color: #c00; margin-top: 6px; height: 16px; }
+        .modal-footer { padding: 10px 24px 18px; display: flex; justify-content: flex-end; gap: 8px; }
+        .modal-btn {
+            padding: 5px 18px;
+            border: 1px solid #aabbcc;
+            background: linear-gradient(to bottom, #eef4fc, #d8e4f0);
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            color: #334;
+        }
+        .modal-btn:hover { background: linear-gradient(to bottom, #f4f8ff, #e0ecf8); }
+        .modal-btn.primary {
+            background: linear-gradient(to bottom, #5c9ede, #2171b5);
+            color: white; border-color: #1a5a9e;
+        }
+        .modal-btn.primary:hover { background: linear-gradient(to bottom, #6baae8, #2d7fc5); }
+
+        @keyframes shake {
+            0%,100%{transform:translateX(0)}
+            20%{transform:translateX(-8px)}
+            40%{transform:translateX(8px)}
+            60%{transform:translateX(-5px)}
+            80%{transform:translateX(5px)}
+        }
+        @keyframes winOpen {
+            from{opacity:0;transform:scale(0.88) translateY(8px)}
+            to{opacity:1;transform:scale(1) translateY(0)}
+        }
+        .window.opening { animation: winOpen 0.22s cubic-bezier(0.25,0.46,0.45,0.94); }
+    </style>
+</head>
+<body>
+
+<div class="wallpaper">
+    <div class="wallpaper-text">Greg's Diary</div>
+</div>
+
+<div class="desktop" id="desktop">
+
+    <div class="desktop-icon" onclick="window.location.href='../index.html'">
+        <div class="icon-img" style="background:linear-gradient(135deg,#636e72,#2d3436);">🏠</div>
+        <div class="icon-label">Home</div>
+    </div>
+
+    <div class="desktop-icon" data-app="games">
+        <div class="icon-img" style="background:linear-gradient(135deg,#6c5ce7,#a29bfe);">🎮</div>
+        <div class="icon-label">Video Games</div>
+    </div>
+
+    <div class="desktop-icon" data-app="countries">
+        <div class="icon-img" style="background:linear-gradient(135deg,#00b894,#00cec9);">🌍</div>
+        <div class="icon-label">Countries</div>
+    </div>
+
+    <div class="desktop-icon" data-app="plays">
+        <div class="icon-img" style="background:linear-gradient(135deg,#d63031,#e17055);">🎭</div>
+        <div class="icon-label">Plays Seen</div>
+    </div>
+
+    <div class="desktop-icon" data-app="movies">
+        <div class="icon-img" style="background:linear-gradient(135deg,#0984e3,#74b9ff);">🎬</div>
+        <div class="icon-label">Movies</div>
+    </div>
+
+    <div class="desktop-icon" data-app="restaurants">
+        <div class="icon-img" style="background:linear-gradient(135deg,#e17055,#fdcb6e);">🍽️</div>
+        <div class="icon-label">Restaurants</div>
+    </div>
+
+    <div class="desktop-icon" data-app="places">
+        <div class="icon-img" style="background:linear-gradient(135deg,#fd79a8,#e84393);">📍</div>
+        <div class="icon-label">Places</div>
+    </div>
+
+</div>
+
+<!-- ==================== WINDOWS ==================== -->
+
+<!-- Games -->
+<div id="gamesWindow" class="window" data-app="games" data-src="games.html" data-url="http://gregorysycle.sycleg.github.io/diary/games.html">
+    <div class="win-titlebar">
+        <span class="win-icon">🎮</span>
+        <div class="win-title">Greg's Video Games — Windows Internet Explorer</div>
+        <div class="win-controls">
+            <div class="win-btn min-btn" title="Minimize">─</div>
+            <div class="win-btn max-btn" title="Maximize">□</div>
+            <div class="win-btn close" title="Close">✕</div>
+        </div>
+    </div>
+    <div class="ie-toolbar">
+        <button class="ie-nav-btn" disabled title="Back">◀</button>
+        <button class="ie-nav-btn" disabled title="Forward">▶</button>
+        <button class="ie-nav-btn" title="Refresh" onclick="this.closest('.window').querySelector('iframe').contentWindow.location.reload()">↻</button>
+        <div class="ie-sep"></div>
+        <div class="ie-address-wrap">
+            <span class="ie-address-label">Address:</span>
+            <span class="ie-address-text">http://sycleg.github.io/gregorysycle/diary/games.html</span>
+        </div>
+        <button class="ie-go-btn">Go</button>
+        <div class="ie-sep"></div>
+        <span class="ie-security">🔒 Internet</span>
+    </div>
+    <div class="win-content">
+        <iframe class="win-iframe" data-src="games.html" id="gamesIframe"></iframe>
+    </div>
+    <div class="ie-statusbar">
+        <span class="ie-status-text" id="gamesStatus">Done</span>
+        <span class="ie-zone">🌐 Internet</span>
+    </div>
+</div>
+
+<!-- Countries -->
+<div id="countriesWindow" class="window" data-app="countries" data-src="countries.html">
+    <div class="win-titlebar">
+        <span class="win-icon">🌍</span>
+        <div class="win-title">Countries Visited — Windows Internet Explorer</div>
+        <div class="win-controls">
+            <div class="win-btn min-btn">─</div>
+            <div class="win-btn max-btn">□</div>
+            <div class="win-btn close">✕</div>
+        </div>
+    </div>
+    <div class="ie-toolbar">
+        <button class="ie-nav-btn" disabled>◀</button>
+        <button class="ie-nav-btn" disabled>▶</button>
+        <button class="ie-nav-btn" onclick="this.closest('.window').querySelector('iframe').contentWindow.location.reload()">↻</button>
+        <div class="ie-sep"></div>
+        <div class="ie-address-wrap">
+            <span class="ie-address-label">Address:</span>
+            <span class="ie-address-text">http://sycleg.github.io/gregorysycle/diary/countries.html</span>
+        </div>
+        <button class="ie-go-btn">Go</button>
+        <span class="ie-security">🔒 Internet</span>
+    </div>
+    <div class="win-content"><iframe class="win-iframe" data-src="countries.html"></iframe></div>
+    <div class="ie-statusbar"><span class="ie-status-text">Done</span><span class="ie-zone">🌐 Internet</span></div>
+</div>
+
+<!-- Plays -->
+<div id="playsWindow" class="window" data-app="plays" data-src="plays.html">
+    <div class="win-titlebar">
+        <span class="win-icon">🎭</span>
+        <div class="win-title">Plays Seen — Windows Internet Explorer</div>
+        <div class="win-controls">
+            <div class="win-btn min-btn">─</div>
+            <div class="win-btn max-btn">□</div>
+            <div class="win-btn close">✕</div>
+        </div>
+    </div>
+    <div class="ie-toolbar">
+        <button class="ie-nav-btn" disabled>◀</button>
+        <button class="ie-nav-btn" disabled>▶</button>
+        <button class="ie-nav-btn" onclick="this.closest('.window').querySelector('iframe').contentWindow.location.reload()">↻</button>
+        <div class="ie-sep"></div>
+        <div class="ie-address-wrap">
+            <span class="ie-address-label">Address:</span>
+            <span class="ie-address-text">http://sycleg.github.io/gregorysycle/diary/plays.html</span>
+        </div>
+        <button class="ie-go-btn">Go</button>
+        <span class="ie-security">🔒 Internet</span>
+    </div>
+    <div class="win-content"><iframe class="win-iframe" data-src="plays.html"></iframe></div>
+    <div class="ie-statusbar"><span class="ie-status-text">Done</span><span class="ie-zone">🌐 Internet</span></div>
+</div>
+
+<!-- Movies -->
+<div id="moviesWindow" class="window" data-app="movies" data-src="movies.html">
+    <div class="win-titlebar">
+        <span class="win-icon">🎬</span>
+        <div class="win-title">Movies Seen — Windows Internet Explorer</div>
+        <div class="win-controls">
+            <div class="win-btn min-btn">─</div>
+            <div class="win-btn max-btn">□</div>
+            <div class="win-btn close">✕</div>
+        </div>
+    </div>
+    <div class="ie-toolbar">
+        <button class="ie-nav-btn" disabled>◀</button>
+        <button class="ie-nav-btn" disabled>▶</button>
+        <button class="ie-nav-btn" onclick="this.closest('.window').querySelector('iframe').contentWindow.location.reload()">↻</button>
+        <div class="ie-sep"></div>
+        <div class="ie-address-wrap">
+            <span class="ie-address-label">Address:</span>
+            <span class="ie-address-text">http://sycleg.github.io/gregorysycle/diary/movies.html</span>
+        </div>
+        <button class="ie-go-btn">Go</button>
+        <span class="ie-security">🔒 Internet</span>
+    </div>
+    <div class="win-content"><iframe class="win-iframe" data-src="movies.html"></iframe></div>
+    <div class="ie-statusbar"><span class="ie-status-text">Done</span><span class="ie-zone">🌐 Internet</span></div>
+</div>
+
+<!-- Restaurants -->
+<div id="restaurantsWindow" class="window" data-app="restaurants" data-src="restaurants.html">
+    <div class="win-titlebar">
+        <span class="win-icon">🍽️</span>
+        <div class="win-title">Restaurants — Windows Internet Explorer</div>
+        <div class="win-controls">
+            <div class="win-btn min-btn">─</div>
+            <div class="win-btn max-btn">□</div>
+            <div class="win-btn close">✕</div>
+        </div>
+    </div>
+    <div class="ie-toolbar">
+        <button class="ie-nav-btn" disabled>◀</button>
+        <button class="ie-nav-btn" disabled>▶</button>
+        <button class="ie-nav-btn" onclick="this.closest('.window').querySelector('iframe').contentWindow.location.reload()">↻</button>
+        <div class="ie-sep"></div>
+        <div class="ie-address-wrap">
+            <span class="ie-address-label">Address:</span>
+            <span class="ie-address-text">http://sycleg.github.io/gregorysycle/diary/restaurants.html</span>
+        </div>
+        <button class="ie-go-btn">Go</button>
+        <span class="ie-security">🔒 Internet</span>
+    </div>
+    <div class="win-content"><iframe class="win-iframe" data-src="restaurants.html"></iframe></div>
+    <div class="ie-statusbar"><span class="ie-status-text">Done</span><span class="ie-zone">🌐 Internet</span></div>
+</div>
+
+<!-- Places -->
+<div id="placesWindow" class="window" data-app="places" data-src="places.html">
+    <div class="win-titlebar">
+        <span class="win-icon">📍</span>
+        <div class="win-title">Places — Windows Internet Explorer</div>
+        <div class="win-controls">
+            <div class="win-btn min-btn">─</div>
+            <div class="win-btn max-btn">□</div>
+            <div class="win-btn close">✕</div>
+        </div>
+    </div>
+    <div class="ie-toolbar">
+        <button class="ie-nav-btn" disabled>◀</button>
+        <button class="ie-nav-btn" disabled>▶</button>
+        <button class="ie-nav-btn" onclick="this.closest('.window').querySelector('iframe').contentWindow.location.reload()">↻</button>
+        <div class="ie-sep"></div>
+        <div class="ie-address-wrap">
+            <span class="ie-address-label">Address:</span>
+            <span class="ie-address-text">http://sycleg.github.io/gregorysycle/diary/places.html</span>
+        </div>
+        <button class="ie-go-btn">Go</button>
+        <span class="ie-security">🔒 Internet</span>
+    </div>
+    <div class="win-content"><iframe class="win-iframe" data-src="places.html"></iframe></div>
+    <div class="ie-statusbar"><span class="ie-status-text">Done</span><span class="ie-zone">🌐 Internet</span></div>
+</div>
+
+<!-- ==================== TASKBAR ==================== -->
+<div class="taskbar">
+    <button class="start-btn">
+        <div class="start-orb"></div>
+    </button>
+    <div class="taskbar-items" id="taskbarItems"></div>
+    <div class="system-tray">
+        <button class="lock-btn" id="lockBtn" onclick="toggleLock()" title="Login / Logout">🔒</button>
+        <div class="clock">
+            <div id="tbTime"></div>
+            <div id="tbDate"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== PASSWORD MODAL ==================== -->
+<div class="modal-overlay" id="authModal">
+    <div class="modal">
+        <div class="modal-titlebar">
+            <span>🔒 Diary Login</span>
+            <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body">
+            <p>Enter your password to unlock diary editing features.</p>
+            <label for="pwInput">Password</label>
+            <input type="password" id="pwInput" placeholder="••••••••"
+                   onkeydown="if(event.key==='Enter') doLogin()">
+            <div class="modal-error" id="pwError"></div>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-btn" onclick="closeModal()">Cancel</button>
+            <button class="modal-btn primary" onclick="doLogin()">Login</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ── Auth ──────────────────────────────────────
+    const PASSWORD = "diary2024"; // Change this!
+
+    function isLoggedIn() { return sessionStorage.getItem('diary_auth') === 'true'; }
+
+    function toggleLock() {
+        if (isLoggedIn()) {
+            sessionStorage.removeItem('diary_auth');
+            document.getElementById('lockBtn').textContent = '🔒';
+            broadcastAuth(false);
+        } else {
+            document.getElementById('authModal').classList.add('open');
+            setTimeout(() => document.getElementById('pwInput').focus(), 50);
+        }
+    }
+
+    function closeModal() {
+        document.getElementById('authModal').classList.remove('open');
+        document.getElementById('pwInput').value = '';
+        document.getElementById('pwError').textContent = '';
+    }
+
+    function doLogin() {
+        const v = document.getElementById('pwInput').value;
+        if (v === PASSWORD) {
+            sessionStorage.setItem('diary_auth', 'true');
+            document.getElementById('lockBtn').textContent = '🔓';
+            closeModal();
+            broadcastAuth(true);
+        } else {
+            const inp = document.getElementById('pwInput');
+            inp.classList.add('shake');
+            setTimeout(() => inp.classList.remove('shake'), 500);
+            document.getElementById('pwError').textContent = 'Incorrect password. Try again.';
+        }
+    }
+
+    function broadcastAuth(loggedIn) {
+        document.querySelectorAll('iframe').forEach(f => {
+            try { f.contentWindow.postMessage(loggedIn ? 'auth:login' : 'auth:logout', '*'); } catch(e) {}
+        });
+    }
+
+    if (isLoggedIn()) document.getElementById('lockBtn').textContent = '🔓';
+
+    // ── Window management ─────────────────────────
+    let zTop = 100;
+    let dragWin = null, dragOff = {x:0,y:0};
+
+    const ICONS = {
+        games: '🎮', countries: '🌍', plays: '🎭',
+        movies: '🎬', restaurants: '🍽️', places: '📍'
+    };
+    const TITLES = {
+        games: 'Video Games', countries: 'Countries',
+        plays: 'Plays', movies: 'Movies',
+        restaurants: 'Restaurants', places: 'Places'
+    };
+
+    // Desktop icon double-click
+    document.querySelectorAll('.desktop-icon[data-app]').forEach(icon => {
+        icon.addEventListener('dblclick', () => openWin(icon.dataset.app));
+    });
+
+    function openWin(app) {
+        const win = document.getElementById(app + 'Window');
+        if (!win) return;
+
+        // Lazy-load the iframe — only set src the first time the window opens
+        const iframe = win.querySelector('iframe[data-src]');
+        if (iframe && !iframe.src.includes('.html')) {
+            iframe.src = iframe.dataset.src;
+        }
+
+        if (!win.classList.contains('active')) {
+            win.classList.add('active', 'opening');
+            setTimeout(() => win.classList.remove('opening'), 250);
+            const W = win.offsetWidth, H = win.offsetHeight;
+            const offset = Object.keys(ICONS).indexOf(app) * 20;
+            win.style.left = Math.max(0, (window.innerWidth - W) / 2 + offset) + 'px';
+            win.style.top  = Math.max(0, (window.innerHeight - 40 - H) / 2 + offset) + 'px';
+        }
+
+        bringToFront(win);
+        addTaskbarItem(app);
+    }
+
+    function bringToFront(win) {
+        win.style.zIndex = ++zTop;
+        document.querySelectorAll('.tb-item').forEach(t => t.classList.remove('focused'));
+        const tb = document.getElementById('tb-' + win.dataset.app);
+        if (tb) tb.classList.add('focused');
+    }
+
+    function addTaskbarItem(app) {
+        if (document.getElementById('tb-' + app)) {
+            document.getElementById('tb-' + app).classList.add('focused');
+            return;
+        }
+        const item = document.createElement('div');
+        item.className = 'tb-item focused';
+        item.id = 'tb-' + app;
+        item.innerHTML = ICONS[app] + ' ' + TITLES[app];
+        item.onclick = () => {
+            const win = document.getElementById(app + 'Window');
+            if (win.classList.contains('active')) {
+                // Check if focused
+                if (parseInt(win.style.zIndex) === zTop) {
+                    win.classList.remove('active');
+                    item.classList.remove('focused');
+                } else {
+                    bringToFront(win);
+                }
+            } else {
+                win.classList.add('active');
+                bringToFront(win);
+            }
+        };
+        document.getElementById('taskbarItems').appendChild(item);
+    }
+
+    // Window control buttons
+    document.querySelectorAll('.win-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.stopPropagation();
+            const win = btn.closest('.window');
+            const app = win.dataset.app;
+            if (btn.classList.contains('close')) {
+                win.classList.remove('active');
+                const tb = document.getElementById('tb-' + app);
+                if (tb) tb.remove();
+            } else if (btn.classList.contains('min-btn')) {
+                win.classList.remove('active');
+                const tb = document.getElementById('tb-' + app);
+                if (tb) tb.classList.remove('focused');
+            } else if (btn.classList.contains('max-btn')) {
+                if (win.dataset.maxed === '1') {
+                    win.style.width = win.dataset.prevW;
+                    win.style.height = win.dataset.prevH;
+                    win.style.left = win.dataset.prevL;
+                    win.style.top = win.dataset.prevT;
+                    win.dataset.maxed = '0';
+                } else {
+                    win.dataset.prevW = win.style.width || win.offsetWidth + 'px';
+                    win.dataset.prevH = win.style.height || win.offsetHeight + 'px';
+                    win.dataset.prevL = win.style.left;
+                    win.dataset.prevT = win.style.top;
+                    win.style.width = '100vw';
+                    win.style.height = 'calc(100vh - 40px)';
+                    win.style.left = '0';
+                    win.style.top = '0';
+                    win.dataset.maxed = '1';
+                }
+            }
+        });
+    });
+
+    // Drag
+    document.querySelectorAll('.win-titlebar').forEach(bar => {
+        bar.addEventListener('mousedown', e => {
+            if (e.target.classList.contains('win-btn')) return;
+            dragWin = bar.closest('.window');
+            const r = dragWin.getBoundingClientRect();
+            dragOff = {x: e.clientX - r.left, y: e.clientY - r.top};
+            bringToFront(dragWin);
+            e.preventDefault();
+        });
+    });
+    document.addEventListener('mousemove', e => {
+        if (!dragWin) return;
+        dragWin.style.left = Math.max(0, e.clientX - dragOff.x) + 'px';
+        dragWin.style.top  = Math.max(0, e.clientY - dragOff.y) + 'px';
+    });
+    document.addEventListener('mouseup', () => { dragWin = null; });
+
+    // Click window to bring to front
+    document.querySelectorAll('.window').forEach(win => {
+        win.addEventListener('mousedown', () => bringToFront(win), true);
+    });
+
+    // ── Clock ─────────────────────────────────────
+    function tick() {
+        const n = new Date();
+        document.getElementById('tbTime').textContent = n.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit', hour12:true});
+        document.getElementById('tbDate').textContent = n.toLocaleDateString('en-US', {month:'numeric', day:'numeric', year:'numeric'});
+    }
+    setInterval(tick, 1000); tick();
+
+    // iframe load status
+    document.querySelectorAll('.win-iframe').forEach(f => {
+        f.addEventListener('load', () => {
+            const statusEl = f.closest('.window').querySelector('.ie-status-text');
+            if (statusEl) statusEl.textContent = 'Done';
+        });
+        f.addEventListener('loadstart', () => {
+            const statusEl = f.closest('.window').querySelector('.ie-status-text');
+            if (statusEl) statusEl.textContent = 'Loading...';
+        });
+    });
+</script>
+</body>
+</html>

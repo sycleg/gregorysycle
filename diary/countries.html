@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Greg's Countries Visited</title>
+
+    <style>
+        /* ════════════════════════════════
+           2007-ERA WEB AESTHETIC
+        ════════════════════════════════ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 12px;
+            background-color: #c4d4e8;
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(255,255,255,0.08) 20px),
+                repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(255,255,255,0.08) 20px);
+            min-height: 100vh;
+            color: #222;
+        }
+
+        a { color: #0033cc; text-decoration: underline; }
+        a:visited { color: #551a8b; }
+        a:hover { color: #cc0000; }
+
+        /* ── SITE WRAPPER ── */
+        #wrapper {
+            width: 100%;
+            max-width: 1060px;
+            margin: 0 auto;
+            background: white;
+            border-left: 2px solid #889ab0;
+            border-right: 2px solid #889ab0;
+            min-height: 100vh;
+        }
+
+        /* ── HEADER BANNER ── */
+        #header {
+            background: linear-gradient(to bottom, #002288 0%, #0033aa 40%, #0044cc 100%);
+            padding: 0;
+            position: relative;
+            border-bottom: 3px solid #001166;
+        }
+        #header-inner {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            gap: 14px;
+        }
+        #header-icon {
+            font-size: 44px;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+        }
+        #header-text { flex: 1; }
+        #site-title {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 28px;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 2px 2px 0 #000044, 0 0 20px rgba(100,150,255,0.4);
+            letter-spacing: 1px;
+        }
+        #site-subtitle {
+            font-size: 11px;
+            color: #99bbff;
+            margin-top: 4px;
+            font-style: italic;
+        }
+        #lock-corner {
+            position: absolute;
+            top: 10px; right: 12px;
+        }
+        #lock-btn-page {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 3px;
+            padding: 4px 10px;
+            cursor: pointer;
+            font-size: 13px;
+            color: white;
+            transition: background 0.2s;
+        }
+        #lock-btn-page:hover { background: rgba(255,255,255,0.28); }
+
+        /* Marquee band */
+        #marquee-band {
+            background: #001155;
+            border-top: 1px solid #0044cc;
+            padding: 4px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .marquee-inner {
+            display: inline-block;
+            animation: marquee 28s linear infinite;
+            color: #88aaff;
+            font-size: 11px;
+            padding-left: 100%;
+        }
+        @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+        /* ── NAVIGATION ── */
+        #navbar {
+            background: linear-gradient(to bottom, #d0d8e4, #b8c4d4);
+            border-bottom: 2px solid #889ab0;
+            border-top: 1px solid #ffffff;
+            padding: 0;
+        }
+        #navbar ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #navbar li a {
+            display: block;
+            padding: 7px 14px;
+            color: #002277;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: bold;
+            border-right: 1px solid #889ab0;
+            transition: background 0.1s;
+        }
+        #navbar li a:hover { background: rgba(0,50,150,0.12); color: #cc0000; }
+        #navbar li a.active { background: rgba(0,50,150,0.15); color: #000; }
+
+        /* ── MAIN CONTENT ── */
+        #content { padding: 40px 16px; }
+
+        /* ── EMPTY STATE ── */
+        #empty-state {
+            text-align: center;
+            padding: 60px 40px;
+            color: #778;
+            border: 2px dashed #b0c0d4;
+            background: #f4f8fc;
+            margin: 20px 0;
+        }
+        #empty-state .empty-icon {
+            font-size: 72px;
+            display: block;
+            margin-bottom: 16px;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+        }
+        #empty-state h2 {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 22px;
+            font-weight: bold;
+            color: #335;
+            margin-bottom: 12px;
+        }
+        #empty-state p {
+            font-size: 12px;
+            color: #557;
+            line-height: 1.7;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* ── FOOTER ── */
+        #footer {
+            background: linear-gradient(to bottom, #d0d8e4, #b8c4d4);
+            border-top: 2px solid #889ab0;
+            padding: 12px 16px;
+            text-align: center;
+        }
+        #footer p { font-size: 10px; color: #556; margin-bottom: 4px; }
+        #footer .counter {
+            display: inline-block;
+            background: #001155;
+            color: #44ff44;
+            font-family: "Courier New", monospace;
+            font-size: 14px;
+            padding: 3px 10px;
+            border: 1px solid #003399;
+            letter-spacing: 3px;
+            margin: 4px 0;
+        }
+        #footer .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #889ab0, transparent);
+            margin: 8px 0;
+        }
+        #footer .links a { margin: 0 8px; font-size: 10px; color: #335; }
+    </style>
+</head>
+<body>
+
+<div id="wrapper">
+
+    <!-- HEADER -->
+    <div id="header">
+        <div id="header-inner">
+            <div id="header-icon">🌍</div>
+            <div id="header-text">
+                <div id="site-title">Greg's Countries Visited</div>
+                <div id="site-subtitle">A personal record of every country explored — est. 2024</div>
+            </div>
+        </div>
+        <div id="marquee-band">
+            <div class="marquee-inner">
+                ★ Welcome to Greg's Countries Log! ★ &nbsp;&nbsp;&nbsp; Tracking every country visited &nbsp;&nbsp;&nbsp; ★ All opinions are my own ★ &nbsp;&nbsp;&nbsp; Updated regularly &nbsp;&nbsp;&nbsp; ★ Best viewed in Internet Explorer 7 at 1024x768 ★ &nbsp;&nbsp;&nbsp; The world is big &nbsp;&nbsp;&nbsp; ★ Welcome to Greg's Countries Log! ★ &nbsp;&nbsp;&nbsp; Tracking every country visited &nbsp;&nbsp;&nbsp; ★ All opinions are my own ★ &nbsp;&nbsp;&nbsp; Updated regularly &nbsp;&nbsp;&nbsp; ★ Best viewed in Internet Explorer 7 at 1024x768 ★ &nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+        <div id="lock-corner">
+            <button id="lock-btn-page" onclick="return false">🔒</button>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <div id="navbar">
+        <ul>
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="games.html">🎮 Games</a></li>
+            <li><a href="countries.html" class="active">🌍 Countries</a></li>
+            <li><a href="plays.html">🎭 Plays</a></li>
+            <li><a href="movies.html">🎬 Movies</a></li>
+            <li><a href="restaurants.html">🍽️ Restaurants</a></li>
+            <li><a href="places.html">📍 Places</a></li>
+        </ul>
+    </div>
+
+    <!-- CONTENT -->
+    <div id="content">
+        <div id="empty-state">
+            <span class="empty-icon">🌍</span>
+            <h2>Coming Soon</h2>
+            <p>World map and country log coming soon — tracking every country visited with dates, notes, and stats.</p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div id="footer">
+        <div class="divider"></div>
+        <p>Visitor Count:</p>
+        <div class="counter" id="visitor-counter">000000</div>
+        <div class="divider"></div>
+        <p>Greg's Personal Diary &copy; 2024 — All Rights Reserved</p>
+        <p style="margin-top:4px;">Best viewed in Internet Explorer 7 at 1024x768 resolution</p>
+        <div class="links">
+            <a href="index.html">Home</a>
+            <a href="games.html">Games</a>
+            <a href="countries.html">Countries</a>
+            <a href="plays.html">Plays</a>
+            <a href="movies.html">Movies</a>
+            <a href="restaurants.html">Restaurants</a>
+            <a href="places.html">Places</a>
+        </div>
+        <p style="margin-top:6px; color:#889; font-size:9px;">
+            Last updated: <span id="last-updated"></span>
+        </p>
+    </div>
+</div>
+
+<script>
+// Auth handler matching games.html pattern
+function isLoggedIn() { return sessionStorage.getItem('diary_auth') === 'true'; }
+
+function updateLockUI() {
+    const btn = document.getElementById('lock-btn-page');
+    if (isLoggedIn()) {
+        btn.textContent = '🔓';
+    } else {
+        btn.textContent = '🔒';
+    }
+}
+
+// Listen for auth messages from parent frame
+window.addEventListener('message', e => {
+    if (e.data === 'auth:login') { sessionStorage.setItem('diary_auth', 'true'); updateLockUI(); }
+    if (e.data === 'auth:logout') { sessionStorage.removeItem('diary_auth'); updateLockUI(); }
+});
+
+// Visitor counter (fake)
+(function() {
+    let count = parseInt(localStorage.getItem('visitor_count_countries') || '0');
+    count += 1;
+    localStorage.setItem('visitor_count_countries', count);
+    const display = String(count).padStart(6, '0').slice(-6);
+    document.getElementById('visitor-counter').textContent = display;
+})();
+
+// Last updated
+document.getElementById('last-updated').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+updateLockUI();
+</script>
+</body>
+</html>

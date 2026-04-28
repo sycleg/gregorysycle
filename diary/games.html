@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Greg's Video Game Log</title>
+
+    <style>
+        /* ════════════════════════════════
+           2007-ERA WEB AESTHETIC
+        ════════════════════════════════ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 12px;
+            background-color: #c4d4e8;
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(255,255,255,0.08) 20px),
+                repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(255,255,255,0.08) 20px);
+            min-height: 100vh;
+            color: #222;
+        }
+
+        a { color: #0033cc; text-decoration: underline; }
+        a:visited { color: #551a8b; }
+        a:hover { color: #cc0000; }
+
+        /* ── SITE WRAPPER ── */
+        #wrapper {
+            width: 100%;
+            max-width: 1060px;
+            margin: 0 auto;
+            background: white;
+            border-left: 2px solid #889ab0;
+            border-right: 2px solid #889ab0;
+            min-height: 100vh;
+        }
+
+        /* ── HEADER BANNER ── */
+        #header {
+            background: linear-gradient(to bottom, #002288 0%, #0033aa 40%, #0044cc 100%);
+            padding: 0;
+            position: relative;
+            border-bottom: 3px solid #001166;
+        }
+        #header-inner {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            gap: 14px;
+        }
+        #header-icon {
+            font-size: 44px;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+        }
+        #header-text { flex: 1; }
+        #site-title {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 28px;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 2px 2px 0 #000044, 0 0 20px rgba(100,150,255,0.4);
+            letter-spacing: 1px;
+        }
+        #site-subtitle {
+            font-size: 11px;
+            color: #99bbff;
+            margin-top: 4px;
+            font-style: italic;
+        }
+        #lock-corner {
+            position: absolute;
+            top: 10px; right: 12px;
+        }
+        #lock-btn-page {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 3px;
+            padding: 4px 10px;
+            cursor: pointer;
+            font-size: 13px;
+            color: white;
+            transition: background 0.2s;
+        }
+        #lock-btn-page:hover { background: rgba(255,255,255,0.28); }
+
+        /* Marquee band */
+        #marquee-band {
+            background: #001155;
+            border-top: 1px solid #0044cc;
+            padding: 4px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .marquee-inner {
+            display: inline-block;
+            animation: marquee 28s linear infinite;
+            color: #88aaff;
+            font-size: 11px;
+            padding-left: 100%;
+        }
+        @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+        /* ── NAVIGATION ── */
+        #navbar {
+            background: linear-gradient(to bottom, #d0d8e4, #b8c4d4);
+            border-bottom: 2px solid #889ab0;
+            border-top: 1px solid #ffffff;
+            padding: 0;
+        }
+        #navbar ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #navbar li a {
+            display: block;
+            padding: 7px 14px;
+            color: #002277;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: bold;
+            border-right: 1px solid #889ab0;
+            transition: background 0.1s;
+        }
+        #navbar li a:hover { background: rgba(0,50,150,0.12); color: #cc0000; }
+        #navbar li a.active { background: rgba(0,50,150,0.15); color: #000; }
+
+        /* ── STATS BANNER ── */
+        #stats-banner {
+            background: linear-gradient(to right, #e8f0f8, #d0dcea, #e8f0f8);
+            border-bottom: 2px solid #b0c0d4;
+            border-top: 1px solid #ffffff;
+            padding: 8px 16px;
+            display: flex;
+            gap: 0;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+            padding: 6px 10px;
+            border-right: 1px solid #aabbcc;
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-num {
+            font-size: 22px;
+            font-weight: bold;
+            color: #003399;
+            font-family: "Times New Roman", serif;
+            display: block;
+        }
+        .stat-label {
+            font-size: 10px;
+            color: #557799;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ── FILTER BAR ── */
+        #filter-bar {
+            background: #f0f4f8;
+            border-bottom: 1px solid #c0ccd8;
+            padding: 10px 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .filter-group label {
+            font-size: 10px;
+            color: #556;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        .filter-group select, .filter-group input {
+            height: 24px;
+            border: 1px solid #aabbcc;
+            border-radius: 2px;
+            background: white;
+            font-size: 11px;
+            font-family: Verdana, sans-serif;
+            padding: 0 6px;
+            color: #334;
+            outline: none;
+        }
+        .filter-group select:focus, .filter-group input:focus {
+            border-color: #5588cc;
+            box-shadow: 0 0 0 2px rgba(85,136,204,0.15);
+        }
+        #search-input { width: 160px; }
+        .retro-btn {
+            height: 24px;
+            padding: 0 12px;
+            background: linear-gradient(to bottom, #e8eef6, #ccd8e8);
+            border: 1px solid #8899bb;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 11px;
+            font-family: Verdana, sans-serif;
+            color: #334;
+            transition: background 0.1s;
+        }
+        .retro-btn:hover { background: linear-gradient(to bottom, #f0f6ff, #d8e4f4); }
+        .retro-btn:active { background: linear-gradient(to bottom, #ccd8e8, #e8eef6); }
+        .retro-btn.green {
+            background: linear-gradient(to bottom, #cceecc, #99cc99);
+            border-color: #55aa55;
+            color: #224422;
+            display: none;
+        }
+        .retro-btn.green:hover { background: linear-gradient(to bottom, #ddffdd, #aaddaa); }
+        .sort-label { font-size: 10px; color: #556; font-weight: bold; }
+        #sort-btns { display: flex; gap: 3px; }
+        .sort-btn { height: 24px; padding: 0 10px; background: linear-gradient(to bottom, #ddeeff, #bbd4ee); border: 1px solid #7799bb; border-radius: 2px; cursor: pointer; font-size: 10px; color: #224; }
+        .sort-btn.active { background: linear-gradient(to bottom, #6699cc, #4477aa); color: white; border-color: #336699; }
+        .sort-btn:hover:not(.active) { background: linear-gradient(to bottom, #eef4ff, #cce0f0); }
+        #filter-count { font-size: 10px; color: #778; margin-left: auto; }
+
+        /* ── MAIN CONTENT ── */
+        #content { padding: 16px; }
+
+        /* ── GAME GRID ── */
+        #game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 12px;
+        }
+
+        .game-card {
+            background: white;
+            border: 2px solid #99aabb;
+            border-radius: 0;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.8);
+        }
+        .game-card-header {
+            background: linear-gradient(to bottom, #ddeeff, #bbccee);
+            border-bottom: 1px solid #99aabb;
+            padding: 8px 10px 6px;
+            position: relative;
+        }
+        .game-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: #001155;
+            line-height: 1.3;
+            padding-right: 30px;
+        }
+        .game-console-badge {
+            font-size: 9px;
+            color: #445577;
+            margin-top: 2px;
+        }
+        .badge-100 {
+            position: absolute;
+            top: 6px; right: 8px;
+            background: linear-gradient(to bottom, #ffee44, #ddaa00);
+            border: 1px solid #aa8800;
+            border-radius: 2px;
+            font-size: 8px;
+            font-weight: bold;
+            color: #553300;
+            padding: 2px 4px;
+        }
+
+        .game-card-body { padding: 10px; }
+
+        .game-rating { margin-bottom: 8px; }
+        .stars { color: #ffaa00; font-size: 14px; letter-spacing: 1px; }
+        .stars-empty { color: #cccccc; }
+
+        .game-meta { margin-bottom: 8px; }
+        .meta-row {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 3px;
+            font-size: 10px;
+        }
+        .meta-key {
+            color: #778899;
+            min-width: 70px;
+            font-weight: bold;
+        }
+        .meta-val { color: #334; }
+
+        .game-notes {
+            font-size: 10px;
+            color: #446;
+            line-height: 1.5;
+            background: #f4f8fc;
+            border: 1px solid #ccd8e8;
+            border-radius: 1px;
+            padding: 6px 8px;
+            margin-top: 6px;
+            font-style: italic;
+        }
+        .notes-toggle {
+            font-size: 10px;
+            color: #0033cc;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-top: 4px;
+            display: inline-block;
+        }
+        .notes-content { display: none; }
+        .notes-content.open { display: block; }
+
+        .played-with {
+            font-size: 10px;
+            color: #778899;
+            margin-top: 6px;
+        }
+
+        /* empty state */
+        #empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #778;
+            display: none;
+        }
+        #empty-state p { font-size: 13px; }
+
+        /* ── FOOTER ── */
+        #footer {
+            background: linear-gradient(to bottom, #d0d8e4, #b8c4d4);
+            border-top: 2px solid #889ab0;
+            padding: 12px 16px;
+            text-align: center;
+        }
+        #footer p { font-size: 10px; color: #556; margin-bottom: 4px; }
+        #footer .counter {
+            display: inline-block;
+            background: #001155;
+            color: #44ff44;
+            font-family: "Courier New", monospace;
+            font-size: 14px;
+            padding: 3px 10px;
+            border: 1px solid #003399;
+            letter-spacing: 3px;
+            margin: 4px 0;
+        }
+        #footer .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #889ab0, transparent);
+            margin: 8px 0;
+        }
+        #footer .links a { margin: 0 8px; font-size: 10px; color: #335; }
+
+        /* ── ADD GAME MODAL ── */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,50,0.6);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        .overlay.open { display: flex; }
+        .retro-modal {
+            background: #e8f0f8;
+            border: 2px solid #5577aa;
+            width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+        }
+        .retro-modal-title {
+            background: linear-gradient(to bottom, #3355aa, #1133880);
+            background: linear-gradient(to bottom, #002288, #0033aa);
+            color: white;
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .retro-modal-title span { font-size: 16px; cursor: pointer; }
+        .retro-modal-body { padding: 16px; }
+        .form-row { margin-bottom: 10px; }
+        .form-row label {
+            display: block;
+            font-size: 10px;
+            font-weight: bold;
+            color: #334;
+            margin-bottom: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .form-row input, .form-row select, .form-row textarea {
+            width: 100%;
+            border: 1px solid #99aabb;
+            background: white;
+            padding: 5px 8px;
+            font-size: 12px;
+            font-family: Verdana, sans-serif;
+            color: #334;
+            outline: none;
+        }
+        .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+            border-color: #5588cc;
+        }
+        .form-row textarea { height: 70px; resize: vertical; }
+        .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .retro-modal-footer {
+            padding: 10px 16px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            border-top: 1px solid #c0ccd8;
+            background: #f0f4f8;
+        }
+        .form-submit {
+            background: linear-gradient(to bottom, #336633, #225522);
+            color: white;
+            border: 1px solid #224422;
+            padding: 5px 20px;
+            cursor: pointer;
+            font-size: 12px;
+            font-family: Verdana, sans-serif;
+        }
+        .form-cancel {
+            background: linear-gradient(to bottom, #e8eef6, #ccd8e8);
+            border: 1px solid #8899bb;
+            padding: 5px 16px;
+            cursor: pointer;
+            font-size: 12px;
+            font-family: Verdana, sans-serif;
+        }
+
+        /* ── PASSWORD MODAL ── */
+        #pw-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,50,0.6);
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+        }
+        #pw-modal.open { display: flex; }
+        #pw-box {
+            background: #e8f0f8;
+            border: 2px solid #5577aa;
+            width: 320px;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+        }
+        #pw-title {
+            background: linear-gradient(to bottom, #002288, #0033aa);
+            color: white;
+            padding: 8px 14px;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+        #pw-body { padding: 16px; }
+        #pw-body label { display: block; font-size: 10px; font-weight: bold; color: #334; margin-bottom: 4px; }
+        #pw-input {
+            width: 100%; height: 28px;
+            border: 1px solid #99aabb; background: white;
+            padding: 0 8px; font-size: 12px; font-family: Verdana, sans-serif;
+        }
+        #pw-error { font-size: 10px; color: #cc0000; margin-top: 4px; height: 14px; }
+        #pw-footer { padding: 8px 16px; display: flex; justify-content: flex-end; gap: 6px; background: #f0f4f8; border-top: 1px solid #c0ccd8; }
+        .pw-btn { padding: 4px 14px; border: 1px solid #8899bb; background: linear-gradient(to bottom,#e8eef6,#ccd8e8); cursor:pointer; font-size:11px; font-family:Verdana,sans-serif; }
+        .pw-btn.ok { background: linear-gradient(to bottom,#336633,#225522); color:white; border-color:#224422; }
+
+        @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 60%{transform:translateX(6px)} }
+        .shake { animation: shake 0.4s; }
+    </style>
+</head>
+<body>
+
+<div id="wrapper">
+
+    <!-- HEADER -->
+    <div id="header">
+        <div id="header-inner">
+            <div id="header-icon">🎮</div>
+            <div id="header-text">
+                <div id="site-title">Greg's Video Game Log</div>
+                <div id="site-subtitle">A personal record of games played, beaten, and loved — est. 2024</div>
+            </div>
+        </div>
+        <div id="marquee-band">
+            <div class="marquee-inner">
+                ★ Welcome to Greg's Video Game Log! ★ &nbsp;&nbsp;&nbsp; Tracking games since forever &nbsp;&nbsp;&nbsp; ★ All opinions are my own ★ &nbsp;&nbsp;&nbsp; Updated regularly &nbsp;&nbsp;&nbsp; ★ Best viewed in Internet Explorer 7 at 1024x768 ★ &nbsp;&nbsp;&nbsp; Gaming is life &nbsp;&nbsp;&nbsp; ★ Welcome to Greg's Video Game Log! ★ &nbsp;&nbsp;&nbsp; Tracking games since forever &nbsp;&nbsp;&nbsp; ★ All opinions are my own ★ &nbsp;&nbsp;&nbsp; Updated regularly &nbsp;&nbsp;&nbsp; ★ Best viewed in Internet Explorer 7 at 1024x768 ★ &nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+        <div id="lock-corner">
+            <button id="lock-btn-page" onclick="toggleLockPage()">🔒</button>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <div id="navbar">
+        <ul>
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="games.html" class="active">🎮 Games</a></li>
+            <li><a href="countries.html">🌍 Countries</a></li>
+            <li><a href="plays.html">🎭 Plays</a></li>
+            <li><a href="movies.html">🎬 Movies</a></li>
+            <li><a href="restaurants.html">🍽️ Restaurants</a></li>
+            <li><a href="places.html">📍 Places</a></li>
+        </ul>
+    </div>
+
+    <!-- STATS BANNER -->
+    <div id="stats-banner">
+        <div class="stat-item">
+            <span class="stat-num" id="stat-total">0</span>
+            <span class="stat-label">Games Logged</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num" id="stat-avg">—</span>
+            <span class="stat-label">Avg Rating</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num" id="stat-console">—</span>
+            <span class="stat-label">Top Console</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num" id="stat-complete">0</span>
+            <span class="stat-label">100% Completed</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num" id="stat-year">—</span>
+            <span class="stat-label">This Year</span>
+        </div>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div id="filter-bar">
+        <div class="filter-group">
+            <label>Console:</label>
+            <select id="f-console" onchange="applyFilters()">
+                <option value="">All</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Genre:</label>
+            <select id="f-genre" onchange="applyFilters()">
+                <option value="">All</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Rating:</label>
+            <select id="f-rating" onchange="applyFilters()">
+                <option value="">All</option>
+                <option value="5">★★★★★ (5)</option>
+                <option value="4.5">★★★★½ (4.5)</option>
+                <option value="4">★★★★ (4)</option>
+                <option value="3.5">★★★½ (3.5)</option>
+                <option value="3">★★★ (3)</option>
+                <option value="2.5">★★½ (2.5)</option>
+                <option value="2">★★ (2)</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Year:</label>
+            <select id="f-year" onchange="applyFilters()">
+                <option value="">All</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <input type="text" id="search-input" placeholder="Search games..." oninput="applyFilters()">
+        </div>
+        <button class="retro-btn" onclick="clearFilters()">Clear</button>
+        <button class="retro-btn green" id="add-btn" onclick="openAddModal()">+ Add Game</button>
+        <div class="filter-group" style="margin-left:auto;">
+            <span class="sort-label">Sort:</span>
+            <div id="sort-btns">
+                <button class="sort-btn active" data-sort="date" onclick="setSort('date',this)">Date ▼</button>
+                <button class="sort-btn" data-sort="rating" onclick="setSort('rating',this)">Rating ▼</button>
+                <button class="sort-btn" data-sort="title" onclick="setSort('title',this)">Title ▲</button>
+            </div>
+        </div>
+        <span id="filter-count"></span>
+    </div>
+
+    <!-- CONTENT -->
+    <div id="content">
+        <div id="game-grid"></div>
+        <div id="empty-state">
+            <p>No games match your filters. <a href="#" onclick="clearFilters();return false;">Clear filters</a></p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div id="footer">
+        <div class="divider"></div>
+        <p>Visitor Count:</p>
+        <div class="counter" id="visitor-counter">000000</div>
+        <div class="divider"></div>
+        <p>Greg's Personal Diary &copy; 2024 — All Rights Reserved</p>
+        <p style="margin-top:4px;">Best viewed in Internet Explorer 7 at 1024x768 resolution</p>
+        <div class="links">
+            <a href="index.html">Home</a>
+            <a href="games.html">Games</a>
+            <a href="countries.html">Countries</a>
+            <a href="plays.html">Plays</a>
+        </div>
+        <p style="margin-top:6px; color:#889; font-size:9px;">
+            Last updated: <span id="last-updated"></span>
+        </p>
+    </div>
+</div>
+
+<!-- ADD GAME MODAL -->
+<div class="overlay" id="add-modal">
+    <div class="retro-modal">
+        <div class="retro-modal-title">
+            ➕ Add New Game Entry
+            <span onclick="closeAddModal()">✕</span>
+        </div>
+        <div class="retro-modal-body">
+            <div class="form-row">
+                <label>Game Title *</label>
+                <input type="text" id="f-title" placeholder="e.g. Elden Ring">
+            </div>
+            <div class="form-row-2">
+                <div class="form-row">
+                    <label>Console *</label>
+                    <input type="text" id="f-con" placeholder="e.g. PS5">
+                </div>
+                <div class="form-row">
+                    <label>Genre</label>
+                    <input type="text" id="f-gen" placeholder="e.g. Action RPG">
+                </div>
+            </div>
+            <div class="form-row-2">
+                <div class="form-row">
+                    <label>Rating (1–5)</label>
+                    <select id="f-rat">
+                        <option value="5">★★★★★ (5)</option>
+                        <option value="4">★★★★ (4)</option>
+                        <option value="3">★★★ (3)</option>
+                        <option value="2">★★ (2)</option>
+                        <option value="1">★ (1)</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label>Date Completed</label>
+                    <input type="date" id="f-date">
+                </div>
+            </div>
+            <div class="form-row-2">
+                <div class="form-row">
+                    <label>Developer</label>
+                    <input type="text" id="f-dev" placeholder="Studio name">
+                </div>
+                <div class="form-row">
+                    <label>Publisher</label>
+                    <input type="text" id="f-pub" placeholder="Publisher name">
+                </div>
+            </div>
+            <div class="form-row-2">
+                <div class="form-row">
+                    <label>Played With</label>
+                    <input type="text" id="f-with" placeholder="Names (optional)">
+                </div>
+                <div class="form-row" style="display:flex;align-items:flex-end;gap:8px;">
+                    <label style="display:flex;align-items:center;gap:6px;font-size:11px;text-transform:none;">
+                        <input type="checkbox" id="f-100" style="width:auto">
+                        100% Completed
+                    </label>
+                </div>
+            </div>
+            <div class="form-row">
+                <label>Notes</label>
+                <textarea id="f-notes" placeholder="Your thoughts, memorable moments, tips..."></textarea>
+            </div>
+        </div>
+        <div class="retro-modal-footer">
+            <button class="form-cancel" onclick="closeAddModal()">Cancel</button>
+            <button class="form-submit" onclick="submitGame()">Save Entry</button>
+        </div>
+    </div>
+</div>
+
+<!-- PASSWORD MODAL (standalone access) -->
+<div id="pw-modal">
+    <div id="pw-box">
+        <div id="pw-title">
+            <span>🔒 Login Required</span>
+            <span onclick="closePwModal()" style="cursor:pointer;">✕</span>
+        </div>
+        <div id="pw-body">
+            <label>Password:</label>
+            <input type="password" id="pw-input" placeholder="Enter password"
+                   onkeydown="if(event.key==='Enter') doPwLogin()">
+            <div id="pw-error"></div>
+        </div>
+        <div id="pw-footer">
+            <button class="pw-btn" onclick="closePwModal()">Cancel</button>
+            <button class="pw-btn ok" onclick="doPwLogin()">Login</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════
+// CONFIGURATION — replace PASSWORD below
+// ═══════════════════════════════════════
+const PASSWORD = "diary2024";
+
+// ═══════════════════════════════════════
+// GAME DATA — from Rankings CSV
+// ═══════════════════════════════════════
+const GAMES_SEED = [
+    { id:1,  title:"Overcooked", console:"Switch", genre:"Simulation, Party", rating:4, dateCompleted:"2024-04-20", developer:"Ghost Town Games", publisher:"Team17", notes:"First game played and beat with angie!", playedWith:"Angela", completed100:false },
+    { id:2,  title:"Pokémon Sword", console:"Switch", genre:"Role-Playing (RPG)", rating:2.5, dateCompleted:"2024-04-24", developer:"Game Freak", publisher:"Nintendo", notes:"Disliked pacing but wild field was interesting", playedWith:"", completed100:false },
+    { id:3,  title:"Pikmin 4", console:"Switch", genre:"Real-Time Strategy, Puzzle", rating:5, dateCompleted:"2024-05-21", developer:"Nintendo EPD", publisher:"Nintendo", notes:"Perfect Pikmin formula", playedWith:"", completed100:true },
+    { id:4,  title:"Mario RPG", console:"Switch", genre:"Role-Playing (RPG)", rating:4, dateCompleted:"2024-06-03", developer:"Square", publisher:"Nintendo", notes:"Beautiful cutscenes", playedWith:"", completed100:false },
+    { id:5,  title:"Metal Gear Solid 1", console:"Switch", genre:"3D Action-Adventure, Stealth", rating:4, dateCompleted:"2024-07-06", developer:"Konami", publisher:"Konami", notes:"Wonky controls strangely hard final boss", playedWith:"", completed100:false },
+    { id:6,  title:"The Legend of Zelda: Link's Awakening", console:"Switch", genre:"2D Action-Adventure", rating:4.5, dateCompleted:"2024-07-14", developer:"Nintendo EAD, Grezzo", publisher:"Nintendo", notes:"Two anime cutscenes are unforgettable. Last two dungeons are incredibly tough.", playedWith:"", completed100:false },
+    { id:7,  title:"Pokémon Colosseum", console:"GameCube", genre:"Role-Playing (RPG)", rating:5, dateCompleted:"2024-08-07", developer:"Genius Sonority", publisher:"Nintendo", notes:"One of the best gimmicks of a Pokémon game. Some incredible animations and great jazz soundtracks.", playedWith:"", completed100:false },
+    { id:8,  title:"Battle for Bikini Bottom", console:"GameCube", genre:"3D Platformer", rating:4, dateCompleted:"2024-08-21", developer:"Heavy Iron Studios", publisher:"THQ", notes:"Kelp forest is the worst stage i have ever played in my life. Fun final cutscene", playedWith:"", completed100:false },
+    { id:9,  title:"Donkey Kong Country: Tropical Freeze", console:"Switch", genre:"2D Platformer", rating:5, dateCompleted:"2024-09-09", developer:"Retro Studios", publisher:"Nintendo", notes:"The most beautiful 2d platformer, builds on everything I've played before. Lackluster final boss that is not much of a challenge compared to others.", playedWith:"", completed100:false },
+    { id:10, title:"Portal 1", console:"Switch", genre:"3D Puzzle-Platformer", rating:4.5, dateCompleted:"2024-09-18", developer:"Valve", publisher:"Valve", notes:"Not much story, nearly perfect puzzle game, no need to search anything up, perfect length.", playedWith:"", completed100:false },
+    { id:11, title:"Cuphead", console:"Switch", genre:"Run and Gun", rating:5, dateCompleted:"2024-10-20", developer:"Studio MDHR", publisher:"Studio MDHR", notes:"The best animation in a game, incredible challengy", playedWith:"Angela", completed100:false },
+    { id:12, title:"Star Wars: Hunters", console:"Switch", genre:"Hero Shooter", rating:3, dateCompleted:"2024-11-01", developer:"Zynga", publisher:"Zynga", notes:"Got to highest rank in 3rd season of game", playedWith:"Daniel", completed100:false },
+    { id:13, title:"The Legend of Zelda: Echoes of Wisdom", console:"Switch", genre:"2D Action-Adventure", rating:3.5, dateCompleted:"2024-11-18", developer:"Nintendo EAD, Grezzo", publisher:"Nintendo", notes:"Quite repetitive in how echoes are used, good story, and best way to implement a Zelda driven game", playedWith:"", completed100:false },
+    { id:14, title:"Punch-Out!!", console:"NSO", genre:"Sports, Fighting", rating:5, dateCompleted:"2024-12-13", developer:"Nintendo R&D3", publisher:"Nintendo", notes:"Best arcade cabinet and best NES game", playedWith:"", completed100:true },
+    { id:15, title:"Super Mario Odyssey", console:"Switch", genre:"3D Platformer", rating:5, dateCompleted:"2024-12-15", developer:"Nintendo EPD", publisher:"Nintendo", notes:"Unbelievable how fun this game is. New Donk City", playedWith:"", completed100:false },
+    { id:16, title:"It Takes Two", console:"Switch", genre:"Action-Adventure, Platformer", rating:4.5, dateCompleted:"2024-12-31", developer:"Hazelight Studios", publisher:"Electronic Arts", notes:"Super cute and pretty and fun boss battles but sometimes dumb!! Angela and i's first co op game", playedWith:"Angela", completed100:false },
+    { id:17, title:"BioShock", console:"Switch", genre:"First-Person Shooter", rating:4.5, dateCompleted:"2025-01-22", developer:"Irrational Games", publisher:"2K Games", notes:"One of the best plot twists, environments, and stories in a game. Did not enjoy final boss.", playedWith:"", completed100:false },
+    { id:18, title:"Mario 3D World + Bowser's Fury", console:"Switch", genre:"3D Platformer, Action", rating:3.5, dateCompleted:"2025-02-03", developer:"Nintendo EAD Tokyo", publisher:"Nintendo", notes:"Moewser final boss was great, really funny to play with others", playedWith:"Alex, Isa", completed100:false },
+    { id:19, title:"Pokémon Brilliant Diamond", console:"Switch", genre:"Role-Playing (RPG)", rating:2.5, dateCompleted:"2025-03-12", developer:"ILCA", publisher:"Nintendo", notes:"Useless remake, incredible battle backgrounds and music. Beat the final boss maxing out items and hitting a crit at the end with alex watching", playedWith:"Alex", completed100:false },
+    { id:20, title:"Metroid Dread", console:"Switch", genre:"Action, Metroidvania", rating:5, dateCompleted:"2025-04-05", developer:"MercurySteam, Nintendo EPD", publisher:"Nintendo", notes:"Best 2d metroid so far, great movement and sound design", playedWith:"", completed100:false },
+    { id:21, title:"Pikmin 3", console:"Switch", genre:"Real-Time Strategy, Puzzle", rating:3.5, dateCompleted:"2025-04-22", developer:"Nintendo EAD", publisher:"Nintendo", notes:"My 3rd favorite pikmin, couldn't get down with the task management, would like to play with someone in future", playedWith:"", completed100:false },
+    { id:22, title:"Captain Toad: Treasure Tracker", console:"Switch", genre:"Puzzle-Platformer", rating:3, dateCompleted:"2025-04-24", developer:"Nintendo EAD Tokyo", publisher:"Nintendo", notes:"Great puzzle game. Sucked to play on joycons with drift", playedWith:"", completed100:false },
+    { id:23, title:"Advance Wars 1+2: Re-Boot Camp", console:"Switch", genre:"Turn-Based Strategy", rating:4, dateCompleted:"2025-05-10", developer:"WayForward", publisher:"Nintendo", notes:"My first return to tactical games. What a way to be introduced to the series with fun animations. Sucks how this game got released.", playedWith:"", completed100:false },
+    { id:24, title:"Astro Bot", console:"PS5", genre:"3D Platformer", rating:5, dateCompleted:"2025-05-21", developer:"Team Asobi", publisher:"Sony Interactive Entertainment", notes:"Felt endless in how inventive each level feels. Makes me want to play more PlayStation exclusives.", playedWith:"", completed100:false },
+    { id:25, title:"Marvel's Spider-Man 2", console:"PS5", genre:"Action-Adventure", rating:4, dateCompleted:"2025-05-28", developer:"Insomniac Games", publisher:"Sony Interactive Entertainment", notes:"Story felt nuanced and repetitive formula of the first game. There was the most western moment of this video game that is literally you walking around in a shitty flashback playing basketball with The Shins in the background", playedWith:"", completed100:false },
+    { id:26, title:"Star Wars Jedi: Survivor", console:"PS5", genre:"Action-Adventure", rating:4.5, dateCompleted:"2025-06-03", developer:"Respawn Entertainment", publisher:"Electronic Arts", notes:"Glup shitto'd. Felt a lack of pacing in the first third of the game. Some of the best plot twists in a video game for me personally.", playedWith:"", completed100:false },
+    { id:27, title:"Ratchet & Clank: Rift Apart", console:"PS5", genre:"3D Platformer, Shooter", rating:4, dateCompleted:"2025-06-10", developer:"Insomniac Games", publisher:"Sony Interactive Entertainment", notes:"", playedWith:"", completed100:false },
+    { id:28, title:"The Last of Us Remastered", console:"PS5", genre:"Action-Adventure", rating:5, dateCompleted:"2025-06-16", developer:"Naughty Dog", publisher:"Sony Interactive Entertainment", notes:"Will forever hate that I chose to do the tv show before playing this. Mature story with a great father daughter relationship.", playedWith:"", completed100:false },
+    { id:29, title:"Mother 3", console:"Game Boy Advance", genre:"Role-Playing (RPG)", rating:5, dateCompleted:"2025-07-13", developer:"HAL Laboratory", publisher:"Nintendo", notes:"Unbelievable 2d experience. My favorite handheld game ever. Some of the best sprite work and emotional moments in gaming that I will not forget. Hopefully one day it is officially translated.", playedWith:"", completed100:false },
+    { id:30, title:"Donkey Kong Bananza", console:"Switch 2", genre:"3D Platformer", rating:5, dateCompleted:"2025-07-25", developer:"Nintendo EPD", publisher:"Nintendo", notes:"Immediately beat it after launch, one of the most incredible 3d platformers", playedWith:"", completed100:false },
+    { id:31, title:"Shovel Knight", console:"3DS", genre:"2D Platformer, Action", rating:4.5, dateCompleted:"2025-08-24", developer:"Yacht Club Games", publisher:"Yacht Club Games", notes:"", playedWith:"", completed100:true },
+    { id:32, title:"Dead Space", console:"PS5", genre:"Survival Horror, Shooter", rating:4, dateCompleted:"2025-09-22", developer:"Motive Studio", publisher:"Electronic Arts", notes:"", playedWith:"", completed100:false },
+    { id:33, title:"Pokémon Legends: Z-A", console:"Switch 2", genre:"Action RPG", rating:3.5, dateCompleted:"2025-10-22", developer:"Game Freak", publisher:"Nintendo", notes:"", playedWith:"", completed100:false },
+    { id:34, title:"Luigi's Mansion", console:"GameCube", genre:"Action-Adventure", rating:5, dateCompleted:"2025-11-09", developer:"Nintendo EAD", publisher:"Nintendo", notes:"", playedWith:"", completed100:false },
+];
+
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+let allGames = [];
+let currentSort = 'date';
+let sortDir = { date: -1, rating: -1, title: 1 };
+
+// ═══════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════
+function isLoggedIn() { return sessionStorage.getItem('diary_auth') === 'true'; }
+
+function updateLockUI() {
+    const btn = document.getElementById('lock-btn-page');
+    if (isLoggedIn()) {
+        btn.textContent = '🔓';
+        document.getElementById('add-btn').style.display = 'block';
+    } else {
+        btn.textContent = '🔒';
+        document.getElementById('add-btn').style.display = 'none';
+    }
+}
+
+function toggleLockPage() {
+    if (isLoggedIn()) {
+        sessionStorage.removeItem('diary_auth');
+        updateLockUI();
+    } else {
+        document.getElementById('pw-modal').classList.add('open');
+        setTimeout(() => document.getElementById('pw-input').focus(), 50);
+    }
+}
+
+function doPwLogin() {
+    const v = document.getElementById('pw-input').value;
+    if (v === PASSWORD) {
+        sessionStorage.setItem('diary_auth', 'true');
+        closePwModal();
+        updateLockUI();
+    } else {
+        const inp = document.getElementById('pw-input');
+        inp.classList.add('shake');
+        setTimeout(() => inp.classList.remove('shake'), 500);
+        document.getElementById('pw-error').textContent = 'Incorrect password.';
+    }
+}
+function closePwModal() {
+    document.getElementById('pw-modal').classList.remove('open');
+    document.getElementById('pw-input').value = '';
+    document.getElementById('pw-error').textContent = '';
+}
+
+// Listen for auth messages from parent frame
+window.addEventListener('message', e => {
+    if (e.data === 'auth:login') { sessionStorage.setItem('diary_auth', 'true'); updateLockUI(); }
+    if (e.data === 'auth:logout') { sessionStorage.removeItem('diary_auth'); updateLockUI(); }
+});
+
+// ═══════════════════════════════════════
+// DATA — load from localStorage + seed
+// ═══════════════════════════════════════
+function loadGames() {
+    const stored = JSON.parse(localStorage.getItem('diary_games') || '[]');
+    // Merge: seed first, then any localStorage additions (by id)
+    const seedIds = new Set(GAMES_SEED.map(g => g.id));
+    const extras = stored.filter(g => !seedIds.has(g.id));
+    allGames = [...GAMES_SEED, ...extras];
+    allGames.sort((a, b) => new Date(b.dateCompleted) - new Date(a.dateCompleted));
+}
+
+function saveGame(game) {
+    let stored = JSON.parse(localStorage.getItem('diary_games') || '[]');
+    stored.push(game);
+    localStorage.setItem('diary_games', JSON.stringify(stored));
+    allGames.push(game);
+}
+
+// ═══════════════════════════════════════
+// FILTERS
+// ═══════════════════════════════════════
+function populateFilters() {
+    const consoles = [...new Set(allGames.map(g => g.console))].sort();
+    const genres = [...new Set(allGames.map(g => g.genre))].sort();
+    const years = [...new Set(allGames.map(g => g.dateCompleted ? g.dateCompleted.slice(0,4) : '').filter(Boolean))].sort().reverse();
+
+    const sel = (id, opts) => {
+        const el = document.getElementById(id);
+        const prev = el.value;
+        while (el.options.length > 1) el.remove(1);
+        opts.forEach(o => { const opt = new Option(o, o); el.add(opt); });
+        el.value = prev;
+    };
+    sel('f-console', consoles);
+    sel('f-genre', genres);
+    sel('f-year', years);
+}
+
+function getFiltered() {
+    const fc = document.getElementById('f-console').value;
+    const fg = document.getElementById('f-genre').value;
+    const fr = document.getElementById('f-rating').value;
+    const fy = document.getElementById('f-year').value;
+    const fs = document.getElementById('search-input').value.toLowerCase().trim();
+
+    return allGames.filter(g => {
+        if (fc && g.console !== fc) return false;
+        if (fg && g.genre !== fg) return false;
+        if (fr && g.rating !== parseFloat(fr)) return false;
+        if (fy && (!g.dateCompleted || !g.dateCompleted.startsWith(fy))) return false;
+        if (fs && !g.title.toLowerCase().includes(fs) &&
+                  !g.notes.toLowerCase().includes(fs) &&
+                  !g.developer.toLowerCase().includes(fs)) return false;
+        return true;
+    });
+}
+
+function getSorted(games) {
+    return [...games].sort((a, b) => {
+        if (currentSort === 'date') {
+            const da = a.dateCompleted ? new Date(a.dateCompleted) : new Date(0);
+            const db = b.dateCompleted ? new Date(b.dateCompleted) : new Date(0);
+            return sortDir.date * (db - da);
+        }
+        if (currentSort === 'rating') return sortDir.rating * (b.rating - a.rating);
+        if (currentSort === 'title') return sortDir.title * a.title.localeCompare(b.title);
+        return 0;
+    });
+}
+
+function setSort(s, btn) {
+    if (currentSort === s) {
+        sortDir[s] *= -1;
+    } else {
+        currentSort = s;
+    }
+    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilters();
+}
+
+function clearFilters() {
+    document.getElementById('f-console').value = '';
+    document.getElementById('f-genre').value = '';
+    document.getElementById('f-rating').value = '';
+    document.getElementById('f-year').value = '';
+    document.getElementById('search-input').value = '';
+    applyFilters();
+}
+
+function applyFilters() {
+    const filtered = getSorted(getFiltered());
+    renderGames(filtered);
+    document.getElementById('filter-count').textContent = filtered.length + ' of ' + allGames.length + ' games';
+}
+
+// ═══════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════
+function starsHTML(r) {
+    const full = Math.floor(r);
+    const half = (r % 1) >= 0.5;
+    const empty = 5 - full - (half ? 1 : 0);
+    return '<span class="stars">' + '★'.repeat(full) + (half ? '<span style="opacity:0.75">½</span>' : '') + '</span>' +
+           '<span class="stars-empty">' + '☆'.repeat(empty) + '</span>';
+}
+
+function fmtDate(d) {
+    if (!d) return 'Unknown';
+    const dt = new Date(d + 'T12:00:00');
+    return dt.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+}
+
+function renderGames(games) {
+    const grid = document.getElementById('game-grid');
+    const empty = document.getElementById('empty-state');
+
+    if (games.length === 0) {
+        grid.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+    }
+    empty.style.display = 'none';
+
+    grid.innerHTML = games.map(g => {
+        const hasNotes = g.notes && g.notes.trim().length > 0;
+        return `
+        <div class="game-card" data-id="${g.id}">
+            <div class="game-card-header">
+                <div class="game-title">${escHtml(g.title)}</div>
+                <div class="game-console-badge">${escHtml(g.console)} &middot; ${escHtml(g.genre)}</div>
+                ${g.completed100 ? '<div class="badge-100">100%</div>' : ''}
+            </div>
+            <div class="game-card-body">
+                <div class="game-rating">${starsHTML(g.rating)}</div>
+                <div class="game-meta">
+                    <div class="meta-row">
+                        <span class="meta-key">Completed:</span>
+                        <span class="meta-val">${fmtDate(g.dateCompleted)}</span>
+                    </div>
+                    ${g.developer ? `<div class="meta-row"><span class="meta-key">Developer:</span><span class="meta-val">${escHtml(g.developer)}</span></div>` : ''}
+                    ${g.publisher && g.publisher !== g.developer ? `<div class="meta-row"><span class="meta-key">Publisher:</span><span class="meta-val">${escHtml(g.publisher)}</span></div>` : ''}
+                </div>
+                ${hasNotes ? `
+                <a class="notes-toggle" onclick="toggleNotes(${g.id}, this); return false;">Show notes ▼</a>
+                <div class="notes-content" id="notes-${g.id}">
+                    <div class="game-notes">"${escHtml(g.notes)}"</div>
+                </div>
+                ` : ''}
+                ${g.playedWith ? `<div class="played-with">👥 Played with: ${escHtml(g.playedWith)}</div>` : ''}
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function toggleNotes(id, link) {
+    const el = document.getElementById('notes-' + id);
+    if (el.classList.contains('open')) {
+        el.classList.remove('open');
+        link.textContent = 'Show notes ▼';
+    } else {
+        el.classList.add('open');
+        link.textContent = 'Hide notes ▲';
+    }
+}
+
+function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ═══════════════════════════════════════
+// STATS
+// ═══════════════════════════════════════
+function renderStats() {
+    const total = allGames.length;
+    const avgRating = total ? (allGames.reduce((s,g) => s + g.rating, 0) / total).toFixed(1) : '—';
+
+    const consoleCounts = {};
+    allGames.forEach(g => { consoleCounts[g.console] = (consoleCounts[g.console]||0)+1; });
+    const topConsole = Object.entries(consoleCounts).sort((a,b)=>b[1]-a[1])[0]?.[0] || '—';
+
+    const completed100 = allGames.filter(g => g.completed100).length;
+    const thisYear = new Date().getFullYear();
+    const thisYearCount = allGames.filter(g => g.dateCompleted && g.dateCompleted.startsWith(thisYear)).length;
+
+    document.getElementById('stat-total').textContent = total;
+    document.getElementById('stat-avg').textContent = avgRating + '/5';
+    document.getElementById('stat-console').textContent = topConsole;
+    document.getElementById('stat-complete').textContent = completed100;
+    document.getElementById('stat-year').textContent = thisYearCount;
+}
+
+// ═══════════════════════════════════════
+// ADD GAME
+// ═══════════════════════════════════════
+function openAddModal() {
+    document.getElementById('add-modal').classList.add('open');
+}
+function closeAddModal() {
+    document.getElementById('add-modal').classList.remove('open');
+    ['f-title','f-con','f-gen','f-dev','f-pub','f-with','f-notes'].forEach(id => {
+        document.getElementById(id).value = '';
+    });
+    document.getElementById('f-rat').value = '5';
+    document.getElementById('f-100').checked = false;
+    document.getElementById('f-date').value = '';
+}
+function submitGame() {
+    const title = document.getElementById('f-title').value.trim();
+    const con = document.getElementById('f-con').value.trim();
+    if (!title || !con) { alert('Please fill in at least Title and Console.'); return; }
+
+    const newGame = {
+        id: Date.now(),
+        title,
+        console: con,
+        genre: document.getElementById('f-gen').value.trim() || 'Unknown',
+        rating: parseInt(document.getElementById('f-rat').value),
+        dateCompleted: document.getElementById('f-date').value || new Date().toISOString().slice(0,10),
+        developer: document.getElementById('f-dev').value.trim(),
+        publisher: document.getElementById('f-pub').value.trim(),
+        notes: document.getElementById('f-notes').value.trim(),
+        playedWith: document.getElementById('f-with').value.trim(),
+        completed100: document.getElementById('f-100').checked
+    };
+
+    saveGame(newGame);
+    closeAddModal();
+    populateFilters();
+    renderStats();
+    applyFilters();
+}
+
+// ═══════════════════════════════════════
+// VISITOR COUNTER (fake, persisted)
+// ═══════════════════════════════════════
+function initCounter() {
+    let count = parseInt(localStorage.getItem('diary_visits') || '7842');
+    count++;
+    localStorage.setItem('diary_visits', count);
+    document.getElementById('visitor-counter').textContent = String(count).padStart(6, '0');
+}
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+    loadGames();
+    populateFilters();
+    renderStats();
+    applyFilters();
+    updateLockUI();
+    initCounter();
+
+    const now = new Date();
+    document.getElementById('last-updated').textContent =
+        now.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+});
+</script>
+</body>
+</html>
