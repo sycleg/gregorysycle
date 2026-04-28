@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="theme-color" content="#EBD8DF"/>
+    <meta name="description" content="Will You Be My Valentine? 🍓"/>
+    <title>strawberry valentine ♡</title>
+
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Chewy', cursive;
+            background-color: #EBD8DF;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(255, 182, 193, 0.3) 2px, transparent 2px),
+                radial-gradient(circle at 80% 20%, rgba(255, 105, 180, 0.2) 1px, transparent 1px),
+                radial-gradient(circle at 40% 80%, rgba(255, 182, 193, 0.2) 1px, transparent 1px);
+            background-size: 50px 50px, 30px 30px, 40px 40px;
+            min-height: 100vh;
+            color: #8A3040;
+            overflow-x: hidden;
+            animation: backgroundFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundFloat {
+            0%, 100% {
+                background-position: 0% 0%, 0% 0%, 0% 0%;
+            }
+            50% {
+                background-position: 100% 100%, -100% -100%, 50% 50%;
+            }
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .strawberry-border {
+            border: 3px dashed #E65591;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(255, 182, 193, 0.3);
+            position: relative;
+        }
+
+        .strawberry-border::before {
+            content: "🍓";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #EBD8DF;
+            padding: 0 10px;
+            font-size: 24px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            color: #8A3040;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 0 rgba(255, 182, 193, 0.5);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #E65591;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .message-box {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .question {
+            font-size: 2.2rem;
+            color: #8A3040;
+            margin-bottom: 40px;
+            animation: heartbeat 3s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 50%, 100% { transform: scale(1); }
+            25% { transform: scale(1.05); }
+            75% { transform: scale(1.02); }
+        }
+
+        .love-message {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #8A3040;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(45deg, rgba(255, 182, 193, 0.2), rgba(255, 105, 180, 0.1));
+            border-radius: 10px;
+            border-left: 4px solid #E65591;
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 150px;
+            margin: 50px 0;
+            padding: 40px;
+            position: relative;
+            height: 200px;
+        }
+
+        .choice-btn {
+            padding: 20px 40px;
+            font-family: 'Chewy', cursive;
+            font-size: 1.5rem;
+            border: 3px solid;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transform-origin: center;
+            user-select: none;
+        }
+
+        .yes-btn {
+            border-color: #E65591;
+            color: #E65591;
+        }
+
+        .yes-btn:hover {
+            background: #E65591;
+            color: white;
+            transform: scale(1.1) rotate(-2deg);
+        }
+
+        .no-btn {
+            border-color: #63966D;
+            color: #63966D;
+        }
+
+        .no-btn:hover {
+            background: #63966D;
+            color: white;
+            transform: scale(1.1) rotate(2deg);
+        }
+
+        .strawberry-decoration {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .strawberry-decoration:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .strawberry-decoration:nth-child(2) {
+            top: 20%;
+            right: 8%;
+            animation-delay: 1s;
+        }
+
+        .strawberry-decoration:nth-child(3) {
+            bottom: 15%;
+            left: 10%;
+            animation-delay: 2s;
+        }
+
+        .strawberry-decoration:nth-child(4) {
+            bottom: 25%;
+            right: 15%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+
+        .response-message {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 15px;
+            animation: slideIn 1s ease-out;
+            font-size: 1.2rem;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .yes-response {
+            background: linear-gradient(45deg, rgba(230, 85, 145, 0.2), rgba(255, 182, 193, 0.3));
+            border: 3px solid #E65591;
+            color: #8A3040;
+        }
+
+        .no-response {
+            background: linear-gradient(45deg, rgba(99, 150, 109, 0.2), rgba(144, 238, 144, 0.3));
+            border: 3px solid #63966D;
+            color: #8A3040;
+        }
+
+        .cute-footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.9rem;
+            color: #E65591;
+            font-style: italic;
+        }
+
+        .sparkles {
+            position: absolute;
+            color: #E65591;
+            font-size: 1.5rem;
+            animation: sparkle 2s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .buttons-container {
+                gap: 80px;
+                flex-direction: column;
+                height: 300px;
+            }
+
+            .question {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="strawberry-decoration">🍓</div>
+    <div class="strawberry-decoration">💖</div>
+    <div class="strawberry-decoration">🌸</div>
+    <div class="strawberry-decoration">✨</div>
+
+    <div class="container">
+        <div class="strawberry-border">
+            <div class="header">
+                <h1>strawberry valentine ♡</h1>
+                <div class="subtitle">~ a sweet question for you ~</div>
+            </div>
+
+            <div class="message-box">
+                <div class="love-message">
+                    hey there, cutie! ♡ you make my world as sweet as strawberry cake and as warm as summer sunshine. every moment with you feels like a fairytale, and i can't imagine my days without your beautiful smile lighting them up...
+                </div>
+
+                <div class="question">
+                    will you be my valentine? 🍓💕
+                </div>
+
+                <div class="buttons-container" id="buttonsContainer">
+                    <button class="choice-btn yes-btn" id="yesBtn" onclick="handleChoice('yes')">
+                        yes! ♡
+                    </button>
+                    <button class="choice-btn no-btn" id="noBtn" onclick="handleChoice('no')">
+                        no...
+                    </button>
+                </div>
+
+                <div id="yesResponse" class="response-message yes-response">
+                    <h3>🍓 yayyy!! you said yes! 🍓</h3>
+                    <p>you just made me the happiest person ever! i promise to share all my strawberry snacks with you and give you the sweetest valentine's day ever! thank you for being mine, cutie ♡</p>
+                </div>
+
+                <div id="noResponse" class="response-message no-response">
+                    <h3>🥺 aww, that's okay... 🥺</h3>
+                    <p>i understand if you need time to think about it! just know that you're absolutely amazing and i'll be here with strawberry hugs whenever you're ready ♡</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cute-footer">
+            made with lots of love and strawberry jam ♡ ~(˘▾˘~)
+        </div>
+    </div>
+
+    <script>
+        let mouseX = 0;
+        let mouseY = 0;
+        let isChoiceMade = false;
+
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const buttonsContainer = document.getElementById('buttonsContainer');
+
+        // Track mouse movement
+        document.addEventListener('mousemove', (e) => {
+            if (isChoiceMade) return;
+
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            updateButtonSizes();
+        });
+
+        function updateButtonSizes() {
+            const noBtnRect = noBtn.getBoundingClientRect();
+            const noBtnCenterX = noBtnRect.left + noBtnRect.width / 2;
+            const noBtnCenterY = noBtnRect.top + noBtnRect.height / 2;
+
+            // Calculate distance from mouse to "no" button center
+            const distanceToNo = Math.sqrt(
+                Math.pow(mouseX - noBtnCenterX, 2) + Math.pow(mouseY - noBtnCenterY, 2)
+            );
+
+            // Define the effect radius (when the effect starts)
+            const maxDistance = 250;
+            const minDistance = 0;
+
+            if (distanceToNo < maxDistance) {
+                // Calculate how close we are (0 = very close, 1 = far away)
+                const proximity = Math.max(0, (distanceToNo - minDistance) / (maxDistance - minDistance));
+
+                // As we get closer to "no", "yes" gets bigger and "no" completely disappears
+                const yesScale = 1 + (1 - proximity) * 1.5; // Yes grows up to 2.5x
+                const noScale = proximity; // No shrinks to literally 0 when very close
+                const noOpacity = proximity; // No becomes completely transparent
+
+                yesBtn.style.transform = `scale(${yesScale})`;
+                noBtn.style.transform = `scale(${noScale})`;
+                noBtn.style.opacity = noOpacity;
+
+                // Add some rotation for extra cuteness
+                yesBtn.style.transform += ` rotate(${(1 - proximity) * -8}deg)`;
+                noBtn.style.transform += ` rotate(${(1 - proximity) * 15}deg)`;
+
+                // Add intense glow effect to yes button as NO disappears
+                const glowIntensity = (1 - proximity) * 50;
+                yesBtn.style.boxShadow = `0 0 ${glowIntensity}px rgba(230, 85, 145, 0.9), 0 0 ${glowIntensity * 1.5}px rgba(255, 105, 180, 0.6)`;
+
+                // Make YES button pulse when NO is almost gone
+                if (proximity < 0.2) {
+                    yesBtn.style.animation = 'heartbeat 0.5s ease-in-out infinite';
+                } else {
+                    yesBtn.style.animation = '';
+                }
+            } else {
+                // Reset to normal sizes when mouse is far away
+                yesBtn.style.transform = 'scale(1)';
+                noBtn.style.transform = 'scale(1)';
+                noBtn.style.opacity = '1';
+                yesBtn.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
+                yesBtn.style.animation = '';
+            }
+        }
+
+        function handleChoice(choice) {
+            if (isChoiceMade) return;
+
+            isChoiceMade = true;
+
+            if (choice === 'yes') {
+                // Create explosion effect first
+                createStrawberryExplosion();
+
+                // Wait a moment for the explosion, then redirect
+                setTimeout(() => {
+                    window.location.href = 'celebration.html';
+                }, 1000);
+            } else {
+                // Hide buttons with animation
+                yesBtn.style.opacity = '0.3';
+                noBtn.style.opacity = '0.3';
+                yesBtn.style.pointerEvents = 'none';
+                noBtn.style.pointerEvents = 'none';
+
+                document.getElementById('noResponse').style.display = 'block';
+            }
+        }
+
+        function createStrawberryExplosion() {
+            const emojis = ['🍓', '💖', '✨', '🌸', '💕', '♡'];
+
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.position = 'fixed';
+                    emoji.style.left = Math.random() * window.innerWidth + 'px';
+                    emoji.style.top = Math.random() * window.innerHeight + 'px';
+                    emoji.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                    emoji.style.pointerEvents = 'none';
+                    emoji.style.zIndex = '9999';
+                    emoji.style.animation = 'strawberryExplosion 3s ease-out forwards';
+
+                    document.body.appendChild(emoji);
+
+                    setTimeout(() => {
+                        if (emoji.parentNode) {
+                            emoji.parentNode.removeChild(emoji);
+                        }
+                    }, 3000);
+                }, i * 100);
+            }
+        }
+
+        function changeBackgroundColor() {
+            document.body.style.background = 'linear-gradient(45deg, #ffb6c1, #ffc0cb, #ffb6c1)';
+            setTimeout(() => {
+                document.body.style.background = '';
+            }, 3000);
+        }
+
+        // Add the explosion animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes strawberryExplosion {
+                0% {
+                    transform: scale(0) rotate(0deg);
+                    opacity: 1;
+                }
+                50% {
+                    transform: scale(1.5) rotate(180deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(0) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add some sparkles randomly
+        function addSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkles';
+            sparkle.innerHTML = '✨';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            document.body.appendChild(sparkle);
+
+            setTimeout(() => {
+                if (sparkle.parentNode) {
+                    sparkle.parentNode.removeChild(sparkle);
+                }
+            }, 2000);
+        }
+
+        // Add sparkles every few seconds
+        setInterval(addSparkle, 3000);
+
+        console.log('strawberry valentine website loaded! 🍓♡');
+    </script>
+</body>
+</html>
