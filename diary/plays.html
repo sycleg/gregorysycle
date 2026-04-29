@@ -309,6 +309,24 @@
         .delete-btn { background: linear-gradient(to bottom, #ffdddd, #ffbbbb); border-color: #cc7777; color: #440000; }
         .delete-btn:hover { background: linear-gradient(to bottom, #ffeeee, #ffcccc); }
 
+        /* ── GITHUB SYNC ── */
+        .sync-btn { display: none; height: 24px; padding: 0 10px; font-size: 9px; font-weight: bold; cursor: pointer; font-family: Verdana, sans-serif; border-radius: 2px; border: 1px solid #55aa55; background: linear-gradient(to bottom, #cceecc, #99cc99); color: #224422; }
+        body.authed .sync-btn { display: inline-block; }
+        .sync-btn:hover { background: linear-gradient(to bottom, #ddffdd, #aaddaa); }
+        .sync-btn.syncing { background: linear-gradient(to bottom, #cce0ff, #99bbee); border-color: #5588cc; color: #002266; cursor: default; }
+        .sync-btn.synced { background: linear-gradient(to bottom, #cceecc, #99cc99); border-color: #33aa33; color: #114411; }
+        .sync-btn.err { background: linear-gradient(to bottom, #ffdddd, #ffbbbb); border-color: #cc7777; color: #440000; }
+        #pat-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,50,0.6); z-index: 99999; align-items: center; justify-content: center; }
+        #pat-modal.open { display: flex; }
+        #pat-box { background: #e8f0f8; border: 2px solid #5577aa; width: 400px; max-width: 95vw; box-shadow: 4px 4px 0 rgba(0,0,0,0.3); }
+        #pat-title { background: linear-gradient(to bottom, #002288, #0033aa); color: white; padding: 8px 14px; font-size: 12px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+        #pat-body { padding: 14px 16px; }
+        #pat-body p { font-size: 10px; color: #334; line-height: 1.6; margin-bottom: 6px; }
+        #pat-body label { display: block; font-size: 10px; font-weight: bold; color: #334; margin: 8px 0 3px; }
+        #pat-input { width: 100%; height: 28px; border: 1px solid #99aabb; background: white; padding: 0 8px; font-size: 12px; font-family: Verdana, sans-serif; }
+        #pat-error { font-size: 10px; color: #cc0000; margin-top: 4px; min-height: 14px; }
+        #pat-footer { padding: 8px 16px; display: flex; justify-content: flex-end; gap: 6px; background: #f0f4f8; border-top: 1px solid #c0ccd8; }
+
         @media (max-width: 640px) {
             #show-grid { grid-template-columns: 1fr; }
             .f2, .f3 { grid-template-columns: 1fr; }
@@ -399,6 +417,7 @@
         </div>
         <button class="retro-btn" onclick="clearFilters()">Clear</button>
         <button class="retro-btn green" id="add-btn" onclick="openAddModal()">+ Add Show</button>
+        <button class="sync-btn" id="sync-btn" onclick="syncToGitHub()">🔄 Sync to GitHub</button>
         <div class="filter-group" style="margin-left:auto;">
             <span class="sort-label">Sort:</span>
             <div id="sort-btns">
@@ -550,6 +569,24 @@
         <div id="pw-footer">
             <button class="pw-btn" onclick="closePwModal()">Cancel</button>
             <button class="pw-btn ok" onclick="doPwLogin()">Login</button>
+        </div>
+    </div>
+</div>
+
+<!-- GITHUB PAT MODAL -->
+<div id="pat-modal">
+    <div id="pat-box">
+        <div id="pat-title"><span>🔑 GitHub Sync Setup</span><span onclick="closePatModal()" style="cursor:pointer;">✕</span></div>
+        <div id="pat-body">
+            <p>Enter a GitHub Personal Access Token to sync your diary to the live site. The token needs <strong>repo</strong> (or <strong>contents:write</strong>) scope.</p>
+            <p><a href="https://github.com/settings/tokens/new?scopes=repo&description=Diary+Sync" target="_blank">→ Generate a token on GitHub ↗</a></p>
+            <label>Personal Access Token:</label>
+            <input type="password" id="pat-input" placeholder="ghp_..." onkeydown="if(event.key==='Enter') savePAT()">
+            <div id="pat-error"></div>
+        </div>
+        <div id="pat-footer">
+            <button class="pw-btn" onclick="closePatModal()">Cancel</button>
+            <button class="pw-btn ok" onclick="savePAT()">Save &amp; Sync</button>
         </div>
     </div>
 </div>
@@ -1035,6 +1072,74 @@ function initCounter() {
 }
 
 // ═══════════════════════════════════════
+// GITHUB SYNC
+// ═══════════════════════════════════════
+const GH_REPO = 'sycleg/gregorysycle';
+const GH_DATA_PATH = 'diary/data/plays.json';
+
+async function fetchAndApplyRemote() {
+    try {
+        const resp = await fetch('https://raw.githubusercontent.com/' + GH_REPO + '/main/' + GH_DATA_PATH + '?t=' + Date.now());
+        if (!resp.ok) return;
+        const delta = await resp.json();
+        let changed = false;
+        if (Array.isArray(delta.additions) && delta.additions.length) { localStorage.setItem('diary_plays', JSON.stringify(delta.additions)); changed = true; }
+        if (delta.edits && Object.keys(delta.edits).length) { localStorage.setItem('diary_plays_edits', JSON.stringify(delta.edits)); changed = true; }
+        if (Array.isArray(delta.deletions) && delta.deletions.length) { localStorage.setItem('diary_plays_deleted', JSON.stringify(delta.deletions)); changed = true; }
+        if (changed) { loadShows(); renderStats(); populateYearFilter(); applyFilters(); }
+    } catch(e) {}
+}
+
+function buildDelta() {
+    return {
+        additions: JSON.parse(localStorage.getItem('diary_plays') || '[]'),
+        edits: JSON.parse(localStorage.getItem('diary_plays_edits') || '{}'),
+        deletions: JSON.parse(localStorage.getItem('diary_plays_deleted') || '[]')
+    };
+}
+
+function setSyncStatus(status, msg) {
+    const btn = document.getElementById('sync-btn');
+    if (!btn) return;
+    btn.classList.remove('syncing','synced','err');
+    if (status === 'syncing') { btn.textContent = '⏳ Syncing...'; btn.classList.add('syncing'); btn.disabled = true; }
+    else if (status === 'ok') { btn.textContent = '✓ Synced!'; btn.classList.add('synced'); btn.disabled = false; setTimeout(() => { btn.textContent = '🔄 Sync to GitHub'; btn.classList.remove('synced'); }, 3000); }
+    else { btn.textContent = '❌ ' + (msg || 'Error'); btn.classList.add('err'); btn.disabled = false; setTimeout(() => { btn.textContent = '🔄 Sync to GitHub'; btn.classList.remove('err'); }, 5000); }
+}
+
+async function syncToGitHub() {
+    const token = localStorage.getItem('gh_pat');
+    if (!token) { openPatModal(); return; }
+    setSyncStatus('syncing');
+    try {
+        const delta = buildDelta();
+        const content = btoa(unescape(encodeURIComponent(JSON.stringify(delta, null, 2))));
+        const apiUrl = 'https://api.github.com/repos/' + GH_REPO + '/contents/' + GH_DATA_PATH;
+        let sha = null;
+        const shaResp = await fetch(apiUrl, { headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' } });
+        if (shaResp.ok) { sha = (await shaResp.json()).sha; }
+        const body = { message: 'Update plays diary data', content };
+        if (sha) body.sha = sha;
+        const putResp = await fetch(apiUrl, { method: 'PUT', headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+        if (!putResp.ok) { const e = await putResp.json(); throw new Error(e.message || 'GitHub API error'); }
+        setSyncStatus('ok');
+    } catch(e) {
+        setSyncStatus('error', e.message);
+        if (e.message && (e.message.includes('credentials') || e.message.includes('401'))) localStorage.removeItem('gh_pat');
+    }
+}
+
+function openPatModal() { document.getElementById('pat-modal').classList.add('open'); setTimeout(() => document.getElementById('pat-input').focus(), 50); }
+function closePatModal() { document.getElementById('pat-modal').classList.remove('open'); document.getElementById('pat-input').value = ''; document.getElementById('pat-error').textContent = ''; }
+function savePAT() {
+    const token = document.getElementById('pat-input').value.trim();
+    if (!token) { document.getElementById('pat-error').textContent = 'Please enter a token.'; return; }
+    localStorage.setItem('gh_pat', token);
+    closePatModal();
+    syncToGitHub();
+}
+
+// ═══════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
@@ -1044,6 +1149,7 @@ document.addEventListener('DOMContentLoaded', () => {
     applyFilters();
     updateLockUI();
     initCounter();
+    fetchAndApplyRemote();
     document.getElementById('last-updated').textContent =
         new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
     document.getElementById('f-date').value = new Date().toISOString().slice(0,10);
